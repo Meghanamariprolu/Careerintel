@@ -3,68 +3,52 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Compass, FileText, Loader2, ArrowRight, Trash2 } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { useAuth } from "@/context/AuthContext"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 
 export default function DashboardPage() {
-    const { data: session } = useSession()
-    const user = session?.user
+    const { user } = useAuth()
 
     const [roadmaps, setRoadmaps] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        async function fetchRoadmaps() {
+        function fetchRoadmaps() {
             try {
-                const res = await fetch("http://localhost:5000/api/roadmaps", {
-                    credentials: "include",
-                    headers: {
-                        Authorization: `Bearer ${session?.accessToken}`,
-                    }
-                })
-                if (res.ok) {
-                    const data = await res.json()
-                    setRoadmaps(data)
-                }
+                const savedRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
+                // Filter roadmaps belonging to the current user (if user is logged in)
+                const userRoadmaps = savedRoadmaps.filter(r => r.userId === user?.id);
+                setRoadmaps(userRoadmaps);
             } catch (error) {
-                console.error(error)
+                console.error("Error fetching roadmaps", error);
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
             }
         }
 
-        if (session?.accessToken) {
-            fetchRoadmaps()
+        if (user?.id) {
+            fetchRoadmaps();
+        } else {
+            setIsLoading(false);
         }
-    }, [session?.accessToken])
+    }, [user?.id]);
 
-    const handleDelete = async (id, e) => {
+    const handleDelete = (id, e) => {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
         }
 
-        console.log("Attempting to delete roadmap ID:", id);
         if (!confirm("Are you sure you want to delete this roadmap?")) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/roadmaps/${id}`, {
-                method: 'DELETE',
-                credentials: 'include',
-                headers: {
-                    Authorization: `Bearer ${session?.accessToken}`,
-                }
-            });
-            console.log("Delete response status:", res.status);
-            if (res.ok) {
-                setRoadmaps((prevRoadmaps) => prevRoadmaps.filter((r) => r._id !== id));
-            } else {
-                console.error("Failed to delete roadmap. Status:", res.status);
-                const dataText = await res.text();
-                console.error("Response body:", dataText);
-            }
+            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
+            const updatedRoadmaps = allRoadmaps.filter(r => r._id !== id);
+            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps));
+
+            setRoadmaps((prevRoadmaps) => prevRoadmaps.filter((r) => r._id !== id));
         } catch (error) {
             console.error("Error deleting roadmap:", error);
         }

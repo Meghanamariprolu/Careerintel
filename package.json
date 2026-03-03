@@ -1,0 +1,17 @@
+{
+    "name": "careerintel-root",
+    "version": "1.0.0",
+    "description": "Root package to manage client and server",
+    "private": true,
+    "scripts": {
+        "install-client": "npm install --prefix client",
+        "install-server": "npm install --prefix server",
+        "install-all": "npm run install-client && npm run install-server",
+        "client": "npm run dev --prefix client",
+        "server": "npm run dev --prefix server",
+        "dev": "concurrently \"npm run client\" \"npm run server\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}

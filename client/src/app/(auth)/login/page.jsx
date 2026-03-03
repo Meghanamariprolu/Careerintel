@@ -7,7 +7,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { useAuth } from "@/context/AuthContext"
 
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
@@ -31,22 +31,14 @@ export default function LoginPage() {
         resolver: zodResolver(loginSchema),
     })
 
+    const { login } = useAuth()
+
     async function onSubmit(data) {
         setIsLoading(true)
         setErrorMsg("")
         try {
-            const res = await signIn("credentials", {
-                email: data.email,
-                password: data.password,
-                redirect: false
-            })
-
-            if (res?.error) {
-                throw new Error(res.error)
-            }
-
+            login(data.email, data.password)
             router.push("/dashboard")
-            router.refresh()
         } catch (error) {
             setErrorMsg(error.message)
         } finally {

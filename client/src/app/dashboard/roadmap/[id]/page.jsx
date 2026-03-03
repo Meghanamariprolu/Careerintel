@@ -4,50 +4,45 @@ import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { ArrowLeft, BookOpen, Briefcase, Download, Trophy, Loader2, FileText, Trash2 } from "lucide-react"
 import { motion } from "framer-motion"
-import jsPDF from "jspdf"
-import html2canvas from "html2canvas"
-
-import { Button } from "@/components/ui/Button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
-import { useAuthStore } from "@/store/authStore"
+import { useAuth } from "@/context/AuthContext"
 
 export default function RoadmapDetailPage() {
+    const { user } = useAuth()
     const router = useRouter()
-    const { id } = useParams()
-    const { user } = useAuthStore()
 
+    const { id } = useParams()
     const [roadmap, setRoadmap] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isExporting, setIsExporting] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
 
     useEffect(() => {
-        async function fetchRoadmap() {
+        function fetchRoadmap() {
             try {
-                const res = await fetch(`http://localhost:5000/api/roadmaps/${id}`, {
-                    credentials: "include"
-                })
-                if (res.ok) {
-                    const data = await res.json()
-                    setRoadmap(data)
+                const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
+                const foundRoadmap = allRoadmaps.find(r => r._id === id);
+
+                if (foundRoadmap) {
+                    setRoadmap(foundRoadmap);
                 } else {
-                    router.push("/dashboard")
+                    console.error("Roadmap not found locally");
                 }
             } catch (error) {
-                console.error(error)
+                console.error("Error fetching roadmap", error);
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
             }
         }
 
-        // Simulate user login if authStore hasn't synced for some testing reason
-        fetchRoadmap()
-    }, [id, router])
+        if (id && user?.id) {
+            fetchRoadmap();
+        }
+    }, [id, user?.id]);
 
     const handleExportPDF = async () => {
         setIsExporting(true)
         try {
-            const data = roadmap.roadmapData
+            const data = roadmap
 
             // Build a clean, standard HTML template to avoid Tailwind v4 'oklab' CSS crashes in html2canvas
             const cleanHtmlContent = `
@@ -158,7 +153,7 @@ export default function RoadmapDetailPage() {
     const handleExportDoc = () => {
         setIsExporting(true)
         try {
-            const data = roadmap.roadmapData
+            const data = roadmap
 
             // Generate clean HTML for Word document parsing
             const cleanHtmlContent = `
@@ -245,19 +240,14 @@ export default function RoadmapDetailPage() {
         }
     }
 
-    const handleDelete = async () => {
+    const handleDelete = () => {
         if (!confirm("Are you sure you want to delete this roadmap?")) return;
         setIsDeleting(true)
         try {
-            const res = await fetch(`http://localhost:5000/api/roadmaps/${id}`, {
-                method: 'DELETE',
-                credentials: 'include'
-            });
-            if (res.ok) {
-                router.push("/dashboard");
-            } else {
-                console.error("Failed to delete roadmap");
-            }
+            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
+            const updatedRoadmaps = allRoadmaps.filter(r => r._id !== id);
+            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps));
+            router.push("/dashboard");
         } catch (error) {
             console.error("Error deleting roadmap:", error);
         } finally {

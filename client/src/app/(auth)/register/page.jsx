@@ -7,7 +7,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { useAuth } from "@/context/AuthContext"
 
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
@@ -32,34 +32,14 @@ export default function RegisterPage() {
         resolver: zodResolver(registerSchema),
     })
 
+    const { register: registerUser } = useAuth()
+
     async function onSubmit(data) {
         setIsLoading(true)
         setErrorMsg("")
         try {
-            const res = await fetch("http://localhost:5000/api/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            })
-
-            if (!res.ok) {
-                const errorData = await res.json()
-                throw new Error(errorData.message || "Failed to register")
-            }
-
-            // Auto-login after successful registration
-            const signInRes = await signIn("credentials", {
-                email: data.email,
-                password: data.password,
-                redirect: false
-            })
-
-            if (signInRes?.error) {
-                throw new Error("Account created, but failed to automatically log in.")
-            }
-
+            registerUser(data)
             router.push("/dashboard")
-            router.refresh()
         } catch (error) {
             setErrorMsg(error.message)
         } finally {

@@ -10,14 +10,25 @@ export interface AuthRequest extends Request {
 export const protect = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
     let token;
 
-    token = req.cookies.jwt;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+    }
 
     if (token) {
         try {
             const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
+            console.log('Decoded Token:', decoded);
             req.user = await User.findById(decoded.userId).select('-password');
+            if (!req.user) {
+                console.log('User not found for ID:', decoded.userId);
+                res.status(401);
+                throw new Error('Not authorized, user not found');
+            }
             next();
-        } catch (error) {
+        } catch (error: any) {
+            console.error('Auth Error:', error.message);
             res.status(401);
             throw new Error('Not authorized, token failed');
         }
