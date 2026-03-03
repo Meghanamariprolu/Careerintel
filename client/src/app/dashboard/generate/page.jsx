@@ -94,7 +94,7 @@ export default function GenerateRoadmapPage() {
     return (
         <div className="max-w-2xl mx-auto space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Generate AI Roadmap</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Generate AI Roadmap</h1>
                 <p className="text-muted-foreground mt-2">
                     Tell us about your career goals and let our AI craft a personalized learning path.
                 </p>
@@ -103,7 +103,7 @@ export default function GenerateRoadmapPage() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <Sparkles className="h-5 w-5 text-indigo-500" />
+                        <Sparkles className="h-5 w-5 text-neon-cyan" />
                         Roadmap Parameters
                     </CardTitle>
                     <CardDescription>Fill out the details below to generate your custom plan.</CardDescription>
@@ -157,7 +157,7 @@ export default function GenerateRoadmapPage() {
 
                         {errorMsg && <p className="text-sm text-destructive font-semibold">{errorMsg}</p>}
 
-                        <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white" disabled={isLoading}>
+                        <Button type="submit" className="w-full bg-deep-purple hover:bg-deep-purple/80 text-white shadow-[0_0_20px_rgba(112,0,255,0.3)] transition-all duration-300" disabled={isLoading}>
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

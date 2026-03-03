@@ -48,11 +48,12 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center p-4">
-            <Card className="max-w-md w-full">
+        <div className="flex min-h-screen items-center justify-center p-4 bg-slate-950 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 via-transparent to-deep-purple/5 pointer-events-none" />
+            <Card className="max-w-md w-full border-white/10 bg-slate-900/60 backdrop-blur-xl shadow-2xl">
                 <CardHeader className="space-y-2 text-center">
-                    <CardTitle className="text-3xl font-bold tracking-tight">Create an account</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple">Create an account</CardTitle>
+                    <CardDescription className="text-slate-400">
                         Enter your details below to create your account
                     </CardDescription>
                 </CardHeader>
@@ -88,7 +89,7 @@ export default function RegisterPage() {
                             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
                         </div>
                         {errorMsg && <p className="text-sm text-destructive font-semibold">{errorMsg}</p>}
-                        <Button type="submit" className="w-full" disabled={isLoading}>
+                        <Button type="submit" className="w-full bg-deep-purple hover:bg-deep-purple/80 text-white font-bold shadow-[0_0_20px_rgba(112,0,255,0.3)] transition-all duration-300" disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Create Account
                         </Button>
@@ -97,7 +98,7 @@ export default function RegisterPage() {
                 <CardFooter className="flex justify-center">
                     <p className="text-sm text-muted-foreground">
                         Already have an account?{" "}
-                        <Link href="/login" className="text-primary hover:underline font-medium">
+                        <Link href="/login" className="text-neon-cyan hover:underline font-bold">
                             Log in
                         </Link>
                     </p>

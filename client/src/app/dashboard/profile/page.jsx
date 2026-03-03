@@ -24,7 +24,7 @@ const profileSchema = z.object({
 export default function ProfilePage() {
     const { user, updateProfile: saveProfile } = useAuth()
 
-    const [isLoading, setIsLoading] = useState(false) // This now refers to the saving state
+    const [isSaving, setIsSaving] = useState(false) // This now refers to the saving state
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
 
@@ -52,7 +52,7 @@ export default function ProfilePage() {
     }, [user, reset])
 
     async function onSubmit(data) {
-        setIsLoading(true)
+        setIsSaving(true)
         setErrorMsg("")
         setSuccessMsg("")
 
@@ -76,14 +76,14 @@ export default function ProfilePage() {
         } catch (error) {
             setErrorMsg(error.message || "Failed to update profile.")
         } finally {
-            setIsLoading(false)
+            setIsSaving(false)
         }
     }
 
     return (
         <div className="max-w-2xl mx-auto space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Edit Profile</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Edit Profile</h1>
                 <p className="text-muted-foreground mt-2">
                     Update your personal information and career details.
                 </p>
@@ -92,7 +92,7 @@ export default function ProfilePage() {
             <Card className="border-border/50 shadow-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <User className="h-5 w-5 text-indigo-500" />
+                        <User className="h-5 w-5 text-neon-cyan" />
                         Personal Information
                     </CardTitle>
                     <CardDescription>
@@ -197,7 +197,7 @@ export default function ProfilePage() {
                         <Button
                             type="submit"
                             disabled={!isDirty || isSaving}
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-[140px]"
+                            className="bg-deep-purple hover:bg-deep-purple/80 text-white min-w-[140px] shadow-[0_0_15px_rgba(112,0,255,0.3)] transition-all duration-300"
                         >
                             {isSaving ? (
                                 <>

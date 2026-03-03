@@ -12,17 +12,25 @@ export default function AdminDashboardPage() {
     const [errorMsg, setErrorMsg] = useState("")
 
     useEffect(() => {
-        async function fetchAdminData() {
+        function fetchAdminData() {
             try {
-                const [metricsRes, usersRes] = await Promise.all([
-                    fetch("http://localhost:5000/api/admin/metrics", { credentials: "include" }),
-                    fetch("http://localhost:5000/api/admin/users", { credentials: "include" })
-                ])
+                const users = JSON.parse(localStorage.getItem('careerintel_all_users') || '[]');
+                const roadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
 
-                if (!metricsRes.ok || !usersRes.ok) throw new Error("Failed to fetch admin data")
+                // Calculate basic metrics from localStorage
+                setMetrics({
+                    totalUsers: users.length,
+                    totalRoadmaps: roadmaps.length,
+                    recentRoadmaps: roadmaps.filter(r => {
+                        const date = new Date(r.createdAt);
+                        const sevenDaysAgo = new Date();
+                        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                        return date > sevenDaysAgo;
+                    }).length,
+                    avgResponseTime: 120 // Static mock
+                });
 
-                setMetrics(await metricsRes.json())
-                setUsersList(await usersRes.json())
+                setUsersList(users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
             } catch (error) {
                 setErrorMsg(error.message)
             } finally {
@@ -36,7 +44,7 @@ export default function AdminDashboardPage() {
     if (isLoading) {
         return (
             <div className="flex h-[80vh] w-full items-center justify-center">
-                <Loader2 className="h-10 w-10 animate-spin text-destructive" />
+                <Loader2 className="h-10 w-10 animate-spin text-neon-cyan" />
             </div>
         )
     }
@@ -48,45 +56,45 @@ export default function AdminDashboardPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Platform Analytics</h1>
-                <p className="text-muted-foreground mt-2">Monitor core system performance and user growth.</p>
+                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple">Platform Analytics</h1>
+                <p className="text-slate-400 mt-2">Monitor core system performance and user growth.</p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
+                <Card className="border-white/10 bg-slate-900/40 backdrop-blur-md">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 text-indigo-300">
+                        <CardTitle className="text-sm font-bold">Total Users</CardTitle>
+                        <Users className="h-4 w-4" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{metrics?.totalUsers}</div>
+                        <div className="text-2xl font-bold text-white">{metrics?.totalUsers}</div>
                     </CardContent>
                 </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Roadmaps</CardTitle>
-                        <FileText className="h-4 w-4 text-muted-foreground" />
+                <Card className="border-white/10 bg-slate-900/40 backdrop-blur-md">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 text-indigo-300">
+                        <CardTitle className="text-sm font-bold">Total Roadmaps</CardTitle>
+                        <FileText className="h-4 w-4" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{metrics?.totalRoadmaps}</div>
+                        <div className="text-2xl font-bold text-white">{metrics?.totalRoadmaps}</div>
                     </CardContent>
                 </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Recent Activity (7d)</CardTitle>
-                        <Activity className="h-4 w-4 text-muted-foreground" />
+                <Card className="border-white/10 bg-slate-900/40 backdrop-blur-md">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 text-neon-cyan">
+                        <CardTitle className="text-sm font-bold">Recent Activity (7d)</CardTitle>
+                        <Activity className="h-4 w-4" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">+{metrics?.recentRoadmaps} <span className="text-xs font-normal text-muted-foreground">roadmaps generated</span></div>
+                        <div className="text-2xl font-bold text-white">+{metrics?.recentRoadmaps} <span className="text-xs font-normal text-slate-400">generated</span></div>
                     </CardContent>
                 </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Avg API Response Time</CardTitle>
-                        <Clock className="h-4 w-4 text-muted-foreground" />
+                <Card className="border-white/10 bg-slate-900/40 backdrop-blur-md">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 text-deep-purple">
+                        <CardTitle className="text-sm font-bold">Avg Response Time</CardTitle>
+                        <Clock className="h-4 w-4" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{Math.round(metrics?.avgResponseTime || 0)} <span className="text-xs font-normal text-muted-foreground">ms</span></div>
+                        <div className="text-2xl font-bold text-white">{Math.round(metrics?.avgResponseTime || 0)} <span className="text-xs font-normal text-slate-400">ms</span></div>
                     </CardContent>
                 </Card>
             </div>
@@ -107,15 +115,15 @@ export default function AdminDashboardPage() {
                                 </thead>
                                 <tbody>
                                     {usersList.slice(0, 10).map((u) => (
-                                        <tr key={u._id} className="border-b border-border hover:bg-muted/50 last:border-0">
-                                            <td className="px-6 py-4 font-medium text-foreground">{u.name}</td>
-                                            <td className="px-6 py-4 text-muted-foreground">{u.email}</td>
+                                        <tr key={u.id || u._id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="px-6 py-4 font-medium text-white">{u.name}</td>
+                                            <td className="px-6 py-4 text-slate-400">{u.email}</td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${u.role === 'admin' ? 'bg-destructive/20 text-destructive' : 'bg-primary/20 text-primary'}`}>
+                                                <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${u.role === 'admin' ? 'bg-deep-purple/20 text-deep-purple border border-deep-purple/30' : 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/30'}`}>
                                                     {u.role}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 text-muted-foreground">{new Date(u.createdAt).toLocaleDateString()}</td>
+                                            <td className="px-6 py-4 text-slate-400">{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : 'N/A'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
