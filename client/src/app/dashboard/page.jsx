@@ -76,7 +76,7 @@ export default function DashboardPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Dashboard</h1>
                 <p className="text-muted-foreground mt-2">
                     Welcome back, {user?.name}. Here are your career intelligence insights.
                 </p>
@@ -117,17 +117,17 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-indigo-500/20">
+                <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-gradient-to-br from-neon-cyan/10 via-deep-purple/10 to-neon-cyan/5 border-neon-cyan/20 shadow-[0_0_15px_rgba(0,243,255,0.05)]">
                     <CardHeader>
                         <CardTitle>AI Career Intelligence</CardTitle>
                         <CardDescription>Generate a highly personalized roadmap tailored to your skills and goals.</CardDescription>
                     </CardHeader>
                     <CardContent className="flex justify-center py-6">
-                        <Compass className="h-20 w-20 text-indigo-500 opacity-80" />
+                        <Compass className="h-20 w-20 text-neon-cyan opacity-80 drop-shadow-[0_0_15px_rgba(0,243,255,0.4)]" />
                     </CardContent>
                     <CardFooter>
                         <Link href="/dashboard/generate" className="w-full">
-                            <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
+                            <Button className="w-full bg-deep-purple hover:bg-deep-purple/80 text-white shadow-[0_0_20px_rgba(112,0,255,0.3)] transition-all duration-300">
                                 Generate New Roadmap <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </Link>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                     </Card>
                 ) : (
                     roadmaps.map((roadmap) => (
-                        <Card key={roadmap._id} className="group hover:border-primary/50 transition-colors relative">
+                        <Card key={roadmap._id} className="group hover:border-neon-cyan/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.1)] transition-all duration-300 relative bg-slate-900/40 backdrop-blur-md">
                             <div className="absolute top-4 right-4 z-10">
                                 <Button
                                     variant="ghost"
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                             </CardHeader>
                             <CardFooter>
                                 <Link href={`/dashboard/roadmap/${roadmap._id}`} className="w-full">
-                                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                    <Button variant="outline" className="w-full border-neon-cyan/30 group-hover:bg-neon-cyan group-hover:text-black transition-all duration-500 font-bold">
                                         View Roadmap
                                     </Button>
                                 </Link>

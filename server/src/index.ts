@@ -26,7 +26,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Connect to Database
-connectDB();
+// connectDB(); // MongoDB dependency removed
 
 // Track Analytics
 app.use(analyticsMiddleware);

@@ -3,24 +3,33 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, LogOut, Loader2, ShieldAlert } from 'lucide-react';
-import { useAuthStore } from '@/store/authStore';
+import { LayoutDashboard, Users, LogOut, Loader2, ShieldAlert, BarChart2 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
+import { AnimatedBackground } from '@/components/ui/AnimatedBackground';
 
 export default function AdminLayout({ children }) {
     const pathname = usePathname();
     const router = useRouter();
-    const { user, setUser } = useAuthStore();
+    const { user, logout, isLoading: authLoading } = useAuth();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     // Simple protection for admin route
+    if (authLoading) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-neon-cyan" />
+            </div>
+        );
+    }
+
     if (!user || user.role !== 'admin') {
         return (
-            <div className="flex h-screen items-center justify-center flex-col gap-4">
-                <ShieldAlert className="h-16 w-16 text-destructive" />
-                <h1 className="text-2xl font-bold">Unauthorized Access</h1>
-                <p className="text-muted-foreground">You do not have permission to view the admin area.</p>
-                <Button onClick={() => router.push('/dashboard')}>Return to Dashboard</Button>
+            <div className="flex h-screen items-center justify-center flex-col gap-4 bg-slate-950 text-white">
+                <ShieldAlert className="h-16 w-16 text-deep-purple" />
+                <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple">Unauthorized Access</h1>
+                <p className="text-slate-400">You do not have permission to view the admin area.</p>
+                <Button variant="outline" className="border-neon-cyan/30 text-neon-cyan" onClick={() => router.push('/dashboard')}>Return to Dashboard</Button>
             </div>
         )
     }
@@ -28,9 +37,7 @@ export default function AdminLayout({ children }) {
     const handleLogout = async () => {
         setIsLoggingOut(true);
         try {
-            await fetch('http://localhost:5000/api/auth/logout', { method: 'POST', credentials: 'include' });
-            setUser(null);
-            router.push('/login');
+            logout();
         } catch (error) {
             console.error(error);
         } finally {
@@ -39,52 +46,61 @@ export default function AdminLayout({ children }) {
     };
 
     const navLinks = [
-        { name: 'Admin Overview', href: '/admin', icon: LayoutDashboard },
+        { name: 'Admin Overview', href: '/admin', icon: BarChart2 },
+        { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     ];
 
     return (
-        <div className="flex min-h-screen bg-background text-foreground">
-            <aside className="w-64 border-r border-border bg-card hidden md:block">
-                <div className="h-full flex flex-col justify-between py-6">
-                    <div className="px-6 space-y-8">
-                        <h2 className="text-xl font-bold tracking-tight text-destructive">Admin Portal</h2>
-                        <nav className="space-y-2">
+        <div className="min-h-screen text-foreground relative flex flex-col">
+            <AnimatedBackground />
+
+            {/* Top Navigation Bar (matching Dashboard Layout) */}
+            <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+                <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                    <div className="flex items-center gap-6">
+                        <Link href="/admin" className="flex items-center">
+                            <h2 className="text-2xl font-bold tracking-tight text-deep-purple drop-shadow-[0_0_10px_rgba(112,0,255,0.3)]">AdminPortal</h2>
+                        </Link>
+
+                        <nav className="hidden md:flex items-center space-x-1 ml-6">
                             {navLinks.map((link) => {
-                                const Icon = link.icon;
                                 const isActive = pathname === link.href;
                                 return (
                                     <Link
                                         key={link.name}
                                         href={link.href}
-                                        className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${isActive
-                                            ? 'bg-destructive/10 text-destructive font-medium'
-                                            : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                                        className={`px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 ${isActive
+                                            ? 'bg-deep-purple/20 text-deep-purple shadow-[0_0_10px_rgba(112,0,255,0.2)]'
+                                            : 'text-slate-300 hover:bg-white/10 hover:text-white'
                                             }`}
                                     >
-                                        <Icon className="h-5 w-5" />
                                         {link.name}
                                     </Link>
                                 );
                             })}
                         </nav>
                     </div>
-                    <div className="px-6">
-                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout} disabled={isLoggingOut}>
-                            {isLoggingOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogOut className="mr-2 h-4 w-4" />}
-                            Sign out
+
+                    <div className="flex items-center gap-4">
+                        <div className="hidden sm:flex flex-col items-end text-xs">
+                            <span className="font-bold text-white uppercase tracking-widest">{user?.role}</span>
+                            <span className="text-slate-400">{user?.name}</span>
+                        </div>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-slate-300 hover:text-white hover:bg-white/10"
+                            onClick={handleLogout}
+                            disabled={isLoggingOut}
+                        >
+                            {isLoggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
                         </Button>
                     </div>
                 </div>
-            </aside>
+            </header>
 
-            <main className="flex-1 overflow-y-auto w-full">
-                <header className="md:hidden flex items-center justify-between p-4 border-b border-border bg-card">
-                    <h2 className="text-xl font-bold text-destructive">Admin Portal</h2>
-                    <Button variant="ghost" size="sm" onClick={handleLogout}>
-                        <LogOut className="h-4 w-4" />
-                    </Button>
-                </header>
-                <div className="p-6 md:p-8">
+            <main className="flex-1 container mx-auto p-4 md:p-8 z-10 w-full relative">
+                <div className="bg-slate-900/60 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 min-h-[calc(100vh-8rem)]">
                     {children}
                 </div>
             </main>

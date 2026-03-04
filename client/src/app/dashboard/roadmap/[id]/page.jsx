@@ -323,7 +323,7 @@ export default function RoadmapDetailPage() {
                         <Button variant="ghost" size="sm" onClick={() => router.push("/dashboard")} className="hidden md:flex">
                             <ArrowLeft className="h-4 w-4 mr-1" /> Back
                         </Button>
-                        <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">
+                        <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">
                             {roadmap.careerTitle}
                         </h1>
                     </div>
@@ -341,7 +341,7 @@ export default function RoadmapDetailPage() {
                     </Button>
                     <Button
                         variant="outline"
-                        className="border-indigo-500/30 hover:bg-indigo-500/10 hover:text-indigo-400"
+                        className="border-neon-cyan/30 hover:bg-neon-cyan/10 hover:text-neon-cyan font-bold transition-all duration-300"
                         onClick={handleExportDoc}
                         disabled={isExporting || isDeleting}
                     >
@@ -350,7 +350,7 @@ export default function RoadmapDetailPage() {
                     </Button>
                     <Button
                         variant="outline"
-                        className="border-indigo-500/30 hover:bg-indigo-500/10 hover:text-indigo-400"
+                        className="border-neon-cyan/30 hover:bg-neon-cyan/10 hover:text-neon-cyan font-bold shadow-[0_0_15px_rgba(0,243,255,0.1)] transition-all duration-300"
                         onClick={handleExportPDF}
                         disabled={isExporting || isDeleting}
                     >
@@ -365,7 +365,7 @@ export default function RoadmapDetailPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Card className="bg-gradient-to-br from-card to-card/50 border-border/50">
                         <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                            <Briefcase className="h-6 w-6 text-blue-400 mb-2" />
+                            <Compass className="h-6 w-6 text-neon-cyan mb-2" />
                             <p className="text-sm text-muted-foreground">Market Demand</p>
                             <p className="text-lg font-bold">{data.marketDemandScore}/100</p>
                         </CardContent>
@@ -387,7 +387,7 @@ export default function RoadmapDetailPage() {
                     </Card>
                     <Card className="bg-gradient-to-br from-card to-card/50 border-border/50">
                         <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                            <ArrowLeft className="h-6 w-6 text-purple-400 mb-2 rotate-45" /> {/* Simple arrow icon */}
+                            <Sparkles className="h-6 w-6 text-deep-purple mb-2" />
                             <p className="text-sm text-muted-foreground">Growth</p>
                             <p className="text-lg font-bold capitalize">{data.futureGrowthPrediction}</p>
                         </CardContent>
@@ -515,11 +515,11 @@ export default function RoadmapDetailPage() {
                             {data.learningPath?.map((phase, index) => (
                                 <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-background shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow z-10 transition-transform duration-300 hover:scale-110 
-                                        ${index === 0 ? 'bg-green-500 shadow-green-500/50' : index === 1 ? 'bg-blue-500 shadow-blue-500/50' : 'bg-purple-500 shadow-purple-500/50'}`}>
+                                        ${index === 0 ? 'bg-neon-cyan shadow-neon-cyan/50' : 'bg-deep-purple shadow-deep-purple/50'}`}>
                                         {index + 1}
                                     </div>
-                                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-border bg-card/80 backdrop-blur-sm shadow-sm md:group-odd:text-right md:group-even:text-left">
-                                        <h3 className="text-lg font-bold text-primary">{phase.level}</h3>
+                                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-border bg-slate-900/60 backdrop-blur-md shadow-sm md:group-odd:text-right md:group-even:text-left">
+                                        <h3 className={`text-lg font-bold ${index === 0 ? 'text-neon-cyan' : 'text-deep-purple'}`}>{phase.level}</h3>
                                         <p className="text-sm text-muted-foreground mb-3">{phase.description}</p>
                                         <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
                                             {phase.skills.map((skill) => (
@@ -541,7 +541,7 @@ export default function RoadmapDetailPage() {
                             {data.learningTimeline?.map((plan, index) => (
                                 <Card key={index} className="bg-accent/10 border-border/40">
                                     <CardHeader className="p-4 pb-2">
-                                        <CardTitle className="text-sm font-semibold text-indigo-400">
+                                        <CardTitle className="text-sm font-bold text-neon-cyan">
                                             {plan.track} Milestone
                                         </CardTitle>
                                     </CardHeader>
