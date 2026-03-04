@@ -77,6 +77,7 @@ export default function GenerateRoadmapPage() {
                 ],
                 interviewPreparation: ["Conceptual deep dives", "Coding challenges", "System design interviews"],
                 portfolioGuidance: "Focus on building 2-3 high-quality projects that demonstrate your ability to solve real problems.",
+                userSkills: data.currentSkills ? data.currentSkills.split(',').map(s => s.trim()).filter(s => s !== "") : [],
                 createdAt: new Date().toISOString()
             };
 

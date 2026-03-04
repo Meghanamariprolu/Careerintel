@@ -24,7 +24,7 @@ const profileSchema = z.object({
 export default function ProfilePage() {
     const { user, updateProfile: saveProfile } = useAuth()
 
-    const [isLoading, setIsLoading] = useState(false) // This now refers to the saving state
+    const [isSaving, setIsSaving] = useState(false) // This now refers to the saving state
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
 
@@ -52,7 +52,7 @@ export default function ProfilePage() {
     }, [user, reset])
 
     async function onSubmit(data) {
-        setIsLoading(true)
+        setIsSaving(true)
         setErrorMsg("")
         setSuccessMsg("")
 
@@ -76,7 +76,7 @@ export default function ProfilePage() {
         } catch (error) {
             setErrorMsg(error.message || "Failed to update profile.")
         } finally {
-            setIsLoading(false)
+            setIsSaving(false)
         }
     }
 

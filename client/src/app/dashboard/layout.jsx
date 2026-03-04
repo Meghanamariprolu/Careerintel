@@ -28,7 +28,6 @@ export default function DashboardLayout({ children }) {
     const navLinks = [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Generate Roadmap', href: '/dashboard/generate', icon: Compass },
-        { name: 'Profile', href: '/dashboard/profile', icon: UserCircle },
     ];
 
     if (authLoading) {
@@ -45,11 +44,11 @@ export default function DashboardLayout({ children }) {
     }
 
     return (
-        <div className="min-h-screen text-foreground relative flex flex-col">
+        <div className="h-screen w-full flex flex-col bg-slate-950 text-foreground overflow-hidden">
             <AnimatedBackground />
 
             {/* Top Navigation Bar */}
-            <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+            <header className="flex-none z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4">
                     {/* Logo Area */}
                     <div className="flex items-center gap-6">
@@ -79,21 +78,26 @@ export default function DashboardLayout({ children }) {
 
                     {/* Right Side - Profile and Logout */}
                     <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex flex-col items-end">
-                            <span className="text-sm font-medium text-white">{user?.name}</span>
-                            <span className="text-xs text-slate-400 max-w-[150px] truncate">{user?.email}</span>
-                        </div>
-                        <div className="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center border-2 border-indigo-400 overflow-hidden shrink-0">
-                            {user?.image || user?.profileImage ? (
-                                <img
-                                    src={user.image || user.profileImage}
-                                    alt={user.name}
-                                    className="h-full w-full object-cover"
-                                />
-                            ) : (
-                                <UserCircle className="h-6 w-6 text-white" />
-                            )}
-                        </div>
+                        <Link
+                            href="/dashboard/profile"
+                            className="flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all group"
+                        >
+                            <div className="hidden sm:flex flex-col items-end">
+                                <span className="text-sm font-medium text-white group-hover:text-indigo-300 transition-colors">{user?.name}</span>
+                                <span className="text-xs text-slate-400 max-w-[150px] truncate">{user?.email}</span>
+                            </div>
+                            <div className="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center border-2 border-indigo-400 overflow-hidden shrink-0 group-hover:border-indigo-300 group-hover:scale-105 transition-all">
+                                {user?.image || user?.profileImage ? (
+                                    <img
+                                        src={user.image || user.profileImage}
+                                        alt={user.name}
+                                        className="h-full w-full object-cover"
+                                    />
+                                ) : (
+                                    <UserCircle className="h-6 w-6 text-white" />
+                                )}
+                            </div>
+                        </Link>
                         <Button
                             variant="ghost"
                             size="sm"
@@ -129,10 +133,12 @@ export default function DashboardLayout({ children }) {
             </header>
 
             {/* Main Content Area */}
-            <main className="flex-1 container mx-auto p-4 md:p-8 z-10 w-full relative">
-                {/* A semi-transparent wrapper for the children to make them readable over the animated background */}
-                <div className="bg-slate-900/60 backdrop-blur-sm border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 min-h-[calc(100vh-8rem)]">
-                    {children}
+            <main className="flex-1 overflow-y-auto w-full z-10 relative">
+                <div className="container mx-auto p-4 md:p-8 min-h-full">
+                    {/* A semi-transparent wrapper for the children to make them readable over the animated background */}
+                    <div className="bg-slate-900/60 backdrop-blur-sm border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 min-h-[calc(100vh-8rem)]">
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>

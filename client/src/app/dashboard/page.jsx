@@ -2,11 +2,30 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Compass, FileText, Loader2, ArrowRight, Trash2 } from "lucide-react"
+import {
+    Compass, FileText, Loader2, ArrowRight, Trash2,
+    TrendingUp, Route, Layout, FileUser, Gamepad2,
+    UserRoundCog, Brain, Star, Combine, BarChart3, Bot,
+    Sparkles
+} from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
+
+const careerTools = [
+    { name: "Market Integration", slug: "market-integration", icon: TrendingUp, color: "text-blue-400", bg: "bg-blue-400/10" },
+    { name: "Learning Routes", slug: "personalized-learning", icon: Route, color: "text-green-400", bg: "bg-green-400/10" },
+    { name: "Portfolio Builder", slug: "portfolio-builder", icon: Layout, color: "text-purple-400", bg: "bg-purple-400/10" },
+    { name: "Resume Enhancer", slug: "resume-enhancer", icon: FileUser, color: "text-yellow-400", bg: "bg-yellow-400/10" },
+    { name: "Scenario Simulator", slug: "scenario-simulator", icon: Gamepad2, color: "text-red-400", bg: "bg-red-400/10" },
+    { name: "AI Coaching", slug: "coaching", icon: UserRoundCog, color: "text-indigo-400", bg: "bg-indigo-400/10" },
+    { name: "Behavioral Mapping", slug: "behavioral-mapping", icon: Brain, color: "text-pink-400", bg: "bg-pink-400/10" },
+    { name: "Quality Scoring", slug: "quality-scoring", icon: Star, color: "text-orange-400", bg: "bg-orange-400/10" },
+    { name: "Skill Transfer", slug: "skill-transfer", icon: Combine, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+    { name: "Outcome Tracking", slug: "outcome-tracking", icon: BarChart3, color: "text-emerald-400", bg: "bg-emerald-400/10" },
+    { name: "Mentor Personas", slug: "mentor-personas", icon: Bot, color: "text-violet-400", bg: "bg-violet-400/10" },
+]
 
 export default function DashboardPage() {
     const { user } = useAuth()
@@ -61,6 +80,40 @@ export default function DashboardPage() {
                 <p className="text-muted-foreground mt-2">
                     Welcome back, {user?.name}. Here are your career intelligence insights.
                 </p>
+            </div>
+
+            {/* Feature Hub */}
+            <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-indigo-400" />
+                    <h2 className="text-xl font-semibold tracking-tight">AI Career Intelligence Hub</h2>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    {careerTools.map((tool) => (
+                        <Link key={tool.slug} href={`/dashboard/tools/${tool.slug}`}>
+                            <Button
+                                variant="outline"
+                                className="w-full h-auto py-4 flex flex-col items-center gap-2 bg-slate-900/40 border-white/5 hover:border-indigo-500/30 hover:bg-indigo-500/10 transition-all duration-300 group"
+                            >
+                                <div className={`p-2 rounded-xl ${tool.bg} group-hover:scale-110 transition-transform`}>
+                                    <tool.icon className={`h-5 w-5 ${tool.color}`} />
+                                </div>
+                                <span className="text-[10px] font-medium text-center line-clamp-1">{tool.name}</span>
+                            </Button>
+                        </Link>
+                    ))}
+                    <Link href="/dashboard/generate">
+                        <Button
+                            variant="outline"
+                            className="w-full h-auto py-4 flex flex-col items-center gap-2 bg-indigo-600/10 border-indigo-500/20 hover:bg-indigo-600/20 transition-all duration-300 group"
+                        >
+                            <div className="p-2 rounded-xl bg-indigo-500/20 group-hover:scale-110 transition-transform">
+                                <Compass className="h-5 w-5 text-indigo-400" />
+                            </div>
+                            <span className="text-[10px] font-bold text-center text-indigo-400">Generate New</span>
+                        </Button>
+                    </Link>
+                </div>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -123,6 +176,137 @@ export default function DashboardPage() {
                         </Card>
                     ))
                 )}
+            </div>
+            <div className="pt-8 border-t border-white/10">
+                <div className="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 className="text-2xl font-bold tracking-tight">Best Free Learning Platforms</h2>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                            Curated resources to help you master new skills without spending a dime.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {[
+                        {
+                            name: "freeCodeCamp",
+                            description: "Learn to code for free. Build projects. Earn certifications.",
+                            url: "https://www.freecodecamp.org",
+                            icon: "Code"
+                        },
+                        {
+                            name: "Harvard CS50",
+                            description: "Introduction to the intellectual enterprises of computer science and the art of programming.",
+                            url: "https://pll.harvard.edu/course/cs50-introduction-computer-science",
+                            icon: "GraduationCap"
+                        },
+                        {
+                            name: "Coursera Free",
+                            description: "Access world-class education from top universities and companies.",
+                            url: "https://www.coursera.org/courses?query=free",
+                            icon: "BookOpen"
+                        },
+                        {
+                            name: "edX Free Courses",
+                            description: "High-quality courses from the world's best institutions.",
+                            url: "https://www.edx.org/search?q=free",
+                            icon: "University"
+                        }
+                    ].map((platform) => (
+                        <Card key={platform.name} className="hover:border-indigo-500/50 transition-all group bg-slate-900/40">
+                            <CardHeader className="p-4 pb-2">
+                                <CardTitle className="text-lg flex items-center justify-between">
+                                    {platform.name}
+                                    <Link href={platform.url} target="_blank" rel="noopener noreferrer">
+                                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                                    </Link>
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-4 pt-0">
+                                <p className="text-sm text-muted-foreground line-clamp-2">
+                                    {platform.description}
+                                </p>
+                            </CardContent>
+                            <CardFooter className="p-4 pt-0">
+                                <Link
+                                    href={platform.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+                                >
+                                    Explore Courses
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+
+            <div className="pt-8 border-t border-white/10">
+                <div className="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 className="text-2xl font-bold tracking-tight">Community & Networking Suggestions</h2>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                            Connect with professionals and peers to accelerate your career growth.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {[
+                        {
+                            name: "LinkedIn",
+                            description: "Build your professional brand and network with industry leaders.",
+                            url: "https://www.linkedin.com",
+                            icon: "Linkedin"
+                        },
+                        {
+                            name: "Discord Communities",
+                            description: "Join tech-focused servers for real-time collaboration and networking.",
+                            url: "https://discord.com",
+                            icon: "MessageSquare"
+                        },
+                        {
+                            name: "GitHub",
+                            description: "Collaborate on open-source projects and showcase your code.",
+                            url: "https://github.com",
+                            icon: "Github"
+                        },
+                        {
+                            name: "Meetup",
+                            description: "Find local tech events and groups to connect in person.",
+                            url: "https://www.meetup.com",
+                            icon: "Users"
+                        }
+                    ].map((suggestion) => (
+                        <Card key={suggestion.name} className="hover:border-purple-500/50 transition-all group bg-slate-900/40">
+                            <CardHeader className="p-4 pb-2">
+                                <CardTitle className="text-lg flex items-center justify-between">
+                                    {suggestion.name}
+                                    <Link href={suggestion.url} target="_blank" rel="noopener noreferrer">
+                                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+                                    </Link>
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-4 pt-0">
+                                <p className="text-sm text-muted-foreground line-clamp-2">
+                                    {suggestion.description}
+                                </p>
+                            </CardContent>
+                            <CardFooter className="p-4 pt-0">
+                                <Link
+                                    href={suggestion.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                                >
+                                    Visit Platform
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
             </div>
         </div>
     )

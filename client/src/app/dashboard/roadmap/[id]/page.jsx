@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { ArrowLeft, BookOpen, Briefcase, Download, Trophy, Loader2, FileText, Trash2 } from "lucide-react"
+import { ArrowLeft, BookOpen, Briefcase, Download, Trophy, Loader2, FileText, Trash2, CheckCircle2, Circle } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/Button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card"
+import html2canvas from "html2canvas"
+import jsPDF from "jspdf"
 
 export default function RoadmapDetailPage() {
     const { user } = useAuth()
@@ -15,6 +19,7 @@ export default function RoadmapDetailPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [isExporting, setIsExporting] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
+    const [userSkills, setUserSkills] = useState([])
 
     useEffect(() => {
         function fetchRoadmap() {
@@ -38,6 +43,31 @@ export default function RoadmapDetailPage() {
             fetchRoadmap();
         }
     }, [id, user?.id]);
+
+    useEffect(() => {
+        if (roadmap) {
+            setUserSkills(roadmap.userSkills || [])
+        }
+    }, [roadmap])
+
+    const toggleSkill = (skillName) => {
+        const updatedSkills = userSkills.includes(skillName)
+            ? userSkills.filter(s => s !== skillName)
+            : [...userSkills, skillName]
+
+        setUserSkills(updatedSkills)
+
+        // Persist to local storage
+        try {
+            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]')
+            const updatedRoadmaps = allRoadmaps.map(r =>
+                r._id === id ? { ...r, userSkills: updatedSkills } : r
+            )
+            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps))
+        } catch (error) {
+            console.error("Error saving updated skills:", error)
+        }
+    }
 
     const handleExportPDF = async () => {
         setIsExporting(true)
@@ -267,7 +297,7 @@ export default function RoadmapDetailPage() {
         return <div className="text-center p-10">Roadmap not found.</div>
     }
 
-    const data = roadmap.roadmapData
+    const data = roadmap.roadmapData || roadmap
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -363,6 +393,114 @@ export default function RoadmapDetailPage() {
                         </CardContent>
                     </Card>
                 </div>
+
+                {/* Skill Gap Analysis Section */}
+                <Card className="border-indigo-500/20 bg-indigo-500/5">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Trophy className="h-5 w-5 text-indigo-400" />
+                            Dynamic Skill Gap Analysis
+                        </CardTitle>
+                        <CardDescription>
+                            Track your progress by marking skills you've already mastered.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        {/* Progress Tracker */}
+                        <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                                <span className="font-medium">Overall Progress</span>
+                                <span className="text-indigo-400 font-bold">
+                                    {Math.round((userSkills.length / (
+                                        (data.coreTechnicalSkills?.length || 0) +
+                                        (data.currentMarketDemandSkills2025?.length || 0) +
+                                        (data.supportingTools?.length || 0)
+                                    )) * 100) || 0}%
+                                </span>
+                            </div>
+                            <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                                    initial={{ width: 0 }}
+                                    animate={{
+                                        width: `${(userSkills.length / (
+                                            (data.coreTechnicalSkills?.length || 0) +
+                                            (data.currentMarketDemandSkills2025?.length || 0) +
+                                            (data.supportingTools?.length || 0)
+                                        )) * 100 || 0}%`
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Interactive Skill Lists */}
+                        <div className="grid md:grid-cols-3 gap-6 text-sm">
+                            <div className="space-y-3">
+                                <h4 className="font-semibold text-indigo-300 border-b border-indigo-500/20 pb-1">Core Skills</h4>
+                                <div className="space-y-2">
+                                    {data.coreTechnicalSkills?.map((skill) => (
+                                        <div
+                                            key={skill}
+                                            className="flex items-center gap-2 cursor-pointer group"
+                                            onClick={() => toggleSkill(skill)}
+                                        >
+                                            {userSkills.includes(skill) ? (
+                                                <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                                            ) : (
+                                                <Circle className="h-4 w-4 text-muted-foreground group-hover:text-indigo-400 shrink-0" />
+                                            )}
+                                            <span className={userSkills.includes(skill) ? "text-foreground" : "text-muted-foreground"}>
+                                                {skill}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="space-y-3">
+                                <h4 className="font-semibold text-purple-300 border-b border-purple-500/20 pb-1">2025 Market Demand</h4>
+                                <div className="space-y-2">
+                                    {data.currentMarketDemandSkills2025?.map((skill) => (
+                                        <div
+                                            key={skill}
+                                            className="flex items-center gap-2 cursor-pointer group"
+                                            onClick={() => toggleSkill(skill)}
+                                        >
+                                            {userSkills.includes(skill) ? (
+                                                <CheckCircle2 className="h-4 w-4 text-green-400 shrink-0" />
+                                            ) : (
+                                                <Circle className="h-4 w-4 text-muted-foreground group-hover:text-purple-400 shrink-0" />
+                                            )}
+                                            <span className={userSkills.includes(skill) ? "text-foreground" : "text-muted-foreground"}>
+                                                {skill}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="space-y-3">
+                                <h4 className="font-semibold text-blue-300 border-b border-blue-500/20 pb-1">Supporting Tools</h4>
+                                <div className="space-y-2">
+                                    {data.supportingTools?.map((skill) => (
+                                        <div
+                                            key={skill}
+                                            className="flex items-center gap-2 cursor-pointer group"
+                                            onClick={() => toggleSkill(skill)}
+                                        >
+                                            {userSkills.includes(skill) ? (
+                                                <CheckCircle2 className="h-4 w-4 text-blue-400 shrink-0" />
+                                            ) : (
+                                                <Circle className="h-4 w-4 text-muted-foreground group-hover:text-blue-400 shrink-0" />
+                                            )}
+                                            <span className={userSkills.includes(skill) ? "text-foreground" : "text-muted-foreground"}>
+                                                {skill}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
 
                 <motion.div
                     variants={containerVariants}
