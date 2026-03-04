@@ -11,10 +11,15 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
-        // Load user from localStorage on mount
+        // Load user from localStorage on mount (Client-side only)
         const savedUser = localStorage.getItem('careerintel_user');
         if (savedUser) {
-            setUser(JSON.parse(savedUser));
+            try {
+                setUser(JSON.parse(savedUser));
+            } catch (e) {
+                console.error("Failed to parse saved user", e);
+                localStorage.removeItem('careerintel_user');
+            }
         }
         setIsLoading(false);
     }, []);

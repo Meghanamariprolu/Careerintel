@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Loader2, User, Mail, MapPin, Briefcase, BookOpen, Save, CheckCircle2 } from "lucide-react"
+import { Loader2, User, Mail, MapPin, Briefcase, BookOpen, Save, CheckCircle2, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
@@ -18,13 +18,16 @@ const profileSchema = z.object({
     bio: z.string().max(500, "Bio is too long").optional().or(z.literal("")),
     location: z.string().optional().or(z.literal("")),
     skills: z.string().optional().or(z.literal("")), // User enters comma-separated string
-    profileImage: z.string().url("Invalid image URL").optional().or(z.literal("")),
+    profileImage: z.string().optional().or(z.literal("")).or(z.null()),
 })
 
 export default function ProfilePage() {
     const { user, updateProfile: saveProfile } = useAuth()
+    const fileInputRef = React.useRef(null)
 
-    const [isSaving, setIsSaving] = useState(false) // This now refers to the saving state
+    const [isSaving, setIsSaving] = useState(false)
+    const [isUploadingImage, setIsUploadingImage] = useState(false)
+    const [previewImage, setPreviewImage] = useState("")
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
 
@@ -32,10 +35,20 @@ export default function ProfilePage() {
         register,
         handleSubmit,
         reset,
+        setValue,
+        watch,
         formState: { errors, isDirty },
     } = useForm({
         resolver: zodResolver(profileSchema),
     })
+
+    const currentProfileImage = watch("profileImage")
+
+    useEffect(() => {
+        if (currentProfileImage) {
+            setPreviewImage(currentProfileImage)
+        }
+    }, [currentProfileImage])
 
     useEffect(() => {
         if (user) {
@@ -45,11 +58,62 @@ export default function ProfilePage() {
                 email: user.email || "",
                 bio: user.bio || "",
                 location: user.location || "",
-                skills: Array.isArray(user.skills) ? user.skills.join(", ") : (user.skills || ""), // Convert array to string for input
-                profileImage: user.profileImage || "",
+                skills: Array.isArray(user.skills) ? user.skills.join(", ") : (user.skills || ""),
+                profileImage: user.profileImage || user.image || "",
             })
+            setPreviewImage(user.profileImage || user.image || "")
         }
     }, [user, reset])
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploadingImage(true);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64String = reader.result;
+            const img = new window.Image();
+            img.src = base64String;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 300; // Larger for profile page
+                const MAX_HEIGHT = 300;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+
+                setValue("profileImage", dataUrl, { shouldDirty: true });
+                setPreviewImage(dataUrl);
+                setIsUploadingImage(false);
+            };
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleDeleteImage = () => {
+        setValue("profileImage", "", { shouldDirty: true });
+        setPreviewImage("");
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+    };
 
     async function onSubmit(data) {
         setIsSaving(true)
@@ -69,10 +133,7 @@ export default function ProfilePage() {
         try {
             await saveProfile(formattedData)
             setSuccessMsg("Profile updated successfully!")
-
-            // Clear success message after 3 seconds
             setTimeout(() => setSuccessMsg(""), 3000)
-
         } catch (error) {
             setErrorMsg(error.message || "Failed to update profile.")
         } finally {
@@ -155,6 +216,63 @@ export default function ProfilePage() {
                                         />
                                     </div>
                                 </div>
+                                <div className="space-y-4">
+                                    <label className="text-sm font-medium leading-none">Profile Picture</label>
+                                    <div className="flex items-center gap-6">
+                                        <div className="relative h-20 w-20 rounded-full border-2 border-border overflow-hidden bg-muted flex items-center justify-center">
+                                            {previewImage ? (
+                                                <img
+                                                    src={previewImage}
+                                                    alt="Preview"
+                                                    className="h-full w-full object-cover"
+                                                />
+                                            ) : (
+                                                <User className="h-10 w-10 text-muted-foreground" />
+                                            )}
+                                            {isUploadingImage && (
+                                                <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
+                                                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="space-y-2">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                ref={fileInputRef}
+                                                onChange={handleImageUpload}
+                                            />
+                                            <div className="flex gap-2">
+                                                <Button
+                                                    type="button"
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                    className="border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/10"
+                                                >
+                                                    Change Picture
+                                                </Button>
+                                                {previewImage && (
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={handleDeleteImage}
+                                                        className="text-destructive hover:bg-destructive/10"
+                                                    >
+                                                        <Trash2 className="h-4 w-4 mr-2" />
+                                                        Remove
+                                                    </Button>
+                                                )}
+                                            </div>
+                                            <p className="text-[10px] text-muted-foreground">
+                                                JPG or PNG. Max size 2MB.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="space-y-2 relative">
                                     <label className="text-sm font-medium leading-none">Profile Image URL</label>
                                     <div className="relative">
