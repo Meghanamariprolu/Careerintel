@@ -76,7 +76,7 @@ export default function RoadmapDetailPage() {
 
             // Build a clean, standard HTML template to avoid Tailwind v4 'oklab' CSS crashes in html2canvas
             const cleanHtmlContent = `
-                <div style="font-family: Arial, sans-serif; color: #333; background: #fff; padding: 20px;">
+                <div style="color: #333; background: #fff; padding: 20px;">
                     <h1 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">${roadmap.careerTitle}</h1>
                     <p style="font-size: 14px; margin-bottom: 20px;">${roadmap.careerSummary}</p>
                     
@@ -187,7 +187,7 @@ export default function RoadmapDetailPage() {
 
             // Generate clean HTML for Word document parsing
             const cleanHtmlContent = `
-                <div style="font-family: Arial, sans-serif; color: #333;">
+                <div style="color: #333;">
                     <h1 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">${roadmap.careerTitle}</h1>
                     <p style="font-size: 14px;">${roadmap.careerSummary}</p>
                     

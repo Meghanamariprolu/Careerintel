@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, Briefcase, MapPin, DollarSign, ExternalLink, ArrowLeft, Building2, CheckCircle2, Circle, TrendingUp, BarChart, Plus, Target, Info, Target as TargetIcon } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
+import { NextModulePrompter } from "@/components/NextModulePrompter"
 
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
@@ -418,6 +419,12 @@ export default function MarketIntegrationPage() {
                     </div>
                 )}
             </div>
+
+            <NextModulePrompter
+                nextModuleName="Behavioral Mapping"
+                nextModuleHref="/dashboard/tools/behavioral-mapping"
+                description="Understand your working style and cognitive behaviors to align with the market integrations you just explored."
+            />
         </div>
     )
 }

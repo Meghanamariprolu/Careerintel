@@ -219,15 +219,26 @@ export default function ProfilePage() {
                                 <div className="space-y-4">
                                     <label className="text-sm font-medium leading-none">Profile Picture</label>
                                     <div className="flex items-center gap-6">
-                                        <div className="relative h-20 w-20 rounded-full border-2 border-border overflow-hidden bg-muted flex items-center justify-center">
+                                        <div
+                                            className="relative h-20 w-20 rounded-full border-2 border-border overflow-hidden bg-muted flex items-center justify-center cursor-pointer group"
+                                            onClick={() => previewImage ? handleDeleteImage() : fileInputRef.current?.click()}
+                                            title={previewImage ? "Click to remove image" : "Click to upload image"}
+                                        >
                                             {previewImage ? (
-                                                <img
-                                                    src={previewImage}
-                                                    alt="Preview"
-                                                    className="h-full w-full object-cover"
-                                                />
+                                                <>
+                                                    <img
+                                                        src={previewImage}
+                                                        alt="Preview"
+                                                        className="h-full w-full object-cover transition-opacity group-hover:opacity-30"
+                                                    />
+                                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-destructive/40 transition-opacity">
+                                                        <Trash2 className="h-6 w-6 text-white" />
+                                                    </div>
+                                                </>
                                             ) : (
-                                                <User className="h-10 w-10 text-muted-foreground" />
+                                                <div className="flex flex-col items-center">
+                                                    <User className="h-10 w-10 text-muted-foreground" />
+                                                </div>
                                             )}
                                             {isUploadingImage && (
                                                 <div className="absolute inset-0 bg-background/60 flex items-center justify-center">

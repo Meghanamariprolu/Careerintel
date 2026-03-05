@@ -31,6 +31,8 @@ export const Footer = () => {
         { name: 'Skill Transfer', href: '/dashboard/tools/skill-transfer', icon: Globe },
         { name: 'Outcome Tracking', href: '/dashboard/tools/outcome-tracking', icon: TrendingUp },
         { name: 'Mentor Personas', href: '/dashboard/tools/mentor-personas', icon: UserCircle },
+        { name: 'Career Intelligence Report', href: '/dashboard/report', icon: FileText },
+        { name: 'Career Analytics', href: '/dashboard/analytics', icon: BarChart },
         { name: 'Generate New', href: '/dashboard/generate', icon: Compass },
     ];
 

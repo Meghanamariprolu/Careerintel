@@ -82,6 +82,7 @@ export default function DashboardLayout({ children }) {
         { name: 'Portfolio', href: '/dashboard/portfolio', icon: Briefcase },
         { name: 'Insights', href: '/dashboard/insights', icon: Globe },
         { name: 'Network', href: '/dashboard/network', icon: Users },
+        { name: 'Profile', href: '/dashboard/profile', icon: UserCircle },
     ];
 
     if (authLoading) {
@@ -133,9 +134,10 @@ export default function DashboardLayout({ children }) {
                             <span className="text-[10px] text-slate-500 font-medium">{user?.email}</span>
                         </div>
 
-                        <button
-                            onClick={() => fileInputRef.current?.click()}
+                        <Link
+                            href="/dashboard/profile"
                             className="relative h-8 w-8 rounded-full border border-white/10 overflow-hidden hover:border-purple-400 transition-all active:scale-95 duration-200 shadow-2xl shrink-0"
+                            title="Go to Profile"
                         >
                             <input
                                 type="file"
@@ -162,7 +164,7 @@ export default function DashboardLayout({ children }) {
                                     <UserCircle className="h-4 w-4 text-slate-500" />
                                 </div>
                             )}
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </header>

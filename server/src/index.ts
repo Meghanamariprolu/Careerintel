@@ -8,6 +8,7 @@ import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import roadmapRoutes from './routes/roadmapRoutes';
 import adminRoutes from './routes/adminRoutes';
+import aiRoutes from './routes/aiRoutes';
 import { analyticsMiddleware } from './middleware/analytics';
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(analyticsMiddleware);
 app.use('/api/auth', authRoutes);
 app.use('/api/roadmaps', roadmapRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date() });

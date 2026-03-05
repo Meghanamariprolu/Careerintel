@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-background font-sans">
       <header className="px-6 py-4 flex items-center justify-between border-b border-border/40 backdrop-blur-sm sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <Compass className="h-6 w-6 text-neon-cyan drop-shadow-[0_0_8px_rgba(0,243,255,0.4)]" />
+          <Compass className="h-6 w-6 text-neon-cyan drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" />
           <span className="text-xl font-bold tracking-tight text-neon-cyan">CareerIntel</span>
         </div>
         <nav className="flex items-center gap-4">
@@ -21,7 +21,7 @@ export default function Home() {
 
       <main className="flex-1 flex flex-col items-center justify-center text-center px-4 py-20 bg-gradient-to-b from-background to-background/80">
         <div className="max-w-3xl space-y-8">
-          <div className="inline-flex items-center rounded-full border border-neon-cyan/20 bg-neon-cyan/10 px-3 py-1 text-sm font-medium text-neon-cyan shadow-[0_0_15px_rgba(0,243,255,0.1)]">
+          <div className="inline-flex items-center rounded-full border border-neon-cyan/20 bg-neon-cyan/10 px-3 py-1 text-sm font-medium text-neon-cyan shadow-[0_0_15px_rgba(168,85,247,0.1)]">
             <Sparkles className="mr-2 h-4 w-4" />
             AI-Powered Career Roadmaps
           </div>
