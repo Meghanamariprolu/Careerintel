@@ -239,7 +239,7 @@ export default function MarketIntegrationPage() {
                                 <ArrowLeft className="h-4 w-4 mr-1" /> Back
                             </Button>
                         </Link>
-                        <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                        <h1 className="text-3xl  tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
                             Live Market Integration
                         </h1>
                     </div>
@@ -252,11 +252,11 @@ export default function MarketIntegrationPage() {
                 <div className="flex gap-4">
                     <div className="bg-slate-900/50 border border-white/5 rounded-lg p-3 px-4 text-center">
                         <p className="text-xs text-muted-foreground mb-1">Your Mastered Skills</p>
-                        <p className="text-xl font-bold text-indigo-400">{userMasteredSkills.length}</p>
+                        <p className="text-xl  text-indigo-400">{userMasteredSkills.length}</p>
                     </div>
                     <div className="bg-slate-900/50 border border-white/5 rounded-lg p-3 px-4 text-center">
                         <p className="text-xs text-muted-foreground mb-1">Jobs Found</p>
-                        <p className="text-xl font-bold text-blue-400">{jobs.length}</p>
+                        <p className="text-xl  text-blue-400">{jobs.length}</p>
                     </div>
                 </div>
             </div>
@@ -319,7 +319,7 @@ export default function MarketIntegrationPage() {
                                         </div>
                                         <div className="flex flex-col items-end relative group/score cursor-help">
                                             {/* Match Score Badge */}
-                                            <div className={`px-2 py-1 rounded text-xs font-semibold border ${matchBadgeBg} flex items-center gap-1 shadow-sm`}>
+                                            <div className={`px-2 py-1 rounded text-xs  border ${matchBadgeBg} flex items-center gap-1 shadow-sm`}>
                                                 <TargetIcon className="h-3 w-3" />
                                                 {matchScore}% Match
                                             </div>
@@ -332,7 +332,7 @@ export default function MarketIntegrationPage() {
                                     <CardTitle className="text-lg leading-tight group-hover:text-blue-300 transition-colors">
                                         {job.title}
                                     </CardTitle>
-                                    <p className="text-sm font-medium text-muted-foreground">{job.company}</p>
+                                    <p className="text-sm  text-muted-foreground">{job.company}</p>
                                 </CardHeader>
 
                                 <CardContent className="p-5 pt-0 flex-grow space-y-4">
@@ -354,7 +354,7 @@ export default function MarketIntegrationPage() {
                                     {/* Actionable Skill Gap Analysis */}
                                     <div className="space-y-3">
                                         <div className="flex items-center justify-between">
-                                            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Skill Gap Analysis</p>
+                                            <p className="text-[10px]  text-muted-foreground uppercase tracking-wider">Skill Gap Analysis</p>
                                             <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Info className="h-3 w-3" /> Click '+' to add to roadmap</span>
                                         </div>
                                         <div className="flex flex-col gap-2">
@@ -407,7 +407,7 @@ export default function MarketIntegrationPage() {
                         <div className="inline-flex items-center justify-center p-4 bg-slate-900/50 rounded-full mb-4">
                             <Search className="h-8 w-8 text-muted-foreground" />
                         </div>
-                        <h3 className="text-lg font-semibold">No jobs found</h3>
+                        <h3 className="text-lg ">No jobs found</h3>
                         <p className="text-muted-foreground">Try adjusting your search or filters.</p>
                         <Button
                             variant="link"

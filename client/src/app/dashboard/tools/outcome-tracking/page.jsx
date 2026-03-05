@@ -32,7 +32,7 @@ export default function OutcomeTrackingPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white font-black text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -43,14 +43,14 @@ export default function OutcomeTrackingPage() {
                             <motion.div
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-emerald-300 shadow-xl"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-[10px] md:text-xs  uppercase tracking-[0.25em] text-emerald-300 shadow-xl"
                             >
                                 <TrendingUp className="h-3 w-3" /> Performance Intelligence
                             </motion.div>
-                            <h1 className="text-lg md:text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-emerald-400 uppercase">
+                            <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-emerald-400 uppercase">
                                 Outcome & ROI Tracking<span className="text-emerald-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4 font-medium leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
                                 Quantifying your growth. Track your journey from skill acquisition to market dominance with AI-powered outcome forecasting.
                             </p>
                         </div>
@@ -65,15 +65,15 @@ export default function OutcomeTrackingPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-all group relative overflow-hidden"
+                            className="p-8 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-all group relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                                 <ArrowUpRight className="h-16 w-16 text-emerald-400" />
                             </div>
-                            <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/30 mb-2">{metric.title}</h4>
+                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/30 mb-2">{metric.title}</h4>
                             <div className="flex items-baseline gap-3 mb-4">
-                                <span className="text-lg md:text-4xl font-black text-white">{metric.value}</span>
-                                <span className="text-[10px] md:text-xs font-bold text-emerald-400 uppercase italic">{metric.trend}</span>
+                                <span className="text-lg md:text-4xl  text-white">{metric.value}</span>
+                                <span className="text-[10px] md:text-xs  text-emerald-400 uppercase">{metric.trend}</span>
                             </div>
                             <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden">
                                 <motion.div
@@ -90,7 +90,7 @@ export default function OutcomeTrackingPage() {
                 {/* Roadmap Milestones */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div className="space-y-6">
-                        <h2 className="text-base md:text-xl font-black text-white uppercase tracking-widest italic flex items-center gap-3 mb-8">
+                        <h2 className="text-base md:text-xl  text-white uppercase tracking-widest flex items-center gap-3 mb-8">
                             <Milestone className="h-6 w-6 text-emerald-500" /> Professional Milestones
                         </h2>
                         {[
@@ -103,19 +103,19 @@ export default function OutcomeTrackingPage() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 + (idx * 0.1) }}
-                                className="p-6 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-between gap-6 group hover:bg-white/[0.07] transition-all"
+                                className="p-6 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between gap-6 group hover:bg-white/[0.07] transition-all"
                             >
                                 <div className="flex items-center gap-6">
-                                    <div className={`p-3 rounded-2xl ${item.progress === 100 ? 'bg-emerald-500/20' : 'bg-white/5'} border border-white/10`}>
+                                    <div className={`p-3 rounded-xl ${item.progress === 100 ? 'bg-emerald-500/20' : 'bg-white/5'} border border-white/10`}>
                                         <Calendar className={`h-5 w-5 ${item.progress === 100 ? 'text-emerald-400' : 'text-white/40'}`} />
                                     </div>
                                     <div>
-                                        <h3 className="text-sm md:text-lg font-black text-white group-hover:text-emerald-400 transition-colors uppercase italic">{item.title}</h3>
-                                        <p className="text-[10px] md:text-xs font-bold text-white/30 uppercase tracking-widest">{item.date} • {item.status}</p>
+                                        <h3 className="text-sm md:text-lg  text-white group-hover:text-emerald-400 transition-colors uppercase">{item.title}</h3>
+                                        <p className="text-[10px] md:text-xs  text-white/30 uppercase tracking-widest">{item.date} • {item.status}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <span className="text-xs md:text-base font-black text-white/60">{item.progress}%</span>
+                                    <span className="text-xs md:text-base  text-white/60">{item.progress}%</span>
                                     <div className="h-10 w-1 bg-white/5 rounded-full overflow-hidden">
                                         <div className="w-full bg-emerald-500 transition-all" style={{ height: `${item.progress}%` }} />
                                     </div>
@@ -131,25 +131,25 @@ export default function OutcomeTrackingPage() {
                     >
                         <div>
                             <div className="flex items-center gap-4 mb-8">
-                                <div className="p-4 bg-emerald-500/20 rounded-2xl border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                                <div className="p-4 bg-emerald-500/20 rounded-xl border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                                     <Sparkles className="h-6 w-6 text-emerald-400" />
                                 </div>
                                 <div>
-                                    <h2 className="text-base md:text-xl font-black text-white uppercase italic tracking-widest">ROI Insights</h2>
-                                    <p className="text-[10px] md:text-xs text-emerald-400/60 font-black uppercase tracking-widest">Future Valuation Outlook</p>
+                                    <h2 className="text-base md:text-xl  text-white uppercase tracking-widest">ROI Insights</h2>
+                                    <p className="text-[10px] md:text-xs text-emerald-400/60  uppercase tracking-widest">Future Valuation Outlook</p>
                                 </div>
                             </div>
-                            <p className="text-sm md:text-lg text-white/70 leading-relaxed font-medium mb-12 italic">
-                                "Your current trajectory predicts a <span className="text-emerald-400 font-black">2.4x</span> increase in career leverage within 18 months. By mastering 'Distributed Systems' and 'Behavioral Strategy', you are positioning yourself for top <span className="text-emerald-400/80 font-black italic">1% Tier</span> engineering roles."
+                            <p className="text-sm md:text-lg text-white/70 leading-relaxed  mb-12">
+                                "Your current trajectory predicts a <span className="text-emerald-400 ">2.4x</span> increase in career leverage within 18 months. By mastering 'Distributed Systems' and 'Behavioral Strategy', you are positioning yourself for top <span className="text-emerald-400/80 ">1% Tier</span> engineering roles."
                             </p>
                         </div>
 
-                        <div className="p-6 rounded-[2rem] bg-white/5 border border-white/10">
-                            <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/20 mb-4">Estimated Market Worth</h4>
+                        <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/20 mb-4">Estimated Market Worth</h4>
                             <div className="flex items-baseline gap-2">
                                 <DollarSign className="h-6 w-6 text-emerald-500" />
-                                <span className="text-lg md:text-4xl font-black text-white tracking-tighter">$185k - $220k</span>
-                                <span className="text-[10px] md:text-xs font-bold text-white/20 uppercase">Lead Tier</span>
+                                <span className="text-lg md:text-4xl  text-white tracking-tighter">$185k - $220k</span>
+                                <span className="text-[10px] md:text-xs  text-white/20 uppercase">Lead Tier</span>
                             </div>
                         </div>
                     </motion.div>

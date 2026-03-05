@@ -30,7 +30,7 @@ export default function CareerIntelligenceReportPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white font-black text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -41,14 +41,14 @@ export default function CareerIntelligenceReportPage() {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-indigo-300 shadow-xl"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6 text-[10px] md:text-xs  uppercase tracking-[0.25em] text-indigo-300 shadow-xl"
                             >
                                 <Sparkles className="h-3 w-3" /> Unified Strategic Output
                             </motion.div>
-                            <h1 className="text-lg md:text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
+                            <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
                                 Career Intelligence Report<span className="text-indigo-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4 font-medium leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
                                 The definitive strategic outlook for your professional journey. Synthesized by our AI Engine from every module in your ecosystem.
                             </p>
                         </div>
@@ -60,24 +60,24 @@ export default function CareerIntelligenceReportPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="lg:col-span-2 p-10 rounded-[3rem] bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent border border-white/10 backdrop-blur-3xl relative overflow-hidden group"
+                        className="lg:col-span-2 p-10 rounded-xl bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent border border-white/10 backdrop-blur-3xl relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Rocket className="h-40 w-40 text-indigo-400" />
                         </div>
 
                         <div className="relative z-10">
-                            <h2 className="text-sm md:text-lg font-black text-white/40 uppercase tracking-widest mb-6 italic">Current Target Path</h2>
-                            <h3 className="text-lg md:text-4xl font-black text-white tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                            <h2 className="text-sm md:text-lg  text-white/40 uppercase tracking-widest mb-6">Current Target Path</h2>
+                            <h3 className="text-lg md:text-4xl  text-white tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
                                 {strategy.targetRole}
                             </h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-white/5">
                                 <div>
-                                    <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/30 mb-4">Readiness Protocol</h4>
+                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/30 mb-4">Readiness Protocol</h4>
                                     <div className="flex items-baseline gap-2 mb-4">
-                                        <span className="text-lg md:text-5xl font-black text-indigo-400">{strategy.readinessScore}%</span>
-                                        <span className="text-[10px] md:text-xs font-bold text-white/20 uppercase tracking-widest">Score Alpha</span>
+                                        <span className="text-lg md:text-5xl  text-indigo-400">{strategy.readinessScore}%</span>
+                                        <span className="text-[10px] md:text-xs  text-white/20 uppercase tracking-widest">Score Alpha</span>
                                     </div>
                                     <div className="w-full bg-white/5 rounded-full h-3 p-0.5 overflow-hidden">
                                         <motion.div
@@ -89,10 +89,10 @@ export default function CareerIntelligenceReportPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/30 mb-4">Critical Skill Gaps</h4>
+                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/30 mb-4">Critical Skill Gaps</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {strategy.skillGaps.map(gap => (
-                                            <span key={gap} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] md:text-xs font-bold text-white/60">
+                                            <span key={gap} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] md:text-xs  text-white/60">
                                                 {gap}
                                             </span>
                                         ))}
@@ -106,24 +106,24 @@ export default function CareerIntelligenceReportPage() {
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="p-10 rounded-[3rem] bg-indigo-500/5 border border-indigo-500/10 flex flex-col justify-between backdrop-blur-3xl"
+                        className="p-10 rounded-xl bg-indigo-500/5 border border-indigo-500/10 flex flex-col justify-between backdrop-blur-3xl"
                     >
                         <div>
                             <Lightbulb className="h-8 w-8 text-yellow-400 mb-6" />
-                            <h3 className="text-base md:text-xl font-black text-white mb-4 uppercase italic">AI Strategy Note</h3>
-                            <p className="text-xs md:text-base text-white/60 leading-relaxed font-medium">
-                                "Your profile indicates a strong 'Technical Foundation' with a significant 'Architectural Gap'. Prioritizing system design projects will increase your market valuation by an estimated <span className="text-indigo-400 font-bold">18%</span> in the next quarter."
+                            <h3 className="text-base md:text-xl  text-white mb-4 uppercase">AI Strategy Note</h3>
+                            <p className="text-xs md:text-base text-white/60 leading-relaxed ">
+                                "Your profile indicates a strong 'Technical Foundation' with a significant 'Architectural Gap'. Prioritizing system design projects will increase your market valuation by an estimated <span className="text-indigo-400 ">18%</span> in the next quarter."
                             </p>
                         </div>
                         <div className="pt-8 mt-8 border-t border-white/5">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Generated Alpha v1.0</span>
+                            <span className="text-[10px]  uppercase tracking-widest text-white/20">Generated Alpha v1.0</span>
                         </div>
                     </motion.div>
                 </div>
 
                 {/* Tactical Roadmap */}
                 <div className="grid grid-cols-1 gap-8">
-                    <h2 className="text-base md:text-xl font-black text-white uppercase tracking-widest italic flex items-center gap-3">
+                    <h2 className="text-base md:text-xl  text-white uppercase tracking-widest flex items-center gap-3">
                         <Target className="h-6 w-6 text-indigo-500" /> Tactical Roadmap Execution
                     </h2>
 
@@ -134,11 +134,11 @@ export default function CareerIntelligenceReportPage() {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/10 hover:border-indigo-500/30 transition-all flex flex-col justify-between group"
+                                className="p-8 rounded-xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/30 transition-all flex flex-col justify-between group"
                             >
                                 <div className="mb-6">
-                                    <h4 className="text-[10px] font-black uppercase tracking-widest text-white/30 mb-2">Phase {idx + 1}</h4>
-                                    <p className="text-sm md:text-lg font-black text-white group-hover:text-indigo-400 transition-colors leading-snug">
+                                    <h4 className="text-[10px]  uppercase tracking-widest text-white/30 mb-2">Phase {idx + 1}</h4>
+                                    <p className="text-sm md:text-lg  text-white group-hover:text-indigo-400 transition-colors leading-snug">
                                         {step}
                                     </p>
                                 </div>

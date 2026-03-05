@@ -76,7 +76,7 @@ export default function AICoachingPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white font-black text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -87,14 +87,14 @@ export default function AICoachingPage() {
                             <motion.div
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-indigo-300 shadow-xl"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-[10px] md:text-xs  uppercase tracking-[0.25em] text-indigo-300 shadow-xl"
                             >
                                 <Sparkles className="h-3 w-3" /> Career Intelligence
                             </motion.div>
-                            <h1 className="text-lg md:text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
+                            <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
                                 AI Coaching & Accountability<span className="text-indigo-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4 font-medium leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
                                 Your personal career architect. Choose a mentor persona to get specialized guidance and real-time performance tracking.
                             </p>
                         </div>
@@ -106,25 +106,25 @@ export default function AICoachingPage() {
                     <div className="lg:col-span-1 space-y-8">
                         {/* Mentor Selection */}
                         <section className="space-y-4">
-                            <h2 className="text-base md:text-xl font-black tracking-tight text-white/80">Select Mentor Persona</h2>
+                            <h2 className="text-base md:text-xl  tracking-tight text-white/80">Select Mentor Persona</h2>
                             <div className="grid grid-cols-1 gap-4">
                                 {mentors.map((mentor) => (
                                     <motion.div
                                         key={mentor.id}
                                         whileHover={{ scale: 1.02 }}
                                         onClick={() => setSelectedMentor(mentor)}
-                                        className={`p-6 rounded-[2rem] border transition-all cursor-pointer relative overflow-hidden group ${selectedMentor.id === mentor.id
+                                        className={`p-6 rounded-xl border transition-all cursor-pointer relative overflow-hidden group ${selectedMentor.id === mentor.id
                                             ? `${mentor.borderColor} bg-white/10 shadow-[0_0_30px_rgba(99,102,241,0.1)]`
                                             : 'border-white/5 bg-white/5 opacity-60 hover:opacity-100'
                                             }`}
                                     >
                                         <div className="flex items-start gap-4 relative z-10">
-                                            <div className={`p-3 rounded-2xl ${mentor.bg}`}>
+                                            <div className={`p-3 rounded-xl ${mentor.bg}`}>
                                                 <mentor.icon className={`h-6 w-6 ${mentor.color}`} />
                                             </div>
                                             <div>
-                                                <h3 className="text-base md:text-xl font-black text-white">{mentor.name}</h3>
-                                                <p className="text-[10px] md:text-xs font-bold text-indigo-400/60 uppercase tracking-widest">{mentor.role}</p>
+                                                <h3 className="text-base md:text-xl  text-white">{mentor.name}</h3>
+                                                <p className="text-[10px] md:text-xs  text-indigo-400/60 uppercase tracking-widest">{mentor.role}</p>
                                                 <p className="text-sm md:text-lg text-white/40 mt-2 leading-snug">{mentor.description}</p>
                                             </div>
                                         </div>
@@ -143,12 +143,12 @@ export default function AICoachingPage() {
 
                         {/* Daily Nudges */}
                         <section className="space-y-4">
-                            <h2 className="text-base md:text-xl font-black tracking-tight text-white/80">Actionable Nudges</h2>
+                            <h2 className="text-base md:text-xl  tracking-tight text-white/80">Actionable Nudges</h2>
                             <div className="space-y-3">
                                 {nudges.map((nudge, idx) => (
-                                    <div key={idx} className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10 flex items-start gap-3">
+                                    <div key={idx} className="p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/10 flex items-start gap-3">
                                         <nudge.icon className="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" />
-                                        <p className="text-xs md:text-base text-white/60 font-medium">{nudge.text}</p>
+                                        <p className="text-xs md:text-base text-white/60 ">{nudge.text}</p>
                                     </div>
                                 ))}
                             </div>
@@ -157,18 +157,18 @@ export default function AICoachingPage() {
 
                     {/* Right Column: Chat Interface */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white/5 backdrop-blur-3xl rounded-[3rem] border border-white/10 h-full min-h-[600px] flex flex-col relative overflow-hidden">
+                        <div className="bg-white/5 backdrop-blur-3xl rounded-xl border border-white/10 h-full min-h-[600px] flex flex-col relative overflow-hidden">
                             {/* Chat Header */}
                             <div className="p-8 border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className={`p-3 rounded-2xl ${selectedMentor.bg}`}>
+                                    <div className={`p-3 rounded-xl ${selectedMentor.bg}`}>
                                         <selectedMentor.icon className={`h-6 w-6 ${selectedMentor.color}`} />
                                     </div>
                                     <div>
-                                        <h2 className="text-base md:text-xl font-black text-white italic">Active Session: {selectedMentor.name}</h2>
+                                        <h2 className="text-base md:text-xl  text-white">Active Session: {selectedMentor.name}</h2>
                                         <div className="flex items-center gap-2">
                                             <div className="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse" />
-                                            <span className="text-[10px] md:text-xs text-white/30 uppercase font-black tracking-widest">Neural Link Established</span>
+                                            <span className="text-[10px] md:text-xs text-white/30 uppercase  tracking-widest">Neural Link Established</span>
                                         </div>
                                     </div>
                                 </div>
@@ -192,8 +192,8 @@ export default function AICoachingPage() {
                                     <div className={`p-2 rounded-xl ${selectedMentor.bg} shrink-0`}>
                                         <selectedMentor.icon className={`h-4 w-4 ${selectedMentor.color}`} />
                                     </div>
-                                    <div className="bg-white/5 rounded-2xl rounded-tl-none p-5 border border-white/10">
-                                        <p className="text-xs md:text-base text-white/80 leading-relaxed font-medium">
+                                    <div className="bg-white/5 rounded-xl rounded-tl-none p-5 border border-white/10">
+                                        <p className="text-xs md:text-base text-white/80 leading-relaxed ">
                                             Hello Architect. I've analyzed your recent progression. Your commitment to the 'Mastery Hub' is showing results, but your technical execution on projects could be more aggressive. What's blocking your next major deployment?
                                         </p>
                                     </div>
@@ -212,7 +212,7 @@ export default function AICoachingPage() {
                                                 <div className="h-1.5 w-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                                                 <div className="h-1.5 w-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
                                             </div>
-                                            <span className="text-[10px] md:text-xs text-white/20 font-black uppercase tracking-widest">Coating Insight...</span>
+                                            <span className="text-[10px] md:text-xs text-white/20  uppercase tracking-widest">Coating Insight...</span>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -226,7 +226,7 @@ export default function AICoachingPage() {
                                         value={chatInput}
                                         onChange={(e) => setChatInput(e.target.value)}
                                         placeholder="Ask your coach anything about your career journey..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/10 font-medium"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/10 "
                                     />
                                     <button
                                         type="submit"
@@ -236,9 +236,9 @@ export default function AICoachingPage() {
                                     </button>
                                 </form>
                                 <div className="mt-4 flex justify-center gap-6">
-                                    <span className="text-[8px] md:text-[10px] text-white/10 font-bold uppercase tracking-[0.3em]">AI-Driven Accountability</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/10 font-bold uppercase tracking-[0.3em]">•</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/10 font-bold uppercase tracking-[0.3em]">Precision Mentorship</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">AI-Driven Accountability</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">•</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">Precision Mentorship</span>
                                 </div>
                             </div>
                         </div>

@@ -95,7 +95,7 @@ export default function GenerateRoadmapPage() {
     return (
         <div className="max-w-2xl mx-auto space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Generate AI Roadmap</h1>
+                <h1 className="text-3xl  tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Generate AI Roadmap</h1>
                 <p className="text-muted-foreground mt-2">
                     Tell us about your career goals and let our AI craft a personalized learning path.
                 </p>
@@ -112,7 +112,7 @@ export default function GenerateRoadmapPage() {
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium leading-none">Target Career Role</label>
+                            <label className="text-sm  leading-none">Target Career Role</label>
                             <Input
                                 placeholder="e.g. Full Stack Developer, Data Scientist"
                                 {...register("career")}
@@ -122,7 +122,7 @@ export default function GenerateRoadmapPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium leading-none">Current Experience Level</label>
+                                <label className="text-sm  leading-none">Current Experience Level</label>
                                 <Input
                                     placeholder="e.g. Beginner, Intermediate"
                                     {...register("experienceLevel")}
@@ -130,7 +130,7 @@ export default function GenerateRoadmapPage() {
                                 {errors.experienceLevel && <p className="text-sm text-destructive">{errors.experienceLevel.message}</p>}
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium leading-none">Time Commitment</label>
+                                <label className="text-sm  leading-none">Time Commitment</label>
                                 <Input
                                     placeholder="e.g. 10 hours/week"
                                     {...register("timeCommitment")}
@@ -140,7 +140,7 @@ export default function GenerateRoadmapPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium leading-none">Primary Goal</label>
+                            <label className="text-sm  leading-none">Primary Goal</label>
                             <Input
                                 placeholder="e.g. Internship, Job, Career Switch"
                                 {...register("goal")}
@@ -149,14 +149,14 @@ export default function GenerateRoadmapPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium leading-none">Current Skills (Optional)</label>
+                            <label className="text-sm  leading-none">Current Skills (Optional)</label>
                             <Input
                                 placeholder="e.g. HTML, CSS, basic JavaScript"
                                 {...register("currentSkills")}
                             />
                         </div>
 
-                        {errorMsg && <p className="text-sm text-destructive font-semibold">{errorMsg}</p>}
+                        {errorMsg && <p className="text-sm text-destructive ">{errorMsg}</p>}
 
                         <Button type="submit" className="w-full bg-deep-purple hover:bg-deep-purple/80 text-white shadow-[0_0_20px_rgba(112,0,255,0.3)] transition-all duration-300" disabled={isLoading}>
                             {isLoading ? (

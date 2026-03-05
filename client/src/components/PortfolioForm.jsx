@@ -51,7 +51,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
             {/* Personal Intelligence Section */}
             <motion.div
                 whileHover={{ y: -5 }}
-                className="bg-white/5 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden group"
+                className="bg-white/5 backdrop-blur-2xl p-8 md:p-12 rounded-xl border border-white/10 shadow-2xl relative overflow-hidden group"
             >
                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <User className="h-32 w-32 text-purple-400" />
@@ -59,37 +59,37 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
 
                 <div className="relative z-10">
                     <div className="flex items-center gap-4 mb-10">
-                        <div className="p-3 bg-purple-500/20 rounded-2xl border border-purple-500/30">
+                        <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30">
                             <User className="h-6 w-6 text-purple-400" />
                         </div>
-                        <h2 className="text-base md:text-xl font-black tracking-tight">Identity</h2>
+                        <h2 className="text-xs md:text-base tracking-[0.1em] uppercase text-white/60">Identity</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
-                            <label className="text-[10px] md:text-xs font-black uppercase tracking-widest text-purple-300/60 ml-1">Full Name</label>
+                            <label className="text-[10px] md:text-xs  uppercase tracking-widest text-purple-300/60 ml-1">Full Name</label>
                             <input
                                 required
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 placeholder="e.g. Alex Rivera"
-                                className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] md:text-xs font-black uppercase tracking-widest text-purple-300/60 ml-1">Professional Focus</label>
+                            <label className="text-[10px] md:text-xs  uppercase tracking-widest text-purple-300/60 ml-1">Professional Focus</label>
                             <input
                                 required
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="e.g. AI Research Engineer"
-                                className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
                             />
                         </div>
                         <div className="md:col-span-2 space-y-2">
-                            <label className="text-[10px] md:text-xs font-black uppercase tracking-widest text-purple-300/60 ml-1">Mission Statement (Bio)</label>
+                            <label className="text-[10px] md:text-xs  uppercase tracking-widest text-purple-300/60 ml-1">Mission Statement (Bio)</label>
                             <textarea
                                 required
                                 name="bio"
@@ -97,7 +97,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 onChange={handleChange}
                                 placeholder="Tell your story..."
                                 rows={4}
-                                className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10 resize-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10 resize-none"
                             />
                         </div>
                     </div>
@@ -122,7 +122,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
             {/* Core Competencies */}
             <motion.div
                 whileHover={{ y: -5 }}
-                className="bg-white/5 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden group"
+                className="bg-white/5 backdrop-blur-2xl p-8 md:p-12 rounded-xl border border-white/10 shadow-2xl relative overflow-hidden group"
             >
                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <Cpu className="h-32 w-32 text-indigo-400" />
@@ -130,21 +130,21 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
 
                 <div className="relative z-10">
                     <div className="flex items-center gap-4 mb-10">
-                        <div className="p-3 bg-indigo-500/20 rounded-2xl border border-indigo-500/30">
+                        <div className="p-3 bg-indigo-500/20 rounded-xl border border-indigo-500/30">
                             <Cpu className="h-6 w-6 text-indigo-400" />
                         </div>
-                        <h2 className="text-base md:text-xl font-black tracking-tight">Tech Stack</h2>
+                        <h2 className="text-xs md:text-base tracking-[0.1em] uppercase text-white/60">Tech Stack</h2>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] md:text-xs font-black uppercase tracking-widest text-indigo-300/60 ml-1">Key Skills (Comma Separated)</label>
+                        <label className="text-[10px] md:text-xs  uppercase tracking-widest text-indigo-300/60 ml-1">Key Skills (Comma Separated)</label>
                         <input
                             required
                             name="skills"
                             value={formData.skills}
                             onChange={handleChange}
                             placeholder="React, Python, Tensor Flow, AWS..."
-                            className="w-full bg-black/40 border border-white/10 rounded-2xl p-4 focus:border-indigo-500 outline-none transition-all placeholder:text-white/10"
+                            className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-indigo-500 outline-none transition-all placeholder:text-white/10"
                         />
                     </div>
                 </div>
@@ -154,17 +154,17 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
             <div className="space-y-6">
                 <div className="flex items-center justify-between px-4">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-purple-500/20 rounded-2xl border border-purple-500/30">
+                        <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30">
                             <Briefcase className="h-6 w-6 text-purple-400" />
                         </div>
-                        <h2 className="text-base md:text-xl font-black tracking-tight">Showcase</h2>
+                        <h2 className="text-xs md:text-base tracking-[0.1em] uppercase text-white/60">Showcase</h2>
                     </div>
                     <motion.button
                         type="button"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={addProject}
-                        className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all"
+                        className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-xs  uppercase tracking-widest hover:bg-white/10 transition-all"
                     >
                         <Plus className="h-4 w-4" /> Add Logic
                     </motion.button>
@@ -178,7 +178,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
-                                className="bg-white/5 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-white/10 shadow-xl relative"
+                                className="bg-white/5 backdrop-blur-2xl p-8 rounded-xl border border-white/10 shadow-xl relative"
                             >
                                 <div className="absolute top-6 right-6">
                                     <button
@@ -193,7 +193,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-4">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-white/20 ml-1">Project Name</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Project Name</label>
                                             <input
                                                 required
                                                 value={project.title}
@@ -202,7 +202,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-white/20 ml-1">Live/Repo URL</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Live/Repo URL</label>
                                             <input
                                                 value={project.link}
                                                 onChange={(e) => handleProjectChange(index, 'link', e.target.value)}
@@ -210,7 +210,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-white/20 ml-1">Arsenal (Tech Used)</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Arsenal (Tech Used)</label>
                                             <input
                                                 required
                                                 value={project.tech}
@@ -221,7 +221,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase tracking-widest text-white/20 ml-1">Execution Story (Description)</label>
+                                        <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Execution Story (Description)</label>
                                         <textarea
                                             required
                                             value={project.description}
@@ -240,19 +240,19 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
             {/* Submission Logic */}
             <div className="flex justify-center pt-10">
                 <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168, 85, 247, 0.4)" }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.01, boxShadow: "0 0 30px rgba(168, 85, 247, 0.1)" }}
+                    whileTap={{ scale: 0.99 }}
                     disabled={isGenerating}
                     type="submit"
-                    className="group relative px-12 py-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 rounded-[2rem] text-xl font-black uppercase tracking-[0.3em] overflow-hidden shadow-2xl disabled:opacity-50"
+                    className="group relative px-8 py-4 bg-gradient-to-r from-purple-600/80 to-indigo-600/80 rounded-xl text-xs uppercase tracking-[0.25em] overflow-hidden shadow-lg disabled:opacity-50 border border-white/10"
                 >
-                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                    <span className="relative z-10 flex items-center gap-4">
+                    <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                    <span className="relative z-10 flex items-center gap-2">
                         {isGenerating ? (
-                            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="h-6 w-6 border-4 border-white/30 border-t-white rounded-full" />
+                            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full" />
                         ) : (
                             <>
-                                <Sparkles className="h-6 w-6" />
+                                <Sparkles className="h-4 w-4" />
                                 Build Presence
                             </>
                         )}
