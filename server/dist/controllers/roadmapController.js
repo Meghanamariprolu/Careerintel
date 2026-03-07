@@ -22,7 +22,7 @@ exports.generateRoadmap = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const parsed = generateRoadmapSchema.safeParse(req.body);
     if (!parsed.success) {
         res.status(400);
-        throw new Error(parsed.error.errors[0].message);
+        throw new Error(parsed.error.issues[0].message);
     }
     const { career, experienceLevel, timeCommitment, currentSkills, goal } = parsed.data;
     // 1. Generate the roadmap data from HuggingFace

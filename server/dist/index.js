@@ -9,9 +9,11 @@ const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const db_1 = __importDefault(require("./config/db"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const roadmapRoutes_1 = __importDefault(require("./routes/roadmapRoutes"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
+const aiRoutes_1 = __importDefault(require("./routes/aiRoutes"));
 const analytics_1 = require("./middleware/analytics");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -26,13 +28,14 @@ app.use((0, helmet_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use((0, cookie_parser_1.default)());
 // Connect to Database
-// connectDB(); // MongoDB dependency removed
+(0, db_1.default)();
 // Track Analytics
 app.use(analytics_1.analyticsMiddleware);
 // Routes
 app.use('/api/auth', authRoutes_1.default);
 app.use('/api/roadmaps', roadmapRoutes_1.default);
 app.use('/api/admin', adminRoutes_1.default);
+app.use('/api/ai', aiRoutes_1.default);
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date() });
 });
