@@ -19,7 +19,7 @@ export const generateRoadmap = catchAsync(async (req: any, res: Response) => {
     const parsed = generateRoadmapSchema.safeParse(req.body);
     if (!parsed.success) {
         res.status(400);
-        throw new Error(parsed.error.errors[0].message);
+        throw new Error(parsed.error.issues[0].message);
     }
 
     const { career, experienceLevel, timeCommitment, currentSkills, goal } = parsed.data;
