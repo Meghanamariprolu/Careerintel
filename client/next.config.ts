@@ -4,9 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
-  turbopack: {
-    root: '..',
-  },
+  // Turbopack only used in local dev, not needed for Vercel build
 };
 
 export default nextConfig;

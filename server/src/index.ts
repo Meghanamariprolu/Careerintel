@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Connect to Database
-// connectDB(); // MongoDB dependency removed
+connectDB();
 
 // Track Analytics
 app.use(analyticsMiddleware);
@@ -57,3 +57,4 @@ app.listen(PORT, () => {
 });
 
 // restart trigger
+
