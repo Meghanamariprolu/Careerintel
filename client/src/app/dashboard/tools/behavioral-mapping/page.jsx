@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
     Brain, Sparkles, ArrowLeft,
     MessageSquare, Users, Zap,
-    Lightbulb, CheckCircle2, ChevronRight, Activity
+    Lightbulb, CheckCircle2, ChevronRight, Activity, Target
 } from 'lucide-react';
 import Link from 'next/link';
 import { NextModulePrompter } from '@/components/NextModulePrompter';

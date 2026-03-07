@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateRoadmap, getMyRoadmaps, getRoadmapById, deleteRoadmap } from '../controllers/roadmapController';
+import { generateRoadmap, getMyRoadmaps, getRoadmapById, deleteRoadmap, updateRoadmap } from '../controllers/roadmapController';
 import { protect } from '../middleware/auth';
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.route('/generate')
 
 router.route('/:id')
     .get(getRoadmapById)
+    .put(updateRoadmap)
     .delete(deleteRoadmap);
 
 export default router;

@@ -23,6 +23,7 @@ export interface IRoadmap extends Document {
         careerReadinessScore: number;
         learningPlan: { week: number; focus: string; tasks: string[] }[];
     };
+    userSkills: string[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -33,6 +34,7 @@ const roadmapSchema = new Schema<IRoadmap>(
         careerTitle: { type: String, required: true },
         careerSummary: { type: String, required: true },
         roadmapData: { type: Object, required: true },
+        userSkills: { type: [String], default: [] },
     },
     { timestamps: true }
 );

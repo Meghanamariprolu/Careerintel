@@ -22,7 +22,7 @@ export default function ResourceCard({ resource }) {
                 </div>
             </div>
 
-            <p className="text-gray-400 text-sm line-clamp-2 max-w-full">
+            <p className="text-slate-300 text-sm line-clamp-2 max-w-full">
                 {resource.description || 'No description available'}
             </p>
 

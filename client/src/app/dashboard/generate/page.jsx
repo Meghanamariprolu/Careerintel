@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import axios from "axios"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -44,49 +45,20 @@ export default function GenerateRoadmapPage() {
         setIsLoading(true)
         setErrorMsg("")
         try {
-            // Mock AI Generation - simulating what the server used to do
-            // In a real scenario, this could hit a free API as requested
-            const newRoadmap = {
-                _id: Date.now().toString(),
-                userId: user.id,
-                careerTitle: data.career,
-                careerSummary: `A comprehensive roadmap to becoming a ${data.career} starting as a ${data.experienceLevel}.`,
-                marketDemandScore: 85,
-                salaryRange: {
-                    india: "₹12L - ₹35L",
-                    global: "$80k - $150k"
-                },
-                careerReadinessScore: 65,
-                futureGrowthPrediction: "High",
-                learningPath: [
-                    { level: "Basics", description: `Master the fundamentals of ${data.career}.`, skills: ["Core Principles", "Standard Tools"] },
-                    { level: "Intermediate", description: "Build real-world applications and projects.", skills: ["Advanced Concepts", "Best Practices"] },
-                    { level: "Advanced", description: "Master architectural patterns and optimization.", skills: ["System Design", "Scalability"] }
-                ],
-                learningTimeline: [
-                    { track: "Standard", milestone: "Foundations in 4 weeks" },
-                    { track: "Accelerated", milestone: "Core skills in 8 weeks" },
-                    { track: "Job-Ready", milestone: "Full proficiency in 6 months" }
-                ],
-                coreTechnicalSkills: ["Problem Solving", "Core Architecture", "Data Structures"],
-                currentMarketDemandSkills2025: ["AI Integration", "Cloud Native", "Vulnerability Management"],
-                supportingTools: ["Git", "Docker", "CI/CD Pipelines"],
-                roleSpecificProjects: [
-                    { name: "Portfolio Project", description: "A comprehensive showcase of your skills.", techStack: ["Primary Tech", "Secondary Tech"] },
-                    { name: "Enterprise App", description: "A scalable solution for business needs.", techStack: ["Cloud", "Database"] }
-                ],
-                interviewPreparation: ["Conceptual deep dives", "Coding challenges", "System design interviews"],
-                portfolioGuidance: "Focus on building 2-3 high-quality projects that demonstrate your ability to solve real problems.",
-                userSkills: data.currentSkills ? data.currentSkills.split(',').map(s => s.trim()).filter(s => s !== "") : [],
-                createdAt: new Date().toISOString()
-            };
+            // Call the Express backend to generate and save the roadmap
+            const response = await axios.post('/api/roadmaps/generate', {
+                career: data.career,
+                experienceLevel: data.experienceLevel,
+                timeCommitment: data.timeCommitment,
+                currentSkills: data.currentSkills || 'None',
+                goal: data.goal
+            });
 
-            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
-            localStorage.setItem('careerintel_roadmaps', JSON.stringify([...allRoadmaps, newRoadmap]));
-
+            const newRoadmap = response.data;
             router.push(`/dashboard/roadmap/${newRoadmap._id}`)
         } catch (error) {
-            setErrorMsg(error.message)
+            const message = error.response?.data?.message || "Failed to generate roadmap. Please try again.";
+            setErrorMsg(message)
         } finally {
             setIsLoading(false)
         }

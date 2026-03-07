@@ -145,11 +145,11 @@ export default function OutcomeTrackingPage() {
                         </div>
 
                         <div className="p-6 rounded-xl bg-white/5 border border-white/10">
-                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/20 mb-4">Estimated Market Worth</h4>
+                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-4">Estimated Market Worth</h4>
                             <div className="flex items-baseline gap-2">
                                 <DollarSign className="h-6 w-6 text-emerald-500" />
                                 <span className="text-lg md:text-4xl  text-white tracking-tighter">$185k - $220k</span>
-                                <span className="text-[10px] md:text-xs  text-white/20 uppercase">Lead Tier</span>
+                                <span className="text-[10px] md:text-xs  text-white/50 uppercase">Lead Tier</span>
                             </div>
                         </div>
                     </motion.div>

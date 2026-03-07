@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import axios from "axios"
 import {
     Compass, FileText, Loader2, ArrowRight, Trash2,
     TrendingUp, Route, Layout, FileUser, Gamepad2,
@@ -42,12 +43,10 @@ export default function DashboardPage() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        function fetchRoadmaps() {
+        async function fetchRoadmaps() {
             try {
-                const savedRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
-                // Filter roadmaps belonging to the current user (if user is logged in)
-                const userRoadmaps = savedRoadmaps.filter(r => r.userId === user?.id);
-                setRoadmaps(userRoadmaps);
+                const { data } = await axios.get('/api/roadmaps');
+                setRoadmaps(data);
             } catch (error) {
                 console.error("Error fetching roadmaps", error);
             } finally {
@@ -55,14 +54,14 @@ export default function DashboardPage() {
             }
         }
 
-        if (user?.id) {
+        if (user?._id || user?.id) {
             fetchRoadmaps();
         } else {
             setIsLoading(false);
         }
-    }, [user?.id]);
+    }, [user?._id, user?.id]);
 
-    const handleDelete = (id, e) => {
+    const handleDelete = async (id, e) => {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -71,13 +70,11 @@ export default function DashboardPage() {
         if (!confirm("Are you sure you want to delete this roadmap?")) return;
 
         try {
-            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
-            const updatedRoadmaps = allRoadmaps.filter(r => r._id !== id);
-            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps));
-
+            await axios.delete(`/api/roadmaps/${id}`);
             setRoadmaps((prevRoadmaps) => prevRoadmaps.filter((r) => r._id !== id));
         } catch (error) {
             console.error("Error deleting roadmap:", error);
+            alert("Failed to delete roadmap. Please try again.");
         }
     };
 

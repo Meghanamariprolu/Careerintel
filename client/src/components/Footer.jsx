@@ -51,7 +51,7 @@ export const Footer = () => {
                                 <Logo scale="sm" />
                             </Link>
                         </div>
-                        <p className="text-[11px] text-slate-500 leading-relaxed max-w-[200px]">
+                        <p className="text-[11px] text-slate-300 leading-relaxed max-w-[200px]">
                             Precision. Strategy. Success. AI-driven intelligence for modern careers.
                         </p>
                         <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ export const Footer = () => {
                                 <Link
                                     key={social.label}
                                     href={social.href}
-                                    className="h-7 w-7 flex items-center justify-center rounded-full bg-white/5 text-slate-500 hover:text-white hover:bg-purple-500/20 transition-all border border-white/5"
+                                    className="h-7 w-7 flex items-center justify-center rounded-full bg-white/5 text-slate-300 hover:text-white hover:bg-purple-500/20 transition-all border border-white/10"
                                 >
                                     <social.icon className="h-3 w-3" />
                                 </Link>
@@ -73,15 +73,15 @@ export const Footer = () => {
 
                     {/* Column 2: Dashboard Features */}
                     <div className="lg:col-span-2">
-                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Intelligence Hub</h4>
+                        <h4 className="text-white text-[10px] uppercase tracking-widest mb-4 opacity-80">Intelligence Hub</h4>
                         <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
                             {navLinks.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-slate-500 hover:text-purple-400 text-[11px] transition-colors flex items-center gap-2 group"
+                                        className="text-slate-300 hover:text-purple-300 text-[11px] transition-colors flex items-center gap-2 group"
                                     >
-                                        <div className="h-1 w-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="h-1 w-1 rounded-full bg-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         {link.name}
                                     </Link>
                                 </li>
@@ -91,12 +91,17 @@ export const Footer = () => {
 
                     {/* Column 3: Resources */}
                     <div>
-                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Expert Resources</h4>
+                        <h4 className="text-white text-[10px] uppercase tracking-widest mb-4 opacity-80">Expert Resources</h4>
                         <ul className="space-y-2">
-                            {['Help Center', 'Career Blog', 'Community', 'Expert Mentors'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-slate-500 hover:text-white text-[11px] transition-colors">
-                                        {item}
+                            {[
+                                { name: 'Help Center', href: '/help-center' },
+                                { name: 'Career Blog', href: '/career-blog' },
+                                { name: 'Community', href: '/community' },
+                                { name: 'Expert Mentors', href: '/expert-mentors' },
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="text-slate-300 hover:text-white text-[11px] transition-colors">
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}
@@ -105,12 +110,17 @@ export const Footer = () => {
 
                     {/* Column 4: Platform */}
                     <div>
-                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Legal & Security</h4>
+                        <h4 className="text-white text-[10px] uppercase tracking-widest mb-4 opacity-80">Legal & Security</h4>
                         <ul className="space-y-2">
-                            {['Privacy Policy', 'Terms of Service', 'Cookie Settings', 'Data Security'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-slate-500 hover:text-white text-[11px] transition-colors">
-                                        {item}
+                            {[
+                                { name: 'Privacy Policy', href: '/privacy-policy' },
+                                { name: 'Terms of Service', href: '/terms-of-service' },
+                                { name: 'Cookie Settings', href: '/cookie-settings' },
+                                { name: 'Data Security', href: '/data-security' },
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="text-slate-300 hover:text-white text-[11px] transition-colors">
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}
@@ -119,10 +129,10 @@ export const Footer = () => {
                 </div>
 
                 <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-[9px] text-slate-600  uppercase tracking-tighter">
+                    <p className="text-[9px] text-slate-400 uppercase tracking-tighter">
                         © 2024 CareerIntel Technology Group.
                     </p>
-                    <div className="flex items-center gap-4 text-[9px] text-slate-600  uppercase tracking-tighter">
+                    <div className="flex items-center gap-4 text-[9px] text-slate-400 uppercase tracking-tighter">
                         <Link href="#" className="hover:text-white transition-colors">Status</Link>
                         <Link href="#" className="hover:text-white transition-colors">Feedback</Link>
                         <Link href="#" className="hover:text-white transition-colors">Support</Link>

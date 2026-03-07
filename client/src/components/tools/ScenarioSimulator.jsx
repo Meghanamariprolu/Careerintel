@@ -118,7 +118,7 @@ export default function ScenarioSimulator() {
                     <h2 className="text-3xl  text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
                         Career Scenario Simulator
                     </h2>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                    <p className="text-slate-300 text-lg max-w-2xl mx-auto">
                         Choose a high-stakes scenario below and roleplay your responses with our behavioral AI. Practice makes perfect when it comes to vital career conversations.
                     </p>
                 </div>
@@ -139,7 +139,7 @@ export default function ScenarioSimulator() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl  text-white mb-2">{scenario.title}</h3>
-                                    <p className="text-sm text-gray-400">{scenario.description}</p>
+                                    <p className="text-sm text-slate-300">{scenario.description}</p>
                                 </div>
                                 <div className="pt-4 flex items-center justify-between border-t border-slate-800">
                                     <span className="text-xs  text-purple-400 uppercase tracking-wider">{scenario.type}</span>
@@ -164,7 +164,7 @@ export default function ScenarioSimulator() {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={handleEndScenario}
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-slate-300 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </button>

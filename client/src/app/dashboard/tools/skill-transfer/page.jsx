@@ -82,14 +82,14 @@ export default function SkillTransferPage() {
                                     </div>
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                         <div>
-                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/20 mb-1">From Current Skill</h4>
+                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-1">From Current Skill</h4>
                                             <p className="text-base md:text-xl  text-white">{path.skill}</p>
                                         </div>
                                         <div className="hidden md:block">
                                             <ArrowRight className="h-6 w-6 text-cyan-500" />
                                         </div>
                                         <div className="text-right md:text-left">
-                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/20 mb-1">To Target Application</h4>
+                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-1">To Target Application</h4>
                                             <p className="text-base md:text-xl  text-cyan-400">{path.application}</p>
                                         </div>
                                     </div>

@@ -130,7 +130,7 @@ export default function DashboardLayout({ children }) {
                     <div className="flex items-center gap-5">
                         <div className="hidden md:flex flex-col items-end leading-tight text-right">
                             <span className="text-xs  text-slate-100">{user?.name}</span>
-                            <span className="text-[10px] text-slate-500 ">{user?.email}</span>
+                            <span className="text-[10px] text-slate-300 ">{user?.email}</span>
                         </div>
 
                         <Link
@@ -160,7 +160,7 @@ export default function DashboardLayout({ children }) {
                                 />
                             ) : (
                                 <div className="h-full w-full bg-slate-800 flex items-center justify-center">
-                                    <UserCircle className="h-4 w-4 text-slate-500" />
+                                    <UserCircle className="h-4 w-4 text-slate-300" />
                                 </div>
                             )}
                         </Link>

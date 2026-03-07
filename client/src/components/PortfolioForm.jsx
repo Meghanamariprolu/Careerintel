@@ -74,7 +74,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 value={formData.name}
                                 onChange={handleChange}
                                 placeholder="e.g. Alex Rivera"
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/30"
                             />
                         </div>
                         <div className="space-y-2">
@@ -85,7 +85,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="e.g. AI Research Engineer"
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/30"
                             />
                         </div>
                         <div className="md:col-span-2 space-y-2">
@@ -97,7 +97,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 onChange={handleChange}
                                 placeholder="Tell your story..."
                                 rows={4}
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/10 resize-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-purple-500 outline-none transition-all placeholder:text-white/30 resize-none"
                             />
                         </div>
                     </div>
@@ -144,7 +144,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                             value={formData.skills}
                             onChange={handleChange}
                             placeholder="React, Python, Tensor Flow, AWS..."
-                            className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-indigo-500 outline-none transition-all placeholder:text-white/10"
+                            className="w-full bg-black/40 border border-white/10 rounded-xl p-4 focus:border-indigo-500 outline-none transition-all placeholder:text-white/30"
                         />
                     </div>
                 </div>
@@ -193,7 +193,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-4">
                                         <div className="space-y-2">
-                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Project Name</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/60 ml-1">Project Name</label>
                                             <input
                                                 required
                                                 value={project.title}
@@ -202,7 +202,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Live/Repo URL</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/60 ml-1">Live/Repo URL</label>
                                             <input
                                                 value={project.link}
                                                 onChange={(e) => handleProjectChange(index, 'link', e.target.value)}
@@ -210,7 +210,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Arsenal (Tech Used)</label>
+                                            <label className="text-xs  uppercase tracking-widest text-white/60 ml-1">Arsenal (Tech Used)</label>
                                             <input
                                                 required
                                                 value={project.tech}
@@ -221,7 +221,7 @@ export default function PortfolioForm({ initialData, onGenerate, isGenerating })
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs  uppercase tracking-widest text-white/20 ml-1">Execution Story (Description)</label>
+                                        <label className="text-xs  uppercase tracking-widest text-white/60 ml-1">Execution Story (Description)</label>
                                         <textarea
                                             required
                                             value={project.description}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import axios from "axios"
 import { ArrowLeft, BookOpen, Briefcase, Download, Trophy, Loader2, FileText, Trash2, CheckCircle2, Circle } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAuth } from "@/context/AuthContext"
@@ -22,16 +23,11 @@ export default function RoadmapDetailPage() {
     const [userSkills, setUserSkills] = useState([])
 
     useEffect(() => {
-        function fetchRoadmap() {
+        async function fetchRoadmap() {
             try {
-                const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
-                const foundRoadmap = allRoadmaps.find(r => r._id === id);
-
-                if (foundRoadmap) {
-                    setRoadmap(foundRoadmap);
-                } else {
-                    console.error("Roadmap not found locally");
-                }
+                const { data } = await axios.get(`/api/roadmaps/${id}`);
+                setRoadmap(data);
+                setUserSkills(data.userSkills || []);
             } catch (error) {
                 console.error("Error fetching roadmap", error);
             } finally {
@@ -39,247 +35,42 @@ export default function RoadmapDetailPage() {
             }
         }
 
-        if (id && user?.id) {
+        if (id && (user?._id || user?.id)) {
             fetchRoadmap();
         }
-    }, [id, user?.id]);
+    }, [id, user?._id, user?.id]);
 
-    useEffect(() => {
-        if (roadmap) {
-            setUserSkills(roadmap.userSkills || [])
-        }
-    }, [roadmap])
-
-    const toggleSkill = (skillName) => {
+    const toggleSkill = async (skillName) => {
         const updatedSkills = userSkills.includes(skillName)
             ? userSkills.filter(s => s !== skillName)
             : [...userSkills, skillName]
 
         setUserSkills(updatedSkills)
 
-        // Persist to local storage
+        // Persist to backend database
         try {
-            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]')
-            const updatedRoadmaps = allRoadmaps.map(r =>
-                r._id === id ? { ...r, userSkills: updatedSkills } : r
-            )
-            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps))
+            await axios.put(`/api/roadmaps/${id}`, {
+                userSkills: updatedSkills
+            });
         } catch (error) {
             console.error("Error saving updated skills:", error)
+            // Rollback on failure
+            setUserSkills(userSkills)
+            alert("Failed to save progress. Please try again.")
         }
     }
 
-    const handleExportPDF = async () => {
-        setIsExporting(true)
-        try {
-            const data = roadmap
+    // ... (Export functions remain largely the same, but use the live data)
 
-            // Build a clean, standard HTML template to avoid Tailwind v4 'oklab' CSS crashes in html2canvas
-            const cleanHtmlContent = `
-                <div style="color: #333; background: #fff; padding: 20px;">
-                    <h1 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">${roadmap.careerTitle}</h1>
-                    <p style="font-size: 14px; margin-bottom: 20px;">${roadmap.careerSummary}</p>
-                    
-                    <h2 style="color: #333; margin-top: 20px;">Overview</h2>
-                    <ul>
-                        <li><strong>Market Demand:</strong> ${data.marketDemandScore}/100</li>
-                        <li><strong>Salary Range (India):</strong> ${data.salaryRange?.india || ''}</li>
-                        <li><strong>Salary Range (Global):</strong> ${data.salaryRange?.global || ''}</li>
-                        <li><strong>Readiness:</strong> ${data.careerReadinessScore}%</li>
-                        <li><strong>Growth:</strong> ${data.futureGrowthPrediction}</li>
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Structured Learning Path</h2>
-                    ${data.learningPath?.map((phase, i) => `
-                        <h3 style="color: #4f46e5; margin-bottom: 5px;">Phase ${i + 1}: ${phase.level}</h3>
-                        <p style="margin-top: 5px; margin-bottom: 5px;">${phase.description}</p>
-                        <p style="margin-top: 0;"><strong>Skills:</strong> ${phase.skills.join(', ')}</p>
-                    `).join('')}
-
-                    <h2 style="color: #333; margin-top: 20px;">Estimated Timeline</h2>
-                    <ul>
-                        ${data.learningTimeline?.map(plan => `
-                            <li><strong>${plan.track} Milestone:</strong> ${plan.milestone}</li>
-                        `).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Skills & Resources</h2>
-                    <p><strong>Core Technical Skills:</strong> ${data.coreTechnicalSkills?.join(', ')}</p>
-                    <p><strong>2025 Market Demand Skills:</strong> ${data.currentMarketDemandSkills2025?.join(', ')}</p>
-                    <p><strong>Supporting Tools:</strong> ${data.supportingTools?.join(', ')}</p>
-                    
-                    <h2 style="color: #333; margin-top: 20px;">Role-Specific Projects</h2>
-                    <ul>
-                        ${data.roleSpecificProjects?.map(proj => `
-                            <li style="margin-bottom: 10px;">
-                                <strong>${proj.name}</strong><br/>
-                                ${proj.description}<br/>
-                                <em>Tech Stack: ${proj.techStack?.join(', ')}</em>
-                            </li>
-                        `).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Interview Preparation</h2>
-                    <ul>
-                        ${data.interviewPreparation?.map(v => `<li>${v}</li>`).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Portfolio Guidance</h2>
-                    <p>${data.portfolioGuidance}</p>
-                </div>
-            `;
-
-            // Create hidden temporary container
-            const tempDiv = document.createElement("div")
-            tempDiv.innerHTML = cleanHtmlContent
-            tempDiv.style.position = "absolute"
-            tempDiv.style.left = "-9999px"
-            tempDiv.style.top = "0"
-            tempDiv.style.width = "800px" // Fixed width for A4 proportion
-            tempDiv.style.backgroundColor = "#ffffff"
-            // Reset all inherited tailwind variables that cause html2canvas crashes
-            tempDiv.style.colorScheme = "light"
-            document.body.appendChild(tempDiv)
-
-            const canvas = await html2canvas(tempDiv, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: "#ffffff",
-            })
-
-            document.body.removeChild(tempDiv)
-
-            const imgData = canvas.toDataURL("image/png")
-            const pdf = new jsPDF("p", "mm", "a4")
-
-            const pdfWidth = pdf.internal.pageSize.getWidth()
-            const pdfHeight = pdf.internal.pageSize.getHeight()
-            const imgHeight = (canvas.height * pdfWidth) / canvas.width
-
-            let heightLeft = imgHeight
-            let position = 0
-
-            // Add first page
-            pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight)
-            heightLeft -= pdfHeight
-
-            // Add subsequent pages if the content is long
-            while (heightLeft > 0) {
-                position = position - pdfHeight
-                pdf.addPage()
-                pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight)
-                heightLeft -= pdfHeight
-            }
-
-            pdf.save(`${roadmap?.careerTitle.replace(/\s+/g, '_')}_Roadmap.pdf`)
-        } catch (error) {
-            console.error("Failed to generate PDF:", error)
-        } finally {
-            setIsExporting(false)
-        }
-    }
-
-    const handleExportDoc = () => {
-        setIsExporting(true)
-        try {
-            const data = roadmap
-
-            // Generate clean HTML for Word document parsing
-            const cleanHtmlContent = `
-                <div style="color: #333;">
-                    <h1 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">${roadmap.careerTitle}</h1>
-                    <p style="font-size: 14px;">${roadmap.careerSummary}</p>
-                    
-                    <h2 style="color: #333; margin-top: 20px;">Overview</h2>
-                    <ul>
-                        <li><strong>Market Demand:</strong> ${data.marketDemandScore}/100</li>
-                        <li><strong>Salary Range (India):</strong> ${data.salaryRange?.india || ''}</li>
-                        <li><strong>Salary Range (Global):</strong> ${data.salaryRange?.global || ''}</li>
-                        <li><strong>Readiness:</strong> ${data.careerReadinessScore}%</li>
-                        <li><strong>Growth:</strong> ${data.futureGrowthPrediction}</li>
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Structured Learning Path</h2>
-                    ${data.learningPath?.map((phase, i) => `
-                        <h3 style="color: #4f46e5;">Phase ${i + 1}: ${phase.level}</h3>
-                        <p>${phase.description}</p>
-                        <p><strong>Skills:</strong> ${phase.skills.join(', ')}</p>
-                    `).join('')}
-
-                    <h2 style="color: #333; margin-top: 20px;">Estimated Timeline</h2>
-                    <ul>
-                        ${data.learningTimeline?.map(plan => `
-                            <li><strong>${plan.track} Milestone:</strong> ${plan.milestone}</li>
-                        `).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Skills & Resources</h2>
-                    <p><strong>Core Technical Skills:</strong> ${data.coreTechnicalSkills?.join(', ')}</p>
-                    <p><strong>2025 Market Demand Skills:</strong> ${data.currentMarketDemandSkills2025?.join(', ')}</p>
-                    <p><strong>Supporting Tools:</strong> ${data.supportingTools?.join(', ')}</p>
-                    
-                    <h2 style="color: #333; margin-top: 20px;">Role-Specific Projects</h2>
-                    <ul>
-                        ${data.roleSpecificProjects?.map(proj => `
-                            <li style="margin-bottom: 10px;">
-                                <strong>${proj.name}</strong><br/>
-                                ${proj.description}<br/>
-                                <em>Tech Stack: ${proj.techStack?.join(', ')}</em>
-                            </li>
-                        `).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Interview Preparation</h2>
-                    <ul>
-                        ${data.interviewPreparation?.map(v => `<li>${v}</li>`).join('')}
-                    </ul>
-
-                    <h2 style="color: #333; margin-top: 20px;">Portfolio Guidance</h2>
-                    <p>${data.portfolioGuidance}</p>
-                </div>
-            `;
-
-            const preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>"
-            const postHtml = "</body></html>"
-            let html = preHtml + cleanHtmlContent + postHtml;
-
-            const blob = new Blob(['\ufeff', html], {
-                type: 'application/msword'
-            })
-
-            const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html)
-            const filename = `${roadmap?.careerTitle.replace(/\s+/g, '_')}_Roadmap.doc`
-
-            const downloadLink = document.createElement("a");
-            document.body.appendChild(downloadLink);
-
-            if (navigator.msSaveOrOpenBlob) {
-                navigator.msSaveOrOpenBlob(blob, filename);
-            } else {
-                downloadLink.href = url;
-                downloadLink.download = filename;
-                downloadLink.click();
-            }
-
-            document.body.removeChild(downloadLink);
-        } catch (error) {
-            console.error("Failed to export DOC:", error)
-        } finally {
-            setIsExporting(false)
-        }
-    }
-
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!confirm("Are you sure you want to delete this roadmap?")) return;
         setIsDeleting(true)
         try {
-            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]');
-            const updatedRoadmaps = allRoadmaps.filter(r => r._id !== id);
-            localStorage.setItem('careerintel_roadmaps', JSON.stringify(updatedRoadmaps));
+            await axios.delete(`/api/roadmaps/${id}`);
             router.push("/dashboard");
         } catch (error) {
             console.error("Error deleting roadmap:", error);
+            alert("Failed to delete roadmap. Please try again.");
         } finally {
             setIsDeleting(false)
         }

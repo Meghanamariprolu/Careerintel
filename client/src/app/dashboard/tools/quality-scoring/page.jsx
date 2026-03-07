@@ -107,10 +107,10 @@ export default function QualityScoringPage() {
 
                                 <div className="flex items-center gap-8 border-t md:border-t-0 md:border-l border-white/5 pt-6 md:pt-0 md:pl-8">
                                     <div className="text-center">
-                                        <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/20 mb-2">Intelligence Score</h4>
+                                        <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-2">Intelligence Score</h4>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-lg md:text-3xl  text-orange-400">{item.score}</span>
-                                            <span className="text-[10px] md:text-xs  text-white/20">/100</span>
+                                            <span className="text-[10px] md:text-xs  text-white/50">/100</span>
                                         </div>
                                     </div>
                                     <Button variant="outline" className="rounded-xl border-white/10 hover:bg-white/5 px-6">

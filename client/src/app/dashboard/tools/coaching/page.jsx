@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Sparkles, UserRoundCog, MessageSquare,
     Target, Zap, Brain, Rocket, ArrowLeft,
-    CheckCircle, ShieldCheck, Send, Navigation
+    CheckCircle, ShieldCheck, Send, Navigation,
+    TrendingUp, Trophy
 } from 'lucide-react';
 import Link from 'next/link';
 import { NextModulePrompter } from '@/components/NextModulePrompter';
@@ -226,7 +227,7 @@ export default function AICoachingPage() {
                                         value={chatInput}
                                         onChange={(e) => setChatInput(e.target.value)}
                                         placeholder="Ask your coach anything about your career journey..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/10 "
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/40 "
                                     />
                                     <button
                                         type="submit"
@@ -236,9 +237,9 @@ export default function AICoachingPage() {
                                     </button>
                                 </form>
                                 <div className="mt-4 flex justify-center gap-6">
-                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">AI-Driven Accountability</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">•</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/10  uppercase tracking-[0.3em]">Precision Mentorship</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">AI-Driven Accountability</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">•</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">Precision Mentorship</span>
                                 </div>
                             </div>
                         </div>

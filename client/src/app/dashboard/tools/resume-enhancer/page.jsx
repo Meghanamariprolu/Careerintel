@@ -228,7 +228,7 @@ export default function ResumeEnhancerPage() {
                                     <span className="text-xs  text-slate-100 flex items-center gap-2 tracking-tight">
                                         <Type className="h-3.5 w-3.5 text-orange-400" /> RESUME CONTENT
                                     </span>
-                                    <span className="text-[9px] text-slate-500 font-sans bg-white/5 px-1.5 py-0.5 rounded">V1.0</span>
+                                    <span className="text-[9px] text-slate-300 font-sans bg-white/5 px-1.5 py-0.5 rounded">V1.0</span>
                                 </div>
                                 <textarea
                                     className="w-full h-full flex-1 p-3 md:p-4 bg-transparent border-0 focus:ring-0 text-slate-200 placeholder:text-slate-600 resize-none text-xs md:text-sm leading-relaxed"
@@ -247,7 +247,7 @@ export default function ResumeEnhancerPage() {
                                     <span className="text-xs  text-slate-100 flex items-center gap-2 tracking-tight">
                                         <Target className="h-3.5 w-3.5 text-yellow-400" /> JOB DESCRIPTION
                                     </span>
-                                    <span className="text-[9px] text-slate-500 font-sans bg-white/5 px-1.5 py-0.5 rounded">TARGET</span>
+                                    <span className="text-[9px] text-slate-300 font-sans bg-white/5 px-1.5 py-0.5 rounded">TARGET</span>
                                 </div>
                                 <textarea
                                     className="w-full h-full flex-1 p-3 md:p-4 bg-transparent border-0 focus:ring-0 text-slate-200 placeholder:text-slate-600 resize-none text-xs md:text-sm leading-relaxed"
@@ -295,7 +295,7 @@ export default function ResumeEnhancerPage() {
                             >
                                 <Fingerprint className="h-10 w-10 md:h-12 md:w-12 text-slate-700 mb-3 md:mb-4 opacity-30" />
                                 <h3 className="text-lg md:text-xl  text-slate-400 tracking-tight">Awaiting Analysis Data</h3>
-                                <p className="text-[10px] md:text-xs text-slate-500 max-w-sm mt-2 leading-relaxed">Provide both resume content and a job description to initiate the deep scan.</p>
+                                <p className="text-[10px] md:text-xs text-slate-300 max-w-sm mt-2 leading-relaxed">Provide both resume content and a job description to initiate the deep scan.</p>
                             </motion.div>
                         )}
 
@@ -412,15 +412,15 @@ export default function ResumeEnhancerPage() {
                                         </CardHeader>
                                         <CardContent className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Technical Proficiency</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-300 uppercase tracking-widest">Technical Proficiency</p>
                                                 <p className="text-xs md:text-sm text-slate-200 ">{result.skills.technical}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Tools & Ecosystem</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-300 uppercase tracking-widest">Tools & Ecosystem</p>
                                                 <p className="text-xs md:text-sm text-slate-200 ">{result.skills.tools}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Foundational & Soft</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-300 uppercase tracking-widest">Foundational & Soft</p>
                                                 <p className="text-xs md:text-sm text-slate-200 ">{result.skills.soft}</p>
                                             </div>
                                         </CardContent>
@@ -479,15 +479,15 @@ export default function ResumeEnhancerPage() {
                                 {/* Scoring & Verdict */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <div className="bg-slate-900/80 border border-white/5 rounded-xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
-                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Job Match Velocity</p>
-                                        <p className="text-4xl md:text-6xl  text-white tracking-tighter shadow-orange-500/20 drop-shadow-2xl">{result.matchScore}<span className="text-xl md:text-2xl text-slate-500 ml-1">%</span></p>
+                                        <p className="text-[10px]  text-slate-300 uppercase tracking-widest mb-3">Job Match Velocity</p>
+                                        <p className="text-4xl md:text-6xl  text-white tracking-tighter shadow-orange-500/20 drop-shadow-2xl">{result.matchScore}<span className="text-xl md:text-2xl text-slate-300 ml-1">%</span></p>
                                     </div>
                                     <div className="bg-slate-900/80 border border-white/5 rounded-xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
-                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Industry Skill Gap</p>
+                                        <p className="text-[10px]  text-slate-300 uppercase tracking-widest mb-3">Industry Skill Gap</p>
                                         <p className="text-xl md:text-2xl  text-slate-200 uppercase tracking-tight">{result.skillGap} Critical Gaps</p>
                                     </div>
                                     <div className={`sm:col-span-2 lg:col-span-1 rounded-xl p-6 md:p-8 text-center shadow-2xl flex flex-col items-center justify-center border-t-4 ${result.verdict === "Strong Candidate" ? "bg-emerald-500/5 border-emerald-500/40" : "bg-orange-500/5 border-orange-500/40"}`}>
-                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Final Hiring Verdict</p>
+                                        <p className="text-[10px]  text-slate-300 uppercase tracking-widest mb-3">Final Hiring Verdict</p>
                                         <p className={`text-xl md:text-2xl  uppercase tracking-widest ${result.verdict === "Strong Candidate" ? "text-emerald-400" : "text-orange-400"}`}>{result.verdict}</p>
                                     </div>
                                 </div>

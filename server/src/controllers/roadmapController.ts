@@ -82,3 +82,20 @@ export const deleteRoadmap = catchAsync(async (req: any, res: Response) => {
         throw new Error('Roadmap not found or access denied');
     }
 });
+// @desc    Update a roadmap (e.g., userSkills)
+// @route   PUT /api/roadmaps/:id
+// @access  Private
+// @ts-ignore
+export const updateRoadmap = catchAsync(async (req: any, res: Response) => {
+    const roadmap = await Roadmap.findById(req.params.id);
+
+    if (roadmap && (roadmap.userId.toString() === req.user._id.toString() || roadmap.userId.equals(req.user._id))) {
+        roadmap.userSkills = req.body.userSkills !== undefined ? req.body.userSkills : roadmap.userSkills;
+        
+        const updatedRoadmap = await roadmap.save();
+        res.status(200).json(updatedRoadmap);
+    } else {
+        res.status(404);
+        throw new Error('Roadmap not found or access denied');
+    }
+});
