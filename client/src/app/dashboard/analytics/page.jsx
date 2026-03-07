@@ -37,7 +37,7 @@ export default function AnalyticsDashboardPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white font-black text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -48,14 +48,14 @@ export default function AnalyticsDashboardPage() {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-blue-300 shadow-xl"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 text-[10px] md:text-xs  uppercase tracking-[0.25em] text-blue-300 shadow-xl"
                             >
                                 <Activity className="h-3 w-3" /> Real-time Growth Telemetry
                             </motion.div>
-                            <h1 className="text-lg md:text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-blue-400 uppercase">
+                            <h1 className="text-base md:text-xl tracking-[0.1em] text-white/90 uppercase">
                                 Career Analytics Engine<span className="text-blue-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4 font-medium leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
                                 Advanced data visualization of your professional momentum. Track readiness, skill acquisition gradients, and market compatibility.
                             </p>
                         </div>
@@ -67,16 +67,16 @@ export default function AnalyticsDashboardPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="lg:col-span-2 p-12 rounded-[4rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl relative overflow-hidden flex items-center justify-between gap-12"
+                        className="lg:col-span-2 p-12 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-3xl relative overflow-hidden flex items-center justify-between gap-12"
                     >
                         <div className="relative z-10 space-y-8">
                             <div>
-                                <h4 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/30 mb-2">Composite Performance Index</h4>
-                                <h2 className="text-lg md:text-4xl font-black text-white italic tracking-tighter">Career Readiness</h2>
+                                <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/30 mb-2">Composite Performance Index</h4>
+                                <h2 className="text-base md:text-3xl text-white/90 tracking-[0.05em]">Career Readiness</h2>
                             </div>
                             <div className="flex items-baseline gap-4">
-                                <span className="text-lg md:text-6xl font-black text-blue-400 tabular-nums">{metrics.careerReadiness}%</span>
-                                <div className="flex items-center gap-1 text-emerald-400 font-black italic text-xs md:text-base">
+                                <span className="text-lg md:text-5xl text-blue-400/90 tabular-nums tracking-tighter">{metrics.careerReadiness}%</span>
+                                <div className="flex items-center gap-1 text-emerald-400  text-xs md:text-base">
                                     <ArrowUpRight className="h-5 w-5" /> +12% vs last month
                                 </div>
                             </div>
@@ -118,21 +118,21 @@ export default function AnalyticsDashboardPage() {
                     <div className="grid grid-cols-1 gap-6">
                         <motion.div
                             whileHover={{ y: -5 }}
-                            className="p-8 rounded-[2.5rem] bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-3xl"
+                            className="p-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-3xl"
                         >
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-400/60 mb-2">Skills Foundational</h4>
+                            <h4 className="text-[10px]  uppercase tracking-widest text-emerald-400/60 mb-2">Skills Foundational</h4>
                             <div className="flex items-center justify-between">
-                                <span className="text-base md:text-2xl font-black text-white">{metrics.skillMatch}%</span>
+                                <span className="text-base md:text-2xl  text-white">{metrics.skillMatch}%</span>
                                 <Compass className="h-6 w-6 text-emerald-400" />
                             </div>
                         </motion.div>
                         <motion.div
                             whileHover={{ y: -5 }}
-                            className="p-8 rounded-[2.5rem] bg-purple-500/10 border border-purple-500/20 backdrop-blur-3xl"
+                            className="p-8 rounded-xl bg-purple-500/10 border border-purple-500/20 backdrop-blur-3xl"
                         >
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-purple-400/60 mb-2">Resume Authority</h4>
+                            <h4 className="text-[10px]  uppercase tracking-widest text-purple-400/60 mb-2">Resume Authority</h4>
                             <div className="flex items-center justify-between">
-                                <span className="text-base md:text-2xl font-black text-white">{metrics.resumeScore}%</span>
+                                <span className="text-base md:text-2xl  text-white">{metrics.resumeScore}%</span>
                                 <FileText className="h-6 w-6 text-purple-400" />
                             </div>
                         </motion.div>
@@ -144,15 +144,15 @@ export default function AnalyticsDashboardPage() {
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="p-10 rounded-[3rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl"
+                        className="p-10 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-3xl"
                     >
-                        <h3 className="text-base md:text-xl font-black text-white mb-10 uppercase italic tracking-widest">Growth Projections</h3>
+                        <h3 className="text-base md:text-xl  text-white mb-10 uppercase tracking-widest">Growth Projections</h3>
                         <div className="space-y-10">
                             {chartData.map(item => (
                                 <div key={item.label}>
                                     <div className="flex justify-between items-center mb-3">
-                                        <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/40">{item.label}</span>
-                                        <span className="text-sm md:text-lg font-black text-white italic">{item.value}%</span>
+                                        <span className="text-[10px] md:text-xs  uppercase tracking-widest text-white/40">{item.label}</span>
+                                        <span className="text-sm md:text-lg  text-white">{item.value}%</span>
                                     </div>
                                     <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                                         <motion.div
@@ -170,26 +170,26 @@ export default function AnalyticsDashboardPage() {
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="p-10 rounded-[3rem] bg-gradient-to-br from-blue-500/10 via-transparent to-transparent border border-white/10 backdrop-blur-3xl flex flex-col justify-between"
+                        className="p-10 rounded-xl bg-gradient-to-br from-blue-500/10 via-transparent to-transparent border border-white/10 backdrop-blur-3xl flex flex-col justify-between"
                     >
                         <div>
-                            <h3 className="text-base md:text-xl font-black text-white mb-8 uppercase italic tracking-widest">Market Alignment</h3>
-                            <div className="flex items-center gap-6 mb-8 p-6 rounded-3xl bg-white/5 border border-white/5">
-                                <div className="h-12 w-12 rounded-2xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+                            <h3 className="text-base md:text-xl  text-white mb-8 uppercase tracking-widest">Market Alignment</h3>
+                            <div className="flex items-center gap-6 mb-8 p-6 rounded-xl bg-white/5 border border-white/5">
+                                <div className="h-12 w-12 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
                                     <Activity className="h-6 w-6 text-blue-400" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Velocity Check</p>
-                                    <p className="text-sm md:text-lg font-black text-white italic">Accelerated Growth Path</p>
+                                    <p className="text-[10px]  uppercase tracking-widest text-white/30">Velocity Check</p>
+                                    <p className="text-sm md:text-lg  text-white">Accelerated Growth Path</p>
                                 </div>
                             </div>
-                            <p className="text-sm md:text-lg text-white/50 leading-relaxed font-medium">
-                                "Your technical acquisition rate is <span className="text-blue-400 font-black">2.1x faster</span> than the industry average for Senior roles. Maintaining this velocity will put you in the top percentile of 'Architect Ready' candidates within 6 months."
+                            <p className="text-sm md:text-lg text-white/50 leading-relaxed ">
+                                "Your technical acquisition rate is <span className="text-blue-400 ">2.1x faster</span> than the industry average for Senior roles. Maintaining this velocity will put you in the top percentile of 'Architect Ready' candidates within 6 months."
                             </p>
                         </div>
 
                         <div className="pt-8">
-                            <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-white/20">
+                            <div className="flex items-center justify-between text-[10px]  uppercase tracking-widest text-white/20">
                                 <span>Platform Benchmark</span>
                                 <span>Elite Status</span>
                             </div>

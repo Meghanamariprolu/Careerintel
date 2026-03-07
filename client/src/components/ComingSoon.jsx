@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button"
 
 export default function ComingSoon({ title, description }) {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6 bg-slate-900/20 rounded-3xl border border-white/5 backdrop-blur-sm">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6 bg-slate-900/20 rounded-xl border border-white/5 backdrop-blur-sm">
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -28,7 +28,7 @@ export default function ComingSoon({ title, description }) {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-4xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
+                className="text-4xl  tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
             >
                 {title || "Feature Coming Soon"}
             </motion.h1>

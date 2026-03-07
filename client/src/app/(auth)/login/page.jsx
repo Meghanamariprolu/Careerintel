@@ -12,6 +12,7 @@ import { useAuth } from "@/context/AuthContext"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Logo } from "@/components/ui/Logo"
 
 const loginSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -47,11 +48,18 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center p-4 bg-slate-950 relative overflow-hidden">
+        <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-slate-950 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 via-transparent to-deep-purple/5 pointer-events-none" />
-            <Card className="max-w-md w-full border-white/10 bg-slate-900/60 backdrop-blur-xl shadow-2xl">
+
+            <div className="mb-8 relative z-10">
+                <Link href="/">
+                    <Logo scale="md" />
+                </Link>
+            </div>
+
+            <Card className="max-w-md w-full border-white/10 bg-slate-900/60 backdrop-blur-xl shadow-2xl relative z-10">
                 <CardHeader className="space-y-2 text-center">
-                    <CardTitle className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple">Welcome back</CardTitle>
+                    <CardTitle className="text-3xl  tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple">Welcome back</CardTitle>
                     <CardDescription className="text-slate-400">
                         Enter your credentials to access your account
                     </CardDescription>
@@ -59,7 +67,7 @@ export default function LoginPage() {
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium leading-none" htmlFor="email">Email</label>
+                            <label className="text-sm  leading-none" htmlFor="email">Email</label>
                             <Input
                                 id="email"
                                 type="email"
@@ -69,7 +77,7 @@ export default function LoginPage() {
                             {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-medium leading-none" htmlFor="password">Password</label>
+                            <label className="text-sm  leading-none" htmlFor="password">Password</label>
                             <Input
                                 id="password"
                                 type="password"
@@ -77,8 +85,8 @@ export default function LoginPage() {
                             />
                             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
                         </div>
-                        {errorMsg && <p className="text-sm text-destructive font-semibold">{errorMsg}</p>}
-                        <Button type="submit" className="w-full bg-neon-cyan text-black hover:bg-neon-cyan/80 font-bold shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300" disabled={isLoading}>
+                        {errorMsg && <p className="text-sm text-destructive ">{errorMsg}</p>}
+                        <Button type="submit" className="w-full bg-neon-cyan text-black hover:bg-neon-cyan/80  shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300" disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Sign In
                         </Button>
@@ -87,7 +95,7 @@ export default function LoginPage() {
                 <CardFooter className="flex justify-center">
                     <p className="text-sm text-muted-foreground">
                         Don&apos;t have an account?{" "}
-                        <Link href="/register" className="text-neon-cyan hover:underline font-bold">
+                        <Link href="/register" className="text-neon-cyan hover:underline ">
                             Sign up
                         </Link>
                     </p>

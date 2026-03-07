@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
         <div className="flex h-screen w-full items-center justify-center p-4">
             <Card className="w-full max-w-md shadow-2xl bg-card/80 backdrop-blur-xl border-border/50">
                 <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold tracking-tight text-center">
+                    <CardTitle className="text-2xl  tracking-tight text-center">
                         Forgot Password
                     </CardTitle>
                     <CardDescription className="text-center">
@@ -69,7 +69,7 @@ export default function ForgotPasswordPage() {
                     {!isSuccess ? (
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                             <div className="space-y-2 relative">
-                                <label className="text-sm font-medium leading-none" htmlFor="email">
+                                <label className="text-sm  leading-none" htmlFor="email">
                                     Email
                                 </label>
                                 <div className="relative">
@@ -83,12 +83,12 @@ export default function ForgotPasswordPage() {
                                     />
                                 </div>
                                 {errors.email && (
-                                    <p className="text-sm text-destructive font-medium">{errors.email.message}</p>
+                                    <p className="text-sm text-destructive ">{errors.email.message}</p>
                                 )}
                             </div>
 
                             {errorMsg && (
-                                <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium">
+                                <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm ">
                                     {errorMsg}
                                 </div>
                             )}
@@ -109,7 +109,7 @@ export default function ForgotPasswordPage() {
                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/10 text-green-500 mb-2">
                                 <Mail className="h-6 w-6" />
                             </div>
-                            <h3 className="text-xl font-semibold">Check your email</h3>
+                            <h3 className="text-xl ">Check your email</h3>
                             <p className="text-muted-foreground text-sm">
                                 We've sent a password reset link to your email address. Please check your inbox and spam folder. (Check the backend console in development mode).
                             </p>

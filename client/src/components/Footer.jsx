@@ -16,6 +16,7 @@ import {
     Twitter,
     Github
 } from 'lucide-react';
+import { Logo } from './ui/Logo';
 
 export const Footer = () => {
     const navLinks = [
@@ -45,11 +46,9 @@ export const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                     {/* Column 1: Brand Strategy */}
                     <div className="space-y-4">
-                        <div className="flex items-center group">
+                        <div className="flex items-center">
                             <Link href="/">
-                                <h2 className="text-xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-purple-400">
-                                    CareerIntel
-                                </h2>
+                                <Logo scale="sm" />
                             </Link>
                         </div>
                         <p className="text-[11px] text-slate-500 leading-relaxed max-w-[200px]">
@@ -74,7 +73,7 @@ export const Footer = () => {
 
                     {/* Column 2: Dashboard Features */}
                     <div className="lg:col-span-2">
-                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-4">Intelligence Hub</h4>
+                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Intelligence Hub</h4>
                         <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
                             {navLinks.map((link) => (
                                 <li key={link.name}>
@@ -92,7 +91,7 @@ export const Footer = () => {
 
                     {/* Column 3: Resources */}
                     <div>
-                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-4">Expert Resources</h4>
+                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Expert Resources</h4>
                         <ul className="space-y-2">
                             {['Help Center', 'Career Blog', 'Community', 'Expert Mentors'].map((item) => (
                                 <li key={item}>
@@ -106,7 +105,7 @@ export const Footer = () => {
 
                     {/* Column 4: Platform */}
                     <div>
-                        <h4 className="text-white font-bold text-[10px] uppercase tracking-widest mb-4">Legal & Security</h4>
+                        <h4 className="text-white  text-[10px] uppercase tracking-widest mb-4">Legal & Security</h4>
                         <ul className="space-y-2">
                             {['Privacy Policy', 'Terms of Service', 'Cookie Settings', 'Data Security'].map((item) => (
                                 <li key={item}>
@@ -120,10 +119,10 @@ export const Footer = () => {
                 </div>
 
                 <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-[9px] text-slate-600 font-bold uppercase tracking-tighter">
+                    <p className="text-[9px] text-slate-600  uppercase tracking-tighter">
                         © 2024 CareerIntel Technology Group.
                     </p>
-                    <div className="flex items-center gap-4 text-[9px] text-slate-600 font-bold uppercase tracking-tighter">
+                    <div className="flex items-center gap-4 text-[9px] text-slate-600  uppercase tracking-tighter">
                         <Link href="#" className="hover:text-white transition-colors">Status</Link>
                         <Link href="#" className="hover:text-white transition-colors">Feedback</Link>
                         <Link href="#" className="hover:text-white transition-colors">Support</Link>

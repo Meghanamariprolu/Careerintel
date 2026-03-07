@@ -202,7 +202,7 @@ export default function ResumeEnhancerPage() {
                     <div className="p-2 bg-yellow-400/10 rounded-lg shrink-0">
                         <FileText className="h-5 w-5 md:h-6 md:w-6 text-yellow-400" />
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                    <h1 className="text-2xl md:text-3xl  tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
                         Senior ATS Evaluator & Enhancer
                     </h1>
                 </div>
@@ -225,7 +225,7 @@ export default function ResumeEnhancerPage() {
                         <div className="relative group min-h-[200px] md:min-h-[250px]">
                             <div className="relative flex flex-col h-full bg-slate-900/60 border border-white/10 rounded-xl overflow-hidden backdrop-blur-md shadow-2xl transition-all hover:border-orange-500/30">
                                 <div className="bg-slate-900/80 border-b border-white/5 p-3 flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-100 flex items-center gap-2 tracking-tight">
+                                    <span className="text-xs  text-slate-100 flex items-center gap-2 tracking-tight">
                                         <Type className="h-3.5 w-3.5 text-orange-400" /> RESUME CONTENT
                                     </span>
                                     <span className="text-[9px] text-slate-500 font-sans bg-white/5 px-1.5 py-0.5 rounded">V1.0</span>
@@ -244,7 +244,7 @@ export default function ResumeEnhancerPage() {
                         <div className="relative group min-h-[200px] md:min-h-[250px]">
                             <div className="relative flex flex-col h-full bg-slate-900/60 border border-white/10 rounded-xl overflow-hidden backdrop-blur-md border-dashed shadow-2xl transition-all hover:border-yellow-500/30">
                                 <div className="bg-slate-900/80 border-b border-white/5 p-3 flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-100 flex items-center gap-2 tracking-tight">
+                                    <span className="text-xs  text-slate-100 flex items-center gap-2 tracking-tight">
                                         <Target className="h-3.5 w-3.5 text-yellow-400" /> JOB DESCRIPTION
                                     </span>
                                     <span className="text-[9px] text-slate-500 font-sans bg-white/5 px-1.5 py-0.5 rounded">TARGET</span>
@@ -264,7 +264,7 @@ export default function ResumeEnhancerPage() {
                         <Button
                             onClick={handleEnhance}
                             disabled={!resumeText.trim() || !jobDescription.trim() || isAnalyzing}
-                            className="w-full lg:max-w-xl h-10 md:h-12 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 hover:from-orange-500 hover:to-yellow-400 text-white font-black text-xs md:text-sm shadow-[0_0_20px_rgba(249,115,22,0.15)] rounded-xl group relative overflow-hidden transition-all duration-300 active:scale-[0.98]"
+                            className="w-full lg:max-w-xl h-10 md:h-12 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 hover:from-orange-500 hover:to-yellow-400 text-white  text-xs md:text-sm shadow-[0_0_20px_rgba(249,115,22,0.15)] rounded-xl group relative overflow-hidden transition-all duration-300 active:scale-[0.98]"
                         >
                             {isAnalyzing ? (
                                 <div className="flex items-center gap-2">
@@ -291,10 +291,10 @@ export default function ResumeEnhancerPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="h-full min-h-[200px] flex flex-col items-center justify-center text-center p-4 md:p-8 bg-slate-900/20 rounded-2xl border border-white/5 border-dashed"
+                                className="h-full min-h-[200px] flex flex-col items-center justify-center text-center p-4 md:p-8 bg-slate-900/20 rounded-xl border border-white/5 border-dashed"
                             >
                                 <Fingerprint className="h-10 w-10 md:h-12 md:w-12 text-slate-700 mb-3 md:mb-4 opacity-30" />
-                                <h3 className="text-lg md:text-xl font-bold text-slate-400 tracking-tight">Awaiting Analysis Data</h3>
+                                <h3 className="text-lg md:text-xl  text-slate-400 tracking-tight">Awaiting Analysis Data</h3>
                                 <p className="text-[10px] md:text-xs text-slate-500 max-w-sm mt-2 leading-relaxed">Provide both resume content and a job description to initiate the deep scan.</p>
                             </motion.div>
                         )}
@@ -312,7 +312,7 @@ export default function ResumeEnhancerPage() {
                                     <Loader2 className="h-8 w-8 md:h-12 md:w-12 text-yellow-400 animate-spin relative z-10" />
                                 </div>
                                 <div className="space-y-2 text-center">
-                                    <h3 className="text-base md:text-xl font-bold text-white tracking-widest uppercase italic">Orchestrating Analysis...</h3>
+                                    <h3 className="text-base md:text-xl  text-white tracking-widest uppercase">Orchestrating Analysis...</h3>
                                     <div className="flex flex-col items-start gap-1 font-sans text-[8px] md:text-[10px] text-muted-foreground bg-black/40 p-2 md:p-3 rounded-lg border border-white/5">
                                         <div className="flex items-center gap-2"><div className="h-1 w-1 bg-yellow-400 rounded-full animate-ping" /> SCANNING METRICS...</div>
                                         <div className="flex items-center gap-2"><div className="h-1 w-1 bg-orange-400 rounded-full animate-ping delay-75" /> DETECTING VAGUE PHRASES...</div>
@@ -328,12 +328,12 @@ export default function ResumeEnhancerPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="h-full min-h-[300px] flex flex-col items-center justify-center text-center p-6 md:p-8 bg-red-500/5 rounded-2xl border border-red-500/20 shadow-2xl shadow-red-900/10"
+                                className="h-full min-h-[300px] flex flex-col items-center justify-center text-center p-6 md:p-8 bg-red-500/5 rounded-xl border border-red-500/20 shadow-2xl shadow-red-900/10"
                             >
                                 <div className="p-4 md:p-5 bg-red-500/10 rounded-full mb-4 md:mb-6">
                                     <AlertTriangle className="h-10 w-10 md:h-12 md:w-12 text-red-500" />
                                 </div>
-                                <h3 className="text-xl md:text-2xl font-bold text-red-400 mb-2">Analysis Failed</h3>
+                                <h3 className="text-xl md:text-2xl  text-red-400 mb-2">Analysis Failed</h3>
                                 <p className="text-red-200/60 max-w-md text-sm md:text-lg">{result.message}</p>
                             </motion.div>
                         )}
@@ -350,10 +350,10 @@ export default function ResumeEnhancerPage() {
                                 <motion.div variants={itemVariants}>
                                     <Card className="bg-slate-900/60 border-white/5 overflow-hidden border-l-4 border-l-blue-500 shadow-xl">
                                         <CardHeader className="p-4 md:p-5 bg-slate-800/20 border-b border-white/5 flex flex-row items-center gap-3">
-                                            <CardTitle className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-widest">Candidate Overview</CardTitle>
+                                            <CardTitle className="text-[10px] md:text-xs  text-slate-400 uppercase tracking-widest">Candidate Overview</CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-4 md:p-6">
-                                            <p className="text-sm md:text-base text-slate-200 leading-relaxed font-medium">
+                                            <p className="text-sm md:text-base text-slate-200 leading-relaxed ">
                                                 {result.summary}
                                             </p>
                                         </CardContent>
@@ -365,7 +365,7 @@ export default function ResumeEnhancerPage() {
                                     <motion.div variants={itemVariants}>
                                         <Card className="bg-slate-900/60 border-white/5 h-full hover:border-emerald-500/20 transition-colors shadow-lg">
                                             <CardHeader className="p-4 md:p-5 bg-emerald-950/20 border-b border-emerald-500/10">
-                                                <CardTitle className="text-[10px] md:text-xs font-black text-emerald-400 flex items-center gap-2 uppercase tracking-widest">
+                                                <CardTitle className="text-[10px] md:text-xs  text-emerald-400 flex items-center gap-2 uppercase tracking-widest">
                                                     <CheckCircle2 className="h-4 w-4" /> Strategic Strengths
                                                 </CardTitle>
                                             </CardHeader>
@@ -385,7 +385,7 @@ export default function ResumeEnhancerPage() {
                                     <motion.div variants={itemVariants}>
                                         <Card className="bg-slate-900/60 border-white/5 h-full hover:border-rose-500/20 transition-colors shadow-lg">
                                             <CardHeader className="p-4 md:p-5 bg-rose-950/20 border-b border-rose-500/10">
-                                                <CardTitle className="text-[10px] md:text-xs font-black text-rose-400 flex items-center gap-2 uppercase tracking-widest">
+                                                <CardTitle className="text-[10px] md:text-xs  text-rose-400 flex items-center gap-2 uppercase tracking-widest">
                                                     <AlertTriangle className="h-4 w-4" /> Detected Weaknesses
                                                 </CardTitle>
                                             </CardHeader>
@@ -406,22 +406,22 @@ export default function ResumeEnhancerPage() {
                                 <motion.div variants={itemVariants}>
                                     <Card className="bg-slate-910/40 border-white/5 shadow-xl">
                                         <CardHeader className="p-4 md:p-5 bg-slate-800/20 border-b border-white/5">
-                                            <CardTitle className="text-[10px] md:text-xs font-black text-indigo-400 flex items-center gap-2 uppercase tracking-widest">
+                                            <CardTitle className="text-[10px] md:text-xs  text-indigo-400 flex items-center gap-2 uppercase tracking-widest">
                                                 <Layers className="h-4 w-4" /> Skills Taxonomy
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px] font-black text-slate-500 uppercase tracking-widest">Technical Proficiency</p>
-                                                <p className="text-xs md:text-sm text-slate-200 font-semibold">{result.skills.technical}</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Technical Proficiency</p>
+                                                <p className="text-xs md:text-sm text-slate-200 ">{result.skills.technical}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px] font-black text-slate-500 uppercase tracking-widest">Tools & Ecosystem</p>
-                                                <p className="text-xs md:text-sm text-slate-200 font-semibold">{result.skills.tools}</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Tools & Ecosystem</p>
+                                                <p className="text-xs md:text-sm text-slate-200 ">{result.skills.tools}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[9px] md:text-[10px] font-black text-slate-500 uppercase tracking-widest">Foundational & Soft</p>
-                                                <p className="text-xs md:text-sm text-slate-200 font-semibold">{result.skills.soft}</p>
+                                                <p className="text-[9px] md:text-[10px]  text-slate-500 uppercase tracking-widest">Foundational & Soft</p>
+                                                <p className="text-xs md:text-sm text-slate-200 ">{result.skills.soft}</p>
                                             </div>
                                         </CardContent>
                                     </Card>
@@ -432,12 +432,12 @@ export default function ResumeEnhancerPage() {
                                     <motion.div variants={itemVariants}>
                                         <Card className="bg-slate-900/60 border-white/5 h-full shadow-lg">
                                             <CardHeader className="p-4 md:p-5 bg-indigo-950/10 border-b border-indigo-500/10">
-                                                <CardTitle className="text-[10px] md:text-xs font-black text-indigo-300 uppercase tracking-widest">Missing ATS Keywords</CardTitle>
+                                                <CardTitle className="text-[10px] md:text-xs  text-indigo-300 uppercase tracking-widest">Missing ATS Keywords</CardTitle>
                                             </CardHeader>
                                             <CardContent className="p-4 md:p-6">
                                                 <div className="flex flex-wrap gap-2">
                                                     {result.missingKeywords.map(kw => (
-                                                        <span key={kw} className="px-2.5 py-1 bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 rounded-lg text-[9px] md:text-[10px] font-bold uppercase tracking-tighter">{kw}</span>
+                                                        <span key={kw} className="px-2.5 py-1 bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 rounded-lg text-[9px] md:text-[10px]  uppercase tracking-tighter">{kw}</span>
                                                     ))}
                                                 </div>
                                             </CardContent>
@@ -448,10 +448,10 @@ export default function ResumeEnhancerPage() {
                                     <motion.div variants={itemVariants}>
                                         <Card className="bg-slate-900/60 border-white/5 h-full shadow-lg">
                                             <CardHeader className="p-4 md:p-5 bg-slate-800/20 border-b border-white/5">
-                                                <CardTitle className="text-[10px] md:text-xs font-black text-slate-300 uppercase tracking-widest">Experience Impact Audit</CardTitle>
+                                                <CardTitle className="text-[10px] md:text-xs  text-slate-300 uppercase tracking-widest">Experience Impact Audit</CardTitle>
                                             </CardHeader>
                                             <CardContent className="p-4 md:p-6">
-                                                <p className="text-xs md:text-sm text-slate-400 leading-relaxed italic border-l-2 border-slate-700 pl-4">{result.impactReview}</p>
+                                                <p className="text-xs md:text-sm text-slate-400 leading-relaxed border-l-2 border-slate-700 pl-4">{result.impactReview}</p>
                                             </CardContent>
                                         </Card>
                                     </motion.div>
@@ -461,10 +461,10 @@ export default function ResumeEnhancerPage() {
                                 <motion.div variants={itemVariants}>
                                     <Card className="bg-slate-900/90 border-orange-500/30 shadow-2xl shadow-orange-950/10 overflow-hidden ring-1 ring-orange-500/20">
                                         <CardHeader className="p-4 md:p-6 bg-gradient-to-r from-yellow-500/5 to-orange-500/5 border-b border-orange-500/20 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                            <CardTitle className="text-[10px] md:text-xs font-black flex items-center gap-3 text-orange-400 uppercase tracking-widest">
+                                            <CardTitle className="text-[10px] md:text-xs  flex items-center gap-3 text-orange-400 uppercase tracking-widest">
                                                 <Sparkles className="h-4 w-4" /> High-Impact Performance Rewrites
                                             </CardTitle>
-                                            <Button size="sm" className="w-full sm:w-auto bg-orange-500/20 text-orange-300 hover:bg-orange-500/30 hover:text-white px-6 md:px-8 font-black rounded-lg transition-all text-[10px] md:text-xs" onClick={() => navigator.clipboard.writeText(result.rewrittenText)}>
+                                            <Button size="sm" className="w-full sm:w-auto bg-orange-500/20 text-orange-300 hover:bg-orange-500/30 hover:text-white px-6 md:px-8  rounded-lg transition-all text-[10px] md:text-xs" onClick={() => navigator.clipboard.writeText(result.rewrittenText)}>
                                                 COPY ALL REWRITES
                                             </Button>
                                         </CardHeader>
@@ -478,17 +478,17 @@ export default function ResumeEnhancerPage() {
 
                                 {/* Scoring & Verdict */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <div className="bg-slate-900/80 border border-white/5 rounded-2xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
-                                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Job Match Velocity</p>
-                                        <p className="text-4xl md:text-6xl font-black text-white tracking-tighter shadow-orange-500/20 drop-shadow-2xl">{result.matchScore}<span className="text-xl md:text-2xl text-slate-500 ml-1">%</span></p>
+                                    <div className="bg-slate-900/80 border border-white/5 rounded-xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
+                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Job Match Velocity</p>
+                                        <p className="text-4xl md:text-6xl  text-white tracking-tighter shadow-orange-500/20 drop-shadow-2xl">{result.matchScore}<span className="text-xl md:text-2xl text-slate-500 ml-1">%</span></p>
                                     </div>
-                                    <div className="bg-slate-900/80 border border-white/5 rounded-2xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
-                                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Industry Skill Gap</p>
-                                        <p className="text-xl md:text-2xl font-black text-slate-200 uppercase tracking-tight">{result.skillGap} Critical Gaps</p>
+                                    <div className="bg-slate-900/80 border border-white/5 rounded-xl p-6 md:p-8 text-center shadow-xl flex flex-col items-center justify-center">
+                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Industry Skill Gap</p>
+                                        <p className="text-xl md:text-2xl  text-slate-200 uppercase tracking-tight">{result.skillGap} Critical Gaps</p>
                                     </div>
-                                    <div className={`sm:col-span-2 lg:col-span-1 rounded-2xl p-6 md:p-8 text-center shadow-2xl flex flex-col items-center justify-center border-t-4 ${result.verdict === "Strong Candidate" ? "bg-emerald-500/5 border-emerald-500/40" : "bg-orange-500/5 border-orange-500/40"}`}>
-                                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Final Hiring Verdict</p>
-                                        <p className={`text-xl md:text-2xl font-black uppercase tracking-widest ${result.verdict === "Strong Candidate" ? "text-emerald-400" : "text-orange-400"}`}>{result.verdict}</p>
+                                    <div className={`sm:col-span-2 lg:col-span-1 rounded-xl p-6 md:p-8 text-center shadow-2xl flex flex-col items-center justify-center border-t-4 ${result.verdict === "Strong Candidate" ? "bg-emerald-500/5 border-emerald-500/40" : "bg-orange-500/5 border-orange-500/40"}`}>
+                                        <p className="text-[10px]  text-slate-500 uppercase tracking-widest mb-3">Final Hiring Verdict</p>
+                                        <p className={`text-xl md:text-2xl  uppercase tracking-widest ${result.verdict === "Strong Candidate" ? "text-emerald-400" : "text-orange-400"}`}>{result.verdict}</p>
                                     </div>
                                 </div>
                             </motion.div>

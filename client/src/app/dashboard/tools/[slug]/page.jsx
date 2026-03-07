@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation"
 import ComingSoon from "@/components/ComingSoon"
+import ScenarioSimulator from "@/components/tools/ScenarioSimulator"
 
 const toolsMetadata = {
     "market-integration": {
@@ -59,7 +60,11 @@ export default function ToolPlaceholderPage() {
 
     return (
         <div className="py-8">
-            <ComingSoon title={metadata.title} description={metadata.description} />
+            {slug === 'scenario-simulator' ? (
+                <ScenarioSimulator />
+            ) : (
+                <ComingSoon title={metadata.title} description={metadata.description} />
+            )}
         </div>
     )
 }

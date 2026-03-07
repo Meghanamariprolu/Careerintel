@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutDashboard, Compass, LogOut, Loader2, UserCircle, BarChart, TrendingUp, FileText, Mic, Briefcase, Globe, Users, Camera, Linkedin, Twitter, Github } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
+import { Logo } from '@/components/ui/Logo';
 import { AnimatedBackground } from '@/components/ui/AnimatedBackground';
 
 export default function DashboardLayout({ children }) {
@@ -107,10 +108,8 @@ export default function DashboardLayout({ children }) {
                 <div className="container mx-auto flex h-14 items-center justify-between px-6">
                     {/* Left Area: Logo and Logout */}
                     <div className="flex items-center gap-6">
-                        <Link href="/dashboard" className="flex items-center group">
-                            <h2 className="text-xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-100 to-purple-400">
-                                CareerIntel
-                            </h2>
+                        <Link href="/dashboard" className="flex items-center">
+                            <Logo scale="sm" />
                         </Link>
 
                         <div className="h-4 w-[1px] bg-white/10 mx-2 hidden md:block" />
@@ -130,8 +129,8 @@ export default function DashboardLayout({ children }) {
                     {/* Right Side - Profile */}
                     <div className="flex items-center gap-5">
                         <div className="hidden md:flex flex-col items-end leading-tight text-right">
-                            <span className="text-xs font-bold text-slate-100">{user?.name}</span>
-                            <span className="text-[10px] text-slate-500 font-medium">{user?.email}</span>
+                            <span className="text-xs  text-slate-100">{user?.name}</span>
+                            <span className="text-[10px] text-slate-500 ">{user?.email}</span>
                         </div>
 
                         <Link

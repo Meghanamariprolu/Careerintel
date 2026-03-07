@@ -144,7 +144,7 @@ export default function ProfilePage() {
     return (
         <div className="max-w-2xl mx-auto space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Edit Profile</h1>
+                <h1 className="text-3xl  tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-deep-purple drop-shadow-sm">Edit Profile</h1>
                 <p className="text-muted-foreground mt-2">
                     Update your personal information and career details.
                 </p>
@@ -165,7 +165,7 @@ export default function ProfilePage() {
                         <div className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2 relative">
-                                    <label className="text-sm font-medium leading-none">Full Name</label>
+                                    <label className="text-sm  leading-none">Full Name</label>
                                     <div className="relative">
                                         <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -177,7 +177,7 @@ export default function ProfilePage() {
                                     {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
                                 </div>
                                 <div className="space-y-2 relative">
-                                    <label className="text-sm font-medium leading-none">Email Address</label>
+                                    <label className="text-sm  leading-none">Email Address</label>
                                     <div className="relative">
                                         <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -192,7 +192,7 @@ export default function ProfilePage() {
                             </div>
 
                             <div className="space-y-2 relative">
-                                <label className="text-sm font-medium leading-none">Bio / Headline</label>
+                                <label className="text-sm  leading-none">Bio / Headline</label>
                                 <div className="relative">
                                     <Briefcase className="absolute left-3 top-3 h-4 w-4 text-muted-foreground z-10" />
                                     <Textarea
@@ -206,7 +206,7 @@ export default function ProfilePage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2 relative">
-                                    <label className="text-sm font-medium leading-none">Location</label>
+                                    <label className="text-sm  leading-none">Location</label>
                                     <div className="relative">
                                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -217,7 +217,7 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <label className="text-sm font-medium leading-none">Profile Picture</label>
+                                    <label className="text-sm  leading-none">Profile Picture</label>
                                     <div className="flex items-center gap-6">
                                         <div
                                             className="relative h-20 w-20 rounded-full border-2 border-border overflow-hidden bg-muted flex items-center justify-center cursor-pointer group"
@@ -285,7 +285,7 @@ export default function ProfilePage() {
                                 </div>
 
                                 <div className="space-y-2 relative">
-                                    <label className="text-sm font-medium leading-none">Profile Image URL</label>
+                                    <label className="text-sm  leading-none">Profile Image URL</label>
                                     <div className="relative">
                                         <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -297,7 +297,7 @@ export default function ProfilePage() {
                                     {errors.profileImage && <p className="text-sm text-destructive">{errors.profileImage.message}</p>}
                                 </div>
                                 <div className="space-y-2 relative">
-                                    <label className="text-sm font-medium leading-none">Skills (Comma separated)</label>
+                                    <label className="text-sm  leading-none">Skills (Comma separated)</label>
                                     <div className="relative">
                                         <BookOpen className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -311,12 +311,12 @@ export default function ProfilePage() {
                         </div>
 
                         {errorMsg && (
-                            <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium">
+                            <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm ">
                                 {errorMsg}
                             </div>
                         )}
                         {successMsg && (
-                            <div className="p-3 flex items-center gap-2 rounded-md bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-medium transition-all">
+                            <div className="p-3 flex items-center gap-2 rounded-md bg-green-500/10 border border-green-500/20 text-green-500 text-sm  transition-all">
                                 <CheckCircle2 className="h-4 w-4" />
                                 {successMsg}
                             </div>

@@ -12,7 +12,7 @@ export default function ResourceCard({ resource }) {
             className="block p-4 border border-gray-700 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition-colors duration-200"
         >
             <div className="flex items-center justify-between mb-2">
-                <h4 className="text-white font-semibold truncate flex-1 pr-4" title={resource.title}>
+                <h4 className="text-white  truncate flex-1 pr-4" title={resource.title}>
                     {resource.title}
                 </h4>
                 <div className="flex items-center space-x-2">

@@ -76,14 +76,14 @@ export default function RoadmapDisplay({ route, completedSteps, onToggleStep }) 
                                 </motion.div>
 
                                 <div className="flex items-center gap-4">
-                                    <div className={`p-3 rounded-2xl ${isCompleted ? 'bg-green-500/20' : 'bg-purple-500/20 group-hover:bg-purple-500/30'} transition-colors`}>
+                                    <div className={`p-3 rounded-xl ${isCompleted ? 'bg-green-500/20' : 'bg-purple-500/20 group-hover:bg-purple-500/30'} transition-colors`}>
                                         <step.icon className={`h-6 w-6 ${isCompleted ? 'text-green-400' : 'text-purple-300'}`} />
                                     </div>
                                     <div>
-                                        <h3 className={`text-base md:text-xl font-black tracking-tight ${isCompleted ? 'text-green-400 line-through opacity-60' : 'text-white'}`}>
+                                        <h3 className={`text-base md:text-xl  tracking-tight ${isCompleted ? 'text-green-400 line-through opacity-60' : 'text-white'}`}>
                                             {step.name}
                                         </h3>
-                                        <p className={`text-[10px] md:text-xs font-bold uppercase tracking-widest ${isCompleted ? 'text-green-400/50' : 'text-purple-300/40'}`}>
+                                        <p className={`text-[10px] md:text-xs  uppercase tracking-widest ${isCompleted ? 'text-green-400/50' : 'text-purple-300/40'}`}>
                                             {isCompleted ? 'Mastered' : `Module 0${index + 1}`}
                                         </p>
                                     </div>
@@ -116,7 +116,7 @@ export default function RoadmapDisplay({ route, completedSteps, onToggleStep }) 
                                                     transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                                                     className="h-10 w-10 border-4 border-purple-500/20 border-t-purple-500 rounded-full"
                                                 />
-                                                <p className="text-purple-300/60 font-black text-sm uppercase tracking-widest animate-pulse">Scanning Intelligence...</p>
+                                                <p className="text-purple-300/60  text-sm uppercase tracking-widest animate-pulse">Scanning Intelligence...</p>
                                             </div>
                                         ) : stepResources.length > 0 ? (
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -133,7 +133,7 @@ export default function RoadmapDisplay({ route, completedSteps, onToggleStep }) 
                                             </div>
                                         ) : (
                                             <div className="text-center py-10">
-                                                <p className="text-purple-300/40 italic font-medium">Resources are being prepared. Check back shortly.</p>
+                                                <p className="text-purple-300/40 ">Resources are being prepared. Check back shortly.</p>
                                             </div>
                                         )}
                                     </div>

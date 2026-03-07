@@ -81,7 +81,7 @@ export default function PortfolioBuilderPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 text-xs font-black uppercase tracking-[0.25em] text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 text-xs  uppercase tracking-[0.25em] text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
                     >
                         <Sparkles className="h-4 w-4" /> AI Portfolio Engine
                     </motion.div>
@@ -90,7 +90,7 @@ export default function PortfolioBuilderPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-lg md:text-2xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-purple-500/50 drop-shadow-2xl uppercase"
+                        className="text-lg md:text-2xl  mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-purple-500/50 drop-shadow-2xl uppercase"
                     >
                         Portfolio Builder<span className="text-purple-600">.</span>
                     </motion.h1>
@@ -99,7 +99,7 @@ export default function PortfolioBuilderPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-sm md:text-lg text-white/40 max-w-3xl mx-auto font-medium leading-relaxed tracking-tight"
+                        className="text-sm md:text-lg text-white/40 max-w-3xl mx-auto  leading-relaxed tracking-tight"
                     >
                         Architect a world-class digital presence. Transform your achievements into a high-fidelity visual narrative.
                     </motion.p>
@@ -134,7 +134,7 @@ export default function PortfolioBuilderPage() {
                                 <motion.button
                                     whileHover={{ x: -10 }}
                                     onClick={handleEdit}
-                                    className="flex items-center gap-2 text-white/40 hover:text-white font-black text-sm uppercase tracking-widest transition-colors"
+                                    className="flex items-center gap-2 text-white/40 hover:text-white  text-sm uppercase tracking-widest transition-colors"
                                 >
                                     <ArrowLeft className="h-5 w-5" /> Back to Architect
                                 </motion.button>
@@ -142,7 +142,7 @@ export default function PortfolioBuilderPage() {
                                 <div className="flex gap-4">
                                     <button
                                         onClick={handleReset}
-                                        className="px-6 py-3 rounded-2xl bg-red-500/10 text-red-500 border border-red-500/20 font-black text-xs uppercase tracking-widest hover:bg-red-500/20 transition-all"
+                                        className="px-6 py-3 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20  text-xs uppercase tracking-widest hover:bg-red-500/20 transition-all"
                                     >
                                         Delete Data
                                     </button>
@@ -156,7 +156,7 @@ export default function PortfolioBuilderPage() {
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="flex items-center gap-3 bg-white/5 border border-white/10 px-8 py-4 rounded-3xl text-sm font-black uppercase tracking-[0.2em] text-white/60 hover:text-white hover:border-purple-500/50 transition-all shadow-2xl"
+                                        className="flex items-center gap-3 bg-white/5 border border-white/10 px-8 py-4 rounded-xl text-sm  uppercase tracking-[0.2em] text-white/60 hover:text-white hover:border-purple-500/50 transition-all shadow-2xl"
                                     >
                                         <Layout className="h-5 w-5" /> Dashboard
                                     </motion.button>
