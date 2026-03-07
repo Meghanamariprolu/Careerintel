@@ -11,27 +11,21 @@ const connectDB = async (): Promise<void> => {
             throw new Error('MONGODB_URI is not defined in environment variables');
         }
 
-        await mongoose.connect(mongoURI, {
-            tls: true,
-            tlsAllowInvalidCertificates: false,
-            serverSelectionTimeoutMS: 10000,
-            socketTimeoutMS: 45000,
-        });
+        await mongoose.connect(mongoURI);
 
         console.log('✅ MongoDB Connected Successfully');
 
-        mongoose.connection.on('error', (err) => {
+        mongoose.connection.on('error', (err: Error) => {
             console.error(`❌ MongoDB connection error: ${err.message}`);
         });
 
         mongoose.connection.on('disconnected', () => {
-            console.warn('⚠️  MongoDB disconnected. Attempting to reconnect...');
+            console.warn('⚠️  MongoDB disconnected.');
         });
 
     } catch (error) {
         if (error instanceof Error) {
             console.error(`❌ MongoDB connection failed: ${error.message}`);
-            console.error('\n👉 Checklist:\n  1. Is your IP whitelisted in MongoDB Atlas? (Network Access → Add IP Address → Allow from Anywhere: 0.0.0.0/0)\n  2. Are credentials correct in MONGODB_URI?\n  3. Is cluster name correct?\n');
         } else {
             console.error('❌ An unknown error occurred while connecting to MongoDB');
         }
@@ -40,5 +34,3 @@ const connectDB = async (): Promise<void> => {
 };
 
 export default connectDB;
-
-
