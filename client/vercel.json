@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://careerintel-server.onrender.com/api/$1" }
+    { "source": "/api/(.*)", "destination": "https://careerintel-uo0m.onrender.com/api/$1" }
   ]
 }
