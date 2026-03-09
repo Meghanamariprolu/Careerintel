@@ -1,0 +1,49 @@
+STDOUT:
+▲ Next.js 16.1.6 (Turbopack)
+- Experiments (use with caution):
+  · optimizePackageImports
+
+  Creating an optimized production build ...
+
+STDERR:
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/app/globals.css
+Error evaluating Node.js code
+Error: Cannot depend on path (\\?\UNC\Phantasm_space\Phantasm\Meghana\Careerintel\client\src\components\ui\Textarea.jsx) outside of root directory (z:\Meghana\Careerintel\client)
+    at toPath (turbopack:///[turbopack-node]/transforms/transforms.ts:51:11) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:53:15]
+    at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:102:30) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:169:174]
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31]
+
+Import trace:
+  Client Component Browser:
+    ./src/app/globals.css [Client Component Browser]
+    ./src/app/layout.jsx [Server Component]
+
+
+    at toPath (turbopack:///[turbopack-node]/transforms/transforms.ts:51:11) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:53:15])
+    at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:102:30) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:169:174])
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31])
+
+MESSAGE:
+Command failed: npx next build
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/app/globals.css
+Error evaluating Node.js code
+Error: Cannot depend on path (\\?\UNC\Phantasm_space\Phantasm\Meghana\Careerintel\client\src\components\ui\Textarea.jsx) outside of root directory (z:\Meghana\Careerintel\client)
+    at toPath (turbopack:///[turbopack-node]/transforms/transforms.ts:51:11) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:53:15]
+    at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:102:30) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:169:174]
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31]
+
+Import trace:
+  Client Component Browser:
+    ./src/app/globals.css [Client Component Browser]
+    ./src/app/layout.jsx [Server Component]
+
+
+    at toPath (turbopack:///[turbopack-node]/transforms/transforms.ts:51:11) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:53:15])
+    at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:102:30) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__51225daf._.js:169:174])
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [z:\Meghana\Careerintel\client\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31])
