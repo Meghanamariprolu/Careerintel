@@ -49,14 +49,14 @@ export default function CookieSettingsPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-orange-300">
                     <Cookie className="h-3 w-3" /> Privacy Controls
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Cookie Settings</h1>
-                <p className="text-white/40 max-w-xl mx-auto">Manage your cookie preferences. We only use cookies that are necessary or that directly improve your experience.</p>
+                <p className="text-white/70 max-w-xl mx-auto">Manage your cookie preferences. We only use cookies that are necessary or that directly improve your experience.</p>
             </div>
 
             <div className="max-w-3xl mx-auto px-6 pb-24 space-y-6">
@@ -69,9 +69,9 @@ export default function CookieSettingsPage() {
                                     <h2 className={`text-base font-light ${type.color}`}>{type.title}</h2>
                                     {type.required && <span className="text-[10px] px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-white/30 uppercase tracking-widest">Required</span>}
                                 </div>
-                                <p className="text-white/40 text-sm leading-relaxed mb-4">{type.description}</p>
+                                <p className="text-white/70 text-sm leading-relaxed mb-4">{type.description}</p>
                                 <div>
-                                    <p className="text-xs text-white/50 uppercase tracking-widest mb-2">Examples:</p>
+                                    <p className="text-xs text-white/75 uppercase tracking-widest mb-2">Examples:</p>
                                     <div className="flex flex-wrap gap-2">
                                         {type.examples.map(ex => (
                                             <span key={ex} className={`text-xs px-2 py-1 rounded-lg ${type.bg} border ${type.border} ${type.color} opacity-70`}>{ex}</span>
@@ -105,7 +105,7 @@ export default function CookieSettingsPage() {
                     </button>
                 </div>
 
-                <p className="text-center text-white/50 text-xs">For more information, see our <Link href="/privacy-policy" className="text-white/40 hover:text-white underline transition-colors">Privacy Policy</Link>.</p>
+                <p className="text-center text-white/75 text-xs">For more information, see our <Link href="/privacy-policy" className="text-white/70 hover:text-white underline transition-colors">Privacy Policy</Link>.</p>
             </div>
         </div>
     );

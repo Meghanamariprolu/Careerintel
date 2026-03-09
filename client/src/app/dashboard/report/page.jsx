@@ -30,7 +30,7 @@ export default function CareerIntelligenceReportPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -48,7 +48,7 @@ export default function CareerIntelligenceReportPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
                                 Career Intelligence Report<span className="text-indigo-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 The definitive strategic outlook for your professional journey. Synthesized by our AI Engine from every module in your ecosystem.
                             </p>
                         </div>
@@ -67,7 +67,7 @@ export default function CareerIntelligenceReportPage() {
                         </div>
 
                         <div className="relative z-10">
-                            <h2 className="text-sm md:text-lg  text-white/40 uppercase tracking-widest mb-6">Current Target Path</h2>
+                            <h2 className="text-sm md:text-lg  text-white/70 uppercase tracking-widest mb-6">Current Target Path</h2>
                             <h3 className="text-lg md:text-4xl  text-white tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
                                 {strategy.targetRole}
                             </h3>

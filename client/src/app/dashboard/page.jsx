@@ -128,7 +128,7 @@ export default function DashboardPage() {
                                     className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"
                                 />
                             </div>
-                            <p className="text-xs md:text-sm text-white/50 ">
+                            <p className="text-xs md:text-sm text-white/75 ">
                                 Complete intelligence modules to build your profile and increase your market viability.
                             </p>
                         </div>
@@ -197,7 +197,7 @@ export default function DashboardPage() {
                 <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-gradient-to-br from-neon-cyan/10 via-deep-purple/10 to-neon-cyan/5 border-neon-cyan/20 shadow-[0_0_15px_rgba(0,243,255,0.05)] overflow-hidden group">
                     <CardHeader className="p-6 relative z-10">
                         <CardTitle className="text-base md:text-xl tracking-tight text-white">AI Career Intelligence</CardTitle>
-                        <CardDescription className="text-sm md:text-lg text-white/40  mt-1">
+                        <CardDescription className="text-sm md:text-lg text-white/70  mt-1">
                             Generate a highly personalized roadmap tailored to your skills and goals.
                         </CardDescription>
                     </CardHeader>
@@ -255,7 +255,7 @@ export default function DashboardPage() {
                                 </div>
                                 <CardHeader className="p-5 relative z-10">
                                     <CardTitle className="text-base md:text-xl tracking-tight text-white pr-8 truncate group-hover:text-neon-cyan transition-colors duration-300">{roadmap.careerTitle}</CardTitle>
-                                    <CardDescription className="text-xs md:text-base text-white/40  mt-1 line-clamp-2">{roadmap.careerSummary}</CardDescription>
+                                    <CardDescription className="text-xs md:text-base text-white/70  mt-1 line-clamp-2">{roadmap.careerSummary}</CardDescription>
                                 </CardHeader>
                                 <CardFooter className="p-6 pt-0 mt-auto relative z-10">
                                     <Link href={`/dashboard/roadmap/${roadmap._id}`} className="w-full">
@@ -273,7 +273,7 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h2 className="text-base md:text-xl  tracking-tight text-white">Best Free Learning Platforms</h2>
-                        <p className="text-sm md:text-lg text-white/40  mt-1">
+                        <p className="text-sm md:text-lg text-white/70  mt-1">
                             Curated resources to help you master new skills without spending a dime.
                         </p>
                     </div>
@@ -305,7 +305,7 @@ export default function DashboardPage() {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-4 pt-0">
-                                        <p className="text-xs md:text-base text-white/40  line-clamp-2">
+                                        <p className="text-xs md:text-base text-white/70  line-clamp-2">
                                             {platform.description}
                                         </p>
                                     </CardContent>
@@ -331,7 +331,7 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h2 className="text-base md:text-xl  tracking-tight text-white">Community & Networking Suggestions</h2>
-                        <p className="text-sm md:text-lg text-white/40  mt-1">
+                        <p className="text-sm md:text-lg text-white/70  mt-1">
                             Connect with professionals and peers to accelerate your career growth.
                         </p>
                     </div>
@@ -363,7 +363,7 @@ export default function DashboardPage() {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-4 pt-0">
-                                        <p className="text-xs md:text-base text-white/40  line-clamp-2">
+                                        <p className="text-xs md:text-base text-white/70  line-clamp-2">
                                             {suggestion.description}
                                         </p>
                                     </CardContent>

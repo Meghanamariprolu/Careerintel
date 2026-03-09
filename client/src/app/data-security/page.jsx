@@ -87,14 +87,14 @@ export default function DataSecurityPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-emerald-300">
                     <Lock className="h-3 w-3" /> Security Architecture
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Data Security</h1>
-                <p className="text-white/40 max-w-xl mx-auto">We take the security of your career data seriously. Here's exactly how we protect it.</p>
+                <p className="text-white/70 max-w-xl mx-auto">We take the security of your career data seriously. Here's exactly how we protect it.</p>
             </div>
 
             <div className="max-w-5xl mx-auto px-6 pb-24">
@@ -117,7 +117,7 @@ export default function DataSecurityPage() {
                             <h3 className={`text-base font-light ${m.color} mb-4`}>{m.title}</h3>
                             <ul className="space-y-3">
                                 {m.points.map((point, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-sm text-white/40 leading-relaxed">
+                                    <li key={i} className="flex items-start gap-3 text-sm text-white/70 leading-relaxed">
                                         <div className={`h-1.5 w-1.5 rounded-full ${m.bg} border ${m.border} mt-1.5 shrink-0`} />
                                         {point}
                                     </li>
@@ -130,7 +130,7 @@ export default function DataSecurityPage() {
                 {/* Responsible Disclosure */}
                 <div className="mt-12 p-8 rounded-xl bg-white/[0.02] border border-white/10 text-center">
                     <h3 className="text-lg font-light text-white mb-3">Found a Security Issue?</h3>
-                    <p className="text-white/40 text-sm mb-6 max-w-xl mx-auto">We take security disclosures seriously. If you discover a vulnerability, please report it responsibly and we will address it promptly.</p>
+                    <p className="text-white/70 text-sm mb-6 max-w-xl mx-auto">We take security disclosures seriously. If you discover a vulnerability, please report it responsibly and we will address it promptly.</p>
                     <a href="mailto:security@careerintel.ai" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600/80 hover:bg-emerald-600 rounded-xl text-white text-sm transition-colors">
                         <Lock className="h-4 w-4" /> Report a Vulnerability
                     </a>

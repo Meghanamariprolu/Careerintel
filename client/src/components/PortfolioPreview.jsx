@@ -30,7 +30,7 @@ export default function PortfolioPreview({ data }) {
                     <p className="text-base md:text-xl  bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400 mb-6 uppercase tracking-widest">
                         {data.title}
                     </p>
-                    <p className="text-sm md:text-lg text-white/40 max-w-2xl mx-auto  leading-relaxed">
+                    <p className="text-sm md:text-lg text-white/70 max-w-2xl mx-auto  leading-relaxed">
                         {data.bio}
                     </p>
                 </motion.div>
@@ -108,7 +108,7 @@ export default function PortfolioPreview({ data }) {
                                     )}
                                 </div>
 
-                                <p className="text-sm md:text-lg text-white/40  leading-relaxed mb-8">
+                                <p className="text-sm md:text-lg text-white/70  leading-relaxed mb-8">
                                     {project.description}
                                 </p>
 

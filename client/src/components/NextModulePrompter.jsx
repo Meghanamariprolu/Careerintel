@@ -18,7 +18,7 @@ export const NextModulePrompter = ({ nextModuleName, nextModuleHref, description
                 <h3 className="text-base md:text-xl text-white/90 mb-2 tracking-[0.05em]">
                     Continue to {nextModuleName}
                 </h3>
-                <p className="text-[10px] md:text-sm text-white/40 leading-relaxed">
+                <p className="text-[10px] md:text-sm text-white/70 leading-relaxed">
                     {description || `Proceed to the next module in your career intelligence sequence to further refine your strategic profile.`}
                 </p>
             </div>

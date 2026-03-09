@@ -77,7 +77,7 @@ export default function AICoachingPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -95,7 +95,7 @@ export default function AICoachingPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
                                 AI Coaching & Accountability<span className="text-indigo-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Your personal career architect. Choose a mentor persona to get specialized guidance and real-time performance tracking.
                             </p>
                         </div>
@@ -126,7 +126,7 @@ export default function AICoachingPage() {
                                             <div>
                                                 <h3 className="text-base md:text-xl  text-white">{mentor.name}</h3>
                                                 <p className="text-[10px] md:text-xs  text-indigo-400/60 uppercase tracking-widest">{mentor.role}</p>
-                                                <p className="text-sm md:text-lg text-white/40 mt-2 leading-snug">{mentor.description}</p>
+                                                <p className="text-sm md:text-lg text-white/70 mt-2 leading-snug">{mentor.description}</p>
                                             </div>
                                         </div>
                                         {selectedMentor.id === mentor.id && (
@@ -175,10 +175,10 @@ export default function AICoachingPage() {
                                 </div>
                                 <div className="hidden md:flex gap-2">
                                     <div className="p-2.5 bg-white/5 rounded-xl border border-white/10">
-                                        <Brain className="h-4 w-4 text-white/40" />
+                                        <Brain className="h-4 w-4 text-white/70" />
                                     </div>
                                     <div className="p-2.5 bg-white/5 rounded-xl border border-white/10">
-                                        <Trophy className="h-4 w-4 text-white/40" />
+                                        <Trophy className="h-4 w-4 text-white/70" />
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@ export default function AICoachingPage() {
                                         value={chatInput}
                                         onChange={(e) => setChatInput(e.target.value)}
                                         placeholder="Ask your coach anything about your career journey..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/40 "
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-6 pr-16 text-sm md:text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-white/70 "
                                     />
                                     <button
                                         type="submit"
@@ -237,9 +237,9 @@ export default function AICoachingPage() {
                                     </button>
                                 </form>
                                 <div className="mt-4 flex justify-center gap-6">
-                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">AI-Driven Accountability</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">•</span>
-                                    <span className="text-[8px] md:text-[10px] text-white/40  uppercase tracking-[0.3em]">Precision Mentorship</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/70  uppercase tracking-[0.3em]">AI-Driven Accountability</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/70  uppercase tracking-[0.3em]">•</span>
+                                    <span className="text-[8px] md:text-[10px] text-white/70  uppercase tracking-[0.3em]">Precision Mentorship</span>
                                 </div>
                             </div>
                         </div>

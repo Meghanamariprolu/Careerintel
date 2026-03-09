@@ -32,7 +32,7 @@ export default function BehavioralMappingPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8 mx-auto md:mx-0"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8 mx-auto md:mx-0"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -50,7 +50,7 @@ export default function BehavioralMappingPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-pink-400 uppercase">
                                 Behavioral Skill Mapping<span className="text-pink-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed mx-auto md:mx-0">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed mx-auto md:mx-0">
                                 Decode your professional DNA. Our AI maps your communication style, leadership potential, and emotional resonance for high-impact roles.
                             </p>
                         </div>
@@ -105,12 +105,12 @@ export default function BehavioralMappingPage() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                                     <Zap className="h-5 w-5 text-yellow-400 mb-2" />
-                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/40">Core Strength</h4>
+                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/70">Core Strength</h4>
                                     <p className="text-xs md:text-base  text-white">Adaptive Leading</p>
                                 </div>
                                 <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                                     <Target className="h-5 w-5 text-blue-400 mb-2" />
-                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/40">Target Role</h4>
+                                    <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/70">Target Role</h4>
                                     <p className="text-xs md:text-base  text-white">Chief of Staff</p>
                                 </div>
                             </div>

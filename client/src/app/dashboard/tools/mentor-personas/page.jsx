@@ -59,7 +59,7 @@ export default function MentorPersonasPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -77,7 +77,7 @@ export default function MentorPersonasPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-400 uppercase">
                                 Intelligence Personas Expo<span className="text-indigo-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Meet your elite AI council. Each mentor is built with a unique strategic engine designed to propel your career through different lenses.
                             </p>
                         </div>
@@ -110,10 +110,10 @@ export default function MentorPersonasPage() {
 
                                 <div className="flex-grow">
                                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 mb-6">
-                                        <Shield className="h-3 w-3 text-white/40" />
+                                        <Shield className="h-3 w-3 text-white/70" />
                                         <span className="text-[10px] md:text-xs  text-white/60 tracking-tight">{mentor.specialization}</span>
                                     </div>
-                                    <p className="text-xs md:text-base text-white/50 leading-relaxed  mb-8">
+                                    <p className="text-xs md:text-base text-white/75 leading-relaxed  mb-8">
                                         {mentor.description}
                                     </p>
                                 </div>

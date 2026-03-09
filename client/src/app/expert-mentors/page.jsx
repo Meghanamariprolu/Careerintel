@@ -58,14 +58,14 @@ export default function ExpertMentorsPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-yellow-300">
                     <Star className="h-3 w-3" /> AI Mentor Council
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Expert Mentors</h1>
-                <p className="text-white/40 max-w-xl mx-auto">Three distinct AI mentors. Each one engineered with a unique strategic engine designed to propel your career from a different angle.</p>
+                <p className="text-white/70 max-w-xl mx-auto">Three distinct AI mentors. Each one engineered with a unique strategic engine designed to propel your career from a different angle.</p>
             </div>
 
             {/* Mentor Cards */}
@@ -85,9 +85,9 @@ export default function ExpertMentorsPage() {
                                         <p className={`text-sm ${mentor.color} opacity-70 uppercase tracking-widest`}>{mentor.tagline}</p>
                                     </div>
                                 </div>
-                                <p className="text-white/50 leading-relaxed mb-6">{mentor.description}</p>
+                                <p className="text-white/75 leading-relaxed mb-6">{mentor.description}</p>
                                 <div className="mb-6">
-                                    <p className="text-xs uppercase tracking-widest text-white/50 mb-3">Core Expertise</p>
+                                    <p className="text-xs uppercase tracking-widest text-white/75 mb-3">Core Expertise</p>
                                     <div className="flex flex-wrap gap-2">
                                         {mentor.expertise.map(e => (
                                             <span key={e} className={`text-xs px-3 py-1 rounded-full ${mentor.bg} border ${mentor.border} ${mentor.color}`}>{e}</span>

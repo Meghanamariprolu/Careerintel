@@ -37,7 +37,7 @@ export default function AnalyticsDashboardPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -55,7 +55,7 @@ export default function AnalyticsDashboardPage() {
                             <h1 className="text-base md:text-xl tracking-[0.1em] text-white/90 uppercase">
                                 Career Analytics Engine<span className="text-blue-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Advanced data visualization of your professional momentum. Track readiness, skill acquisition gradients, and market compatibility.
                             </p>
                         </div>
@@ -151,7 +151,7 @@ export default function AnalyticsDashboardPage() {
                             {chartData.map(item => (
                                 <div key={item.label}>
                                     <div className="flex justify-between items-center mb-3">
-                                        <span className="text-[10px] md:text-xs  uppercase tracking-widest text-white/40">{item.label}</span>
+                                        <span className="text-[10px] md:text-xs  uppercase tracking-widest text-white/70">{item.label}</span>
                                         <span className="text-sm md:text-lg  text-white">{item.value}%</span>
                                     </div>
                                     <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
@@ -183,7 +183,7 @@ export default function AnalyticsDashboardPage() {
                                     <p className="text-sm md:text-lg  text-white">Accelerated Growth Path</p>
                                 </div>
                             </div>
-                            <p className="text-sm md:text-lg text-white/50 leading-relaxed ">
+                            <p className="text-sm md:text-lg text-white/75 leading-relaxed ">
                                 "Your technical acquisition rate is <span className="text-blue-400 ">2.1x faster</span> than the industry average for Senior roles. Maintaining this velocity will put you in the top percentile of 'Architect Ready' candidates within 6 months."
                             </p>
                         </div>

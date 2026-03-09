@@ -32,7 +32,7 @@ export default function OutcomeTrackingPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -50,7 +50,7 @@ export default function OutcomeTrackingPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-emerald-400 uppercase">
                                 Outcome & ROI Tracking<span className="text-emerald-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Quantifying your growth. Track your journey from skill acquisition to market dominance with AI-powered outcome forecasting.
                             </p>
                         </div>
@@ -107,7 +107,7 @@ export default function OutcomeTrackingPage() {
                             >
                                 <div className="flex items-center gap-6">
                                     <div className={`p-3 rounded-xl ${item.progress === 100 ? 'bg-emerald-500/20' : 'bg-white/5'} border border-white/10`}>
-                                        <Calendar className={`h-5 w-5 ${item.progress === 100 ? 'text-emerald-400' : 'text-white/40'}`} />
+                                        <Calendar className={`h-5 w-5 ${item.progress === 100 ? 'text-emerald-400' : 'text-white/70'}`} />
                                     </div>
                                     <div>
                                         <h3 className="text-sm md:text-lg  text-white group-hover:text-emerald-400 transition-colors uppercase">{item.title}</h3>
@@ -145,11 +145,11 @@ export default function OutcomeTrackingPage() {
                         </div>
 
                         <div className="p-6 rounded-xl bg-white/5 border border-white/10">
-                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-4">Estimated Market Worth</h4>
+                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/75 mb-4">Estimated Market Worth</h4>
                             <div className="flex items-baseline gap-2">
                                 <DollarSign className="h-6 w-6 text-emerald-500" />
                                 <span className="text-lg md:text-4xl  text-white tracking-tighter">$185k - $220k</span>
-                                <span className="text-[10px] md:text-xs  text-white/50 uppercase">Lead Tier</span>
+                                <span className="text-[10px] md:text-xs  text-white/75 uppercase">Lead Tier</span>
                             </div>
                         </div>
                     </motion.div>

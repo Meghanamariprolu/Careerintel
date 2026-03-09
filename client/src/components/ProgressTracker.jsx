@@ -35,7 +35,7 @@ export default function ProgressTracker({ progress, onReset, onSave, hasSaved })
                             onClick={onSave}
                             disabled={hasSaved}
                             className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all text-sm  shadow-lg ${hasSaved
-                                ? 'bg-white/10 text-white/40 cursor-not-allowed border border-white/5'
+                                ? 'bg-white/10 text-white/70 cursor-not-allowed border border-white/5'
                                 : 'bg-purple-600 hover:bg-purple-500 text-white border border-purple-400/30'
                                 }`}
                         >

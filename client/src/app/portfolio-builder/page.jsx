@@ -99,7 +99,7 @@ export default function PortfolioBuilderPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-sm md:text-lg text-white/40 max-w-3xl mx-auto  leading-relaxed tracking-tight"
+                        className="text-sm md:text-lg text-white/70 max-w-3xl mx-auto  leading-relaxed tracking-tight"
                     >
                         Architect a world-class digital presence. Transform your achievements into a high-fidelity visual narrative.
                     </motion.p>
@@ -134,7 +134,7 @@ export default function PortfolioBuilderPage() {
                                 <motion.button
                                     whileHover={{ x: -10 }}
                                     onClick={handleEdit}
-                                    className="flex items-center gap-2 text-white/40 hover:text-white  text-sm uppercase tracking-widest transition-colors"
+                                    className="flex items-center gap-2 text-white/70 hover:text-white  text-sm uppercase tracking-widest transition-colors"
                                 >
                                     <ArrowLeft className="h-5 w-5" /> Back to Architect
                                 </motion.button>

@@ -47,7 +47,7 @@ export default function TermsOfServicePage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-indigo-300">
@@ -67,7 +67,7 @@ export default function TermsOfServicePage() {
                     {sections.map((section, idx) => (
                         <motion.section key={section.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
                             <h2 className="text-base font-light text-white mb-4 tracking-wide border-b border-white/5 pb-3">{section.title}</h2>
-                            <div className="text-white/50 text-sm leading-relaxed whitespace-pre-line">{section.content}</div>
+                            <div className="text-white/75 text-sm leading-relaxed whitespace-pre-line">{section.content}</div>
                         </motion.section>
                     ))}
                 </div>

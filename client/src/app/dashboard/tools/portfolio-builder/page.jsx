@@ -144,7 +144,7 @@ ${p.link ? `**Link:** ${p.link}` : ''}
                             <h1 className="text-2xl md:text-4xl font-light tracking-tighter text-white">
                                 Build Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Portfolio Presence</span>
                             </h1>
-                            <p className="text-white/40 mt-3 max-w-xl">
+                            <p className="text-white/70 mt-3 max-w-xl">
                                 Transform your career journey into a compelling professional portfolio. Fill in your details, and watch your presence come to life.
                             </p>
                         </div>
@@ -222,7 +222,7 @@ ${p.link ? `**Link:** ${p.link}` : ''}
                             </div>
                             <div className="flex items-center gap-3">
                                 <button onClick={handleEdit}
-                                    className="flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-widest text-white/50 hover:text-white border border-white/10 hover:border-white/20 rounded-xl transition-all">
+                                    className="flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-widest text-white/75 hover:text-white border border-white/10 hover:border-white/20 rounded-xl transition-all">
                                     <Edit3 className="h-3 w-3" /> Edit
                                 </button>
                                 <button onClick={handleDownload}

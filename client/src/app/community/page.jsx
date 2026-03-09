@@ -63,14 +63,14 @@ export default function CommunityPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-emerald-300">
                     <Users className="h-3 w-3" /> Global Career Network
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Community</h1>
-                <p className="text-white/40 max-w-xl mx-auto">Join thousands of ambitious professionals using CareerIntel to accelerate their growth together.</p>
+                <p className="text-white/70 max-w-xl mx-auto">Join thousands of ambitious professionals using CareerIntel to accelerate their growth together.</p>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 pb-24">
@@ -96,7 +96,7 @@ export default function CommunityPage() {
                                 <ch.icon className={`h-6 w-6 ${ch.color}`} />
                             </div>
                             <h3 className="text-lg font-light text-white mb-2">{ch.title}</h3>
-                            <p className="text-white/40 text-sm leading-relaxed mb-6">{ch.description}</p>
+                            <p className="text-white/70 text-sm leading-relaxed mb-6">{ch.description}</p>
                             <Link href={ch.href} className={`text-sm ${ch.color} hover:opacity-80 transition-opacity flex items-center gap-2 font-light`}>
                                 {ch.cta} →
                             </Link>
@@ -108,7 +108,7 @@ export default function CommunityPage() {
                 <div className="p-10 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-transparent border border-emerald-500/20 text-center">
                     <Zap className="h-8 w-8 text-emerald-400 mx-auto mb-4" />
                     <h3 className="text-xl font-light text-white mb-3">Community Values</h3>
-                    <p className="text-white/40 text-sm max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-white/70 text-sm max-w-2xl mx-auto leading-relaxed">
                         We believe in <span className="text-emerald-400">radical transparency</span>, <span className="text-emerald-400">mutual growth</span>, and <span className="text-emerald-400">no gatekeeping</span>. 
                         Whether you're a junior developer or a seasoned executive, your insights are valuable here. Be kind, be specific, and pay it forward.
                     </p>

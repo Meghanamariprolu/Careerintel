@@ -63,14 +63,14 @@ export default function HelpCenterPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-indigo-300">
                     <HelpCircle className="h-3 w-3" /> Support Center
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Help Center</h1>
-                <p className="text-white/40 max-w-xl mx-auto mb-10">Find answers to common questions about CareerIntel's AI-powered career intelligence platform.</p>
+                <p className="text-white/70 max-w-xl mx-auto mb-10">Find answers to common questions about CareerIntel's AI-powered career intelligence platform.</p>
 
                 {/* Search */}
                 <div className="relative max-w-xl mx-auto">
@@ -117,7 +117,7 @@ export default function HelpCenterPage() {
                                                     transition={{ duration: 0.2 }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <p className="px-5 pb-5 text-white/50 text-sm leading-relaxed border-t border-white/5 pt-4">{item.a}</p>
+                                                    <p className="px-5 pb-5 text-white/75 text-sm leading-relaxed border-t border-white/5 pt-4">{item.a}</p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
@@ -132,7 +132,7 @@ export default function HelpCenterPage() {
                 <div className="p-8 rounded-xl bg-indigo-500/5 border border-indigo-500/20 text-center">
                     <MessageSquare className="h-8 w-8 text-indigo-400 mx-auto mb-4" />
                     <h3 className="text-xl font-light text-white mb-2">Still need help?</h3>
-                    <p className="text-white/40 text-sm mb-6">Our support team is available to help you with any questions.</p>
+                    <p className="text-white/70 text-sm mb-6">Our support team is available to help you with any questions.</p>
                     <a href="mailto:support@careerintel.ai" className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white text-sm transition-colors">
                         Contact Support
                     </a>

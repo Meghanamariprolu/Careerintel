@@ -83,14 +83,14 @@ export default function CareerBlogPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full" />
                 </div>
-                <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
                     <ArrowLeft className="h-4 w-4" /> Back to Home
                 </Link>
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 text-xs uppercase tracking-[0.25em] text-purple-300">
                     <BookOpen className="h-3 w-3" /> Career Intelligence Blog
                 </motion.div>
                 <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-4">Career Blog</h1>
-                <p className="text-white/40 max-w-xl mx-auto">Insights, strategies, and intelligence to accelerate your professional trajectory.</p>
+                <p className="text-white/70 max-w-xl mx-auto">Insights, strategies, and intelligence to accelerate your professional trajectory.</p>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 pb-24">
@@ -100,7 +100,7 @@ export default function CareerBlogPage() {
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all border ${activeCategory === cat ? 'bg-white/10 border-white/20 text-white' : 'border-white/10 text-white/40 hover:text-white hover:border-white/20'}`}
+                            className={`px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all border ${activeCategory === cat ? 'bg-white/10 border-white/20 text-white' : 'border-white/10 text-white/70 hover:text-white hover:border-white/20'}`}
                         >
                             {cat}
                         </button>
@@ -112,11 +112,11 @@ export default function CareerBlogPage() {
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-12 p-10 rounded-2xl bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent border border-white/10 group cursor-pointer hover:border-white/20 transition-all">
                         <div className="flex items-center gap-3 mb-4">
                             <span className={`text-xs px-3 py-1 rounded-full border ${featured.tag} border-indigo-500/30`}>{featured.category}</span>
-                            <span className="text-white/50 text-xs uppercase tracking-widest flex items-center gap-1"><Clock className="h-3 w-3" />{featured.readTime}</span>
-                            <span className="text-white/50 text-xs">{featured.date}</span>
+                            <span className="text-white/75 text-xs uppercase tracking-widest flex items-center gap-1"><Clock className="h-3 w-3" />{featured.readTime}</span>
+                            <span className="text-white/75 text-xs">{featured.date}</span>
                         </div>
                         <h2 className="text-2xl md:text-3xl font-light text-white mb-4 tracking-tight group-hover:text-indigo-400 transition-colors">{featured.title}</h2>
-                        <p className="text-white/50 leading-relaxed max-w-3xl mb-6">{featured.excerpt}</p>
+                        <p className="text-white/75 leading-relaxed max-w-3xl mb-6">{featured.excerpt}</p>
                         <span className="inline-flex items-center gap-2 text-indigo-400 text-sm hover:gap-3 transition-all">Read Article <ArrowRight className="h-4 w-4" /></span>
                     </motion.div>
                 )}
@@ -133,18 +133,18 @@ export default function CareerBlogPage() {
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 rounded-lg bg-white/5">
-                                    <post.icon className="h-4 w-4 text-white/50" />
+                                    <post.icon className="h-4 w-4 text-white/75" />
                                 </div>
                                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${post.tag}`}>{post.category}</span>
                             </div>
                             <h3 className="text-base font-light text-white mb-3 leading-snug group-hover:text-purple-300 transition-colors flex-grow">{post.title}</h3>
-                            <p className="text-white/40 text-sm leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
+                            <p className="text-white/70 text-sm leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                <div className="flex items-center gap-3 text-white/50 text-xs">
+                                <div className="flex items-center gap-3 text-white/75 text-xs">
                                     <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{post.readTime}</span>
                                     <span>{post.date}</span>
                                 </div>
-                                <ArrowRight className="h-4 w-4 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                                <ArrowRight className="h-4 w-4 text-white/75 group-hover:text-white group-hover:translate-x-1 transition-all" />
                             </div>
                         </motion.article>
                     ))}

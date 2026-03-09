@@ -32,7 +32,7 @@ export default function SkillTransferPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -50,7 +50,7 @@ export default function SkillTransferPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-cyan-400 uppercase">
                                 Skill Transfer Mapping<span className="text-cyan-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Bridging the gap between what you know and where you're going. See how your existing inventory translates to high-growth roles in different industries.
                             </p>
                         </div>
@@ -82,14 +82,14 @@ export default function SkillTransferPage() {
                                     </div>
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                         <div>
-                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-1">From Current Skill</h4>
+                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/75 mb-1">From Current Skill</h4>
                                             <p className="text-base md:text-xl  text-white">{path.skill}</p>
                                         </div>
                                         <div className="hidden md:block">
                                             <ArrowRight className="h-6 w-6 text-cyan-500" />
                                         </div>
                                         <div className="text-right md:text-left">
-                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-1">To Target Application</h4>
+                                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/75 mb-1">To Target Application</h4>
                                             <p className="text-base md:text-xl  text-cyan-400">{path.application}</p>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@ export default function SkillTransferPage() {
                         </div>
 
                         <div className="space-y-6">
-                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/40 mb-2">Confidence Benchmark</h4>
+                            <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/70 mb-2">Confidence Benchmark</h4>
                             <div className="flex justify-between items-end mb-2">
                                 <span className="text- base md:text-xl  text-white">Path Synergy</span>
                                 <span className="text-lg md:text-3xl  text-cyan-400">88%</span>

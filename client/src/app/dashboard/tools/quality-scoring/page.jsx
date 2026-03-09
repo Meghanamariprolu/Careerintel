@@ -51,7 +51,7 @@ export default function QualityScoringPage() {
                     <Link href="/dashboard">
                         <motion.button
                             whileHover={{ x: -10 }}
-                            className="flex items-center gap-2 text-white/40 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
+                            className="flex items-center gap-2 text-white/70 hover:text-white  text-xs uppercase tracking-widest transition-colors mb-8"
                         >
                             <ArrowLeft className="h-4 w-4" /> Back to Intelligence Hub
                         </motion.button>
@@ -69,7 +69,7 @@ export default function QualityScoringPage() {
                             <h1 className="text-lg md:text-2xl  tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-orange-400 uppercase">
                                 Learning Source Quality Scoring<span className="text-orange-500">.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-white/40 max-w-2xl mt-4  leading-relaxed">
+                            <p className="text-sm md:text-lg text-white/70 max-w-2xl mt-4  leading-relaxed">
                                 Don't just learn—learn from the best. Our AI audits thousands of courses, books, and certifications to show you the highest ROI resources.
                             </p>
                         </div>
@@ -107,10 +107,10 @@ export default function QualityScoringPage() {
 
                                 <div className="flex items-center gap-8 border-t md:border-t-0 md:border-l border-white/5 pt-6 md:pt-0 md:pl-8">
                                     <div className="text-center">
-                                        <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/50 mb-2">Intelligence Score</h4>
+                                        <h4 className="text-[10px] md:text-xs  uppercase tracking-widest text-white/75 mb-2">Intelligence Score</h4>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-lg md:text-3xl  text-orange-400">{item.score}</span>
-                                            <span className="text-[10px] md:text-xs  text-white/50">/100</span>
+                                            <span className="text-[10px] md:text-xs  text-white/75">/100</span>
                                         </div>
                                     </div>
                                     <Button variant="outline" className="rounded-xl border-white/10 hover:bg-white/5 px-6">
@@ -129,7 +129,7 @@ export default function QualityScoringPage() {
                     transition={{ delay: 0.8 }}
                     className="mt-16 p-8 rounded-xl bg-orange-500/5 border border-orange-500/10 text-center"
                 >
-                    <p className="text-xs md:text-base text-white/40 ">
+                    <p className="text-xs md:text-base text-white/70 ">
                         Scores are calculated based on <span className="text-orange-400/60 ">Market Relevance</span>, <span className="text-orange-400/60 ">Depth of Content</span>, and <span className="text-orange-400/60 ">Successful Alumni Outcomes</span>.
                     </p>
                 </motion.div>
