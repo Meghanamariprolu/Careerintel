@@ -16,6 +16,20 @@ const userSchema = new Schema(
         location: { type: String, default: '' },
         skills: { type: [String], default: [] },
         profileImage: { type: String, default: '' },
+
+        // Guided Workflow Fields
+        careerGoal: { type: String, default: '' },
+        education: { type: String, default: '' },
+        interests: { type: [String], default: [] },
+        experienceLevel: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced', 'Expert', ''], default: '' },
+        careerReadinessScore: { type: Number, default: 0 },
+        progressTracking: {
+            completedSteps: { type: [String], default: [] },
+            coursesCompleted: { type: Number, default: 0 },
+            projectsBuilt: { type: Number, default: 0 },
+            skillsLearned: { type: Number, default: 0 }
+        },
+
         resetPasswordToken: String,
         resetPasswordExpire: Date,
     },

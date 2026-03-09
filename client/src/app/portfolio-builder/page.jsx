@@ -7,8 +7,8 @@ import Link from 'next/link';
 import PortfolioForm from '../../components/PortfolioForm';
 import PortfolioPreview from '../../components/PortfolioPreview';
 import { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } from '../../utils/localStorageHelper';
-import { useUserProfile } from '@/context/UserProfileContext';
 import { NextModulePrompter } from '@/components/NextModulePrompter';
+import axios from 'axios';
 
 const STORAGE_KEY = 'careerintel_portfolio_data';
 
@@ -16,7 +16,9 @@ export default function PortfolioBuilderPage() {
     const [portfolioData, setPortfolioData] = useState(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
-    const { updateProfile } = useUserProfile();
+    const [recommendedProjects, setRecommendedProjects] = useState([]);
+    const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(true);
+    const { profile, updateProfile } = useUserProfile();
 
     useEffect(() => {
         const savedData = getLocalStorageItem(STORAGE_KEY, null);
@@ -24,7 +26,30 @@ export default function PortfolioBuilderPage() {
             setPortfolioData(savedData);
             setShowPreview(true);
         }
-    }, []);
+
+        const fetchRecommendations = async () => {
+            if (!profile.careerGoal) {
+                setIsLoadingRecommendations(false);
+                return;
+            }
+            try {
+                const token = localStorage.getItem('token');
+                const { data } = await axios.post('/api/project-recommendations',
+                    { targetRole: profile.careerGoal },
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                if (data.success) {
+                    setRecommendedProjects(data.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch project recommendations", error);
+            } finally {
+                setIsLoadingRecommendations(false);
+            }
+        };
+
+        fetchRecommendations();
+    }, [profile.careerGoal]);
 
     const handleGenerate = (data) => {
         setIsGenerating(true);
@@ -107,20 +132,61 @@ export default function PortfolioBuilderPage() {
 
                 <AnimatePresence mode="wait">
                     {!showPreview ? (
-                        <motion.div
-                            key="form"
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -40 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            className="flex justify-center pb-24"
-                        >
-                            <PortfolioForm
-                                initialData={portfolioData}
-                                onGenerate={handleGenerate}
-                                isGenerating={isGenerating}
-                            />
-                        </motion.div>
+                        <div className="flex flex-col lg:flex-row gap-8 pb-24">
+                            {/* Left Column: Form */}
+                            <div className="flex-1">
+                                <PortfolioForm
+                                    initialData={portfolioData}
+                                    onGenerate={handleGenerate}
+                                    isGenerating={isGenerating}
+                                />
+                            </div>
+
+                            {/* Right Column: Recommendations */}
+                            <div className="lg:w-1/3 space-y-6">
+                                <div className="bg-white/5 backdrop-blur-2xl p-8 rounded-xl border border-white/10 shadow-2xl relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-4 opacity-5">
+                                        <Sparkles className="h-24 w-24 text-purple-400" />
+                                    </div>
+                                    <h3 className="text-xl text-white mb-2 flex items-center gap-2">
+                                        <Briefcase className="h-5 w-5 text-purple-400" /> AI Recommendations
+                                    </h3>
+                                    <p className="text-sm text-white/50 mb-6">Targeting: {profile.careerGoal || 'Your Next Role'}</p>
+
+                                    {isLoadingRecommendations ? (
+                                        <div className="animate-pulse flex space-x-4">
+                                            <div className="flex-1 space-y-4 py-1">
+                                                <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                                                <div className="space-y-2">
+                                                    <div className="h-3 bg-white/10 rounded"></div>
+                                                    <div className="h-3 bg-white/10 rounded w-5/6"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : recommendedProjects.length > 0 ? (
+                                        <div className="space-y-4">
+                                            {recommendedProjects.map((proj, idx) => (
+                                                <div key={idx} className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 hover:border-purple-500/50 transition-colors">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <h4 className="text-sm font-semibold text-purple-100">{proj.title}</h4>
+                                                        <span className="text-[10px] px-2 py-1 bg-white/10 rounded-full text-white/70">{proj.difficulty}</span>
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-2 mt-3">
+                                                        {proj.skills.map(skill => (
+                                                            <span key={skill} className="text-[10px] uppercase tracking-wider text-purple-300 bg-purple-500/20 px-2 py-1 rounded-md">
+                                                                {skill}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-white/50">Please set a career goal in onboarding to see tailored project recommendations.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     ) : (
                         <motion.div
                             key="preview"

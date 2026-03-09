@@ -28,7 +28,7 @@ const careerTools = [
     { name: "AI Coaching", href: "/dashboard/tools/coaching", icon: UserRoundCog, color: "text-indigo-400", bg: "bg-indigo-400/10" },
     { name: "Behavioral Mapping", href: "/dashboard/tools/behavioral-mapping", icon: Brain, color: "text-pink-400", bg: "bg-pink-400/10" },
     { name: "Quality Scoring", href: "/dashboard/tools/quality-scoring", icon: Star, color: "text-orange-400", bg: "bg-orange-400/10" },
-    { name: "Skill Transfer", href: "/dashboard/tools/skill-transfer", icon: Combine, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+    { name: "Skill Gap Analyzer", href: "/dashboard/tools/skill-gap", icon: Combine, color: "text-cyan-400", bg: "bg-cyan-400/10" },
     { name: "Outcome Tracking", href: "/dashboard/tools/outcome-tracking", icon: BarChart3, color: "text-emerald-400", bg: "bg-emerald-400/10" },
     { name: "Mentor Personas", href: "/dashboard/tools/mentor-personas", icon: Bot, color: "text-violet-400", bg: "bg-violet-400/10" },
     { name: "Career Intelligence Report", href: "/dashboard/report", icon: FileText, color: "text-indigo-400", bg: "bg-indigo-400/10" },
@@ -104,6 +104,54 @@ export default function DashboardPage() {
                 </motion.p>
             </div>
 
+            {/* Career Pulse Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="bg-slate-900/40 border-white/5 backdrop-blur-md">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <div className="p-3 bg-blue-500/10 rounded-xl">
+                            <Target className="h-5 w-5 text-blue-400" />
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Target Path</p>
+                            <p className="text-sm font-medium text-white truncate max-w-[120px]">{profile?.careerGoal || "Not Set"}</p>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="bg-slate-900/40 border-white/5 backdrop-blur-md">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <div className="p-3 bg-cyan-500/10 rounded-xl">
+                            <Combine className="h-5 w-5 text-cyan-400" />
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Skill Match</p>
+                            <p className="text-sm font-medium text-white">{profile?.analytics?.skillMatch || 0}%</p>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="bg-slate-900/40 border-white/5 backdrop-blur-md">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <div className="p-3 bg-yellow-500/10 rounded-xl">
+                            <FileUser className="h-5 w-5 text-yellow-400" />
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Resume Score</p>
+                            <p className="text-sm font-medium text-white">{profile?.analytics?.resumeScore || 0}%</p>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="bg-slate-900/40 border-white/5 backdrop-blur-md">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <div className="p-3 bg-emerald-500/10 rounded-xl">
+                            <TrendingUp className="h-5 w-5 text-emerald-400" />
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Market Viability</p>
+                            <p className="text-sm font-medium text-white">Top 15%</p>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
             {/* Career Readiness Progress Bar */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -128,9 +176,14 @@ export default function DashboardPage() {
                                     className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"
                                 />
                             </div>
-                            <p className="text-xs md:text-sm text-white/75 ">
-                                Complete intelligence modules to build your profile and increase your market viability.
-                            </p>
+                            <div className="flex items-center gap-2 p-2 bg-indigo-500/5 border border-indigo-500/10 rounded-lg">
+                                <Sparkles className="h-4 w-4 text-indigo-400 shrink-0" />
+                                <p className="text-[10px] md:text-xs text-indigo-300">
+                                    {profile?.careerGoal
+                                        ? `Currently optimizing your trajectory for ${profile.careerGoal}. Keep completing modules to reach 100%.`
+                                        : "Complete onboarding to initialize your AI Career Assistant trajectory."}
+                                </p>
+                            </div>
                         </div>
 
                         <Link href="/dashboard/analytics">

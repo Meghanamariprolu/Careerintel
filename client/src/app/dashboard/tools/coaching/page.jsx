@@ -50,17 +50,48 @@ const nudges = [
     { text: "Market demand for 'TypeScript' in your region just increased by 14%. Update your roadmap?", icon: TrendingUp },
 ];
 
+import axios from 'axios';
+
 export default function AICoachingPage() {
     const [selectedMentor, setSelectedMentor] = useState(mentors[0]);
     const [isThinking, setIsThinking] = useState(false);
     const [chatInput, setChatInput] = useState('');
+    const [messages, setMessages] = useState([
+        {
+            role: 'ai',
+            content: "Hello Architect. I've analyzed your recent progression. Your commitment to the 'Mastery Hub' is showing results, but your technical execution on projects could be more aggressive. What's blocking your next major deployment?"
+        }
+    ]);
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!chatInput.trim()) return;
-        setIsThinking(true);
+
+        const userMsg = { role: 'user', content: chatInput };
+        setMessages(prev => [...prev, userMsg]);
         setChatInput('');
-        setTimeout(() => setIsThinking(false), 2000);
+        setIsThinking(true);
+
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.post('/api/ai-coach',
+                {
+                    message: userMsg.content,
+                    persona: selectedMentor.name,
+                    chatHistory: messages
+                },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (data.success) {
+                setMessages(prev => [...prev, { role: 'ai', content: data.data.reply }]);
+            }
+        } catch (error) {
+            console.error("Coaching API failed", error);
+            setMessages(prev => [...prev, { role: 'ai', content: "I'm having a bit of trouble connecting to the intelligence grid. Please try again in a moment." }]);
+        } finally {
+            setIsThinking(false);
+        }
     };
 
     return (
@@ -185,20 +216,23 @@ export default function AICoachingPage() {
 
                             {/* Messages Area */}
                             <div className="flex-1 p-8 space-y-8 overflow-y-auto max-h-[500px] scrollbar-visible">
-                                <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className="flex items-start gap-4 max-w-[80%]"
-                                >
-                                    <div className={`p-2 rounded-xl ${selectedMentor.bg} shrink-0`}>
-                                        <selectedMentor.icon className={`h-4 w-4 ${selectedMentor.color}`} />
-                                    </div>
-                                    <div className="bg-white/5 rounded-xl rounded-tl-none p-5 border border-white/10">
-                                        <p className="text-xs md:text-base text-white/80 leading-relaxed ">
-                                            Hello Architect. I've analyzed your recent progression. Your commitment to the 'Mastery Hub' is showing results, but your technical execution on projects could be more aggressive. What's blocking your next major deployment?
-                                        </p>
-                                    </div>
-                                </motion.div>
+                                {messages.map((msg, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, x: msg.role === 'user' ? 20 : -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className={`flex items-start gap-4 ${msg.role === 'user' ? 'flex-row-reverse self-end ml-auto' : 'max-w-[80%]'}`}
+                                    >
+                                        <div className={`p-2 rounded-xl ${msg.role === 'user' ? 'bg-indigo-600' : selectedMentor.bg} shrink-0`}>
+                                            {msg.role === 'user' ? <UserRoundCog className="h-4 w-4 text-white" /> : <selectedMentor.icon className={`h-4 w-4 ${selectedMentor.color}`} />}
+                                        </div>
+                                        <div className={`${msg.role === 'user' ? 'bg-indigo-600/20' : 'bg-white/5'} rounded-xl p-5 border ${msg.role === 'user' ? 'border-indigo-500/30' : 'border-white/10'}`}>
+                                            <p className="text-xs md:text-base text-white/80 leading-relaxed ">
+                                                {msg.content}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                ))}
 
                                 <AnimatePresence>
                                     {isThinking && (

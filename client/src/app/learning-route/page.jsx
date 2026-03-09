@@ -9,6 +9,7 @@ import { NextModulePrompter } from '@/components/NextModulePrompter';
 import LearningForm from '../../components/LearningForm';
 import ProgressTracker from '../../components/ProgressTracker';
 import RoadmapDisplay from '../../components/RoadmapDisplay';
+import axios from 'axios';
 import { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } from '../../utils/localStorageHelper';
 
 const STORAGE_KEY = 'careerintel_learning_route';
@@ -28,14 +29,25 @@ export default function LearningRoutePage() {
         }
     }, []);
 
-    const handleGenerate = (formData) => {
+    const handleGenerate = async (formData) => {
         setIsGenerating(true);
-        setTimeout(() => {
-            setRoute(formData);
-            setCompletedSteps([]);
-            setHasSaved(false);
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.post('/api/generate-roadmap',
+                { targetRole: formData.goal, timeframe: formData.level },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            if (data.success) {
+                // Mock roadmapData returned from AI in our new endpoint format
+                setRoute({ ...formData, roadmapData: data.data });
+                setCompletedSteps([]);
+                setHasSaved(false);
+            }
+        } catch (error) {
+            console.error("Failed to generate roadmap", error);
+        } finally {
             setIsGenerating(false);
-        }, 1200); // Slightly longer for "calculation" feel
+        }
     };
 
     const handleToggleStep = (index) => {

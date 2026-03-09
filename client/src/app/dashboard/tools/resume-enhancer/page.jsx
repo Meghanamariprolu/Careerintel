@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { FileText, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, ChevronRight, Loader2, Target, Type, AlertTriangle, TrendingUp, BarChart3, Fingerprint, Award, Layers } from "lucide-react"
+import { FileText, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, ChevronRight, Loader2, Target, Type, AlertTriangle, TrendingUp, BarChart3, Fingerprint, Award, Layers, Globe, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
 import { useUserProfile } from "@/context/UserProfileContext"
@@ -11,131 +11,38 @@ import { NextModulePrompter } from "@/components/NextModulePrompter"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card"
 
-// --- ATS Mock AI Enhancement Logic ---
-const analyzeText = (resumeText, jobDescription, userSkills) => {
-    const textLower = resumeText.toLowerCase()
-    const jdLower = jobDescription.toLowerCase()
+import axios from 'axios';
 
-    // 1. Check for valid resume content vs system prompts
-    const instructionsKeywords = ["rewrite", "prompt", "instructions", "evaluate", "analyze", "you are a", "ignore all", "system:"]
-    const isInstructional = instructionsKeywords.some(kw => textLower.includes(kw)) && text.length < 500
-
-    if (isInstructional || resumeText.trim().length < 20) {
-        return {
-            isError: true,
-            message: "I detected system instructions or template text rather than genuine professional experience. Please provide actual resume content for a comprehensive ATS analysis."
-        }
+const resumeBuilders = [
+    {
+        name: "Reactive Resume",
+        description: "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume without giving up privacy.",
+        url: "https://rxresume.in/",
+        tags: ["Open Source", "Free", "No Ads"],
+        color: "from-blue-500 to-indigo-500"
+    },
+    {
+        name: "FlowCV",
+        description: "Format your resume with ease. FlowCV helps you create a beautiful, modern resume with smart formatting and free high-quality templates.",
+        url: "https://flowcv.com/",
+        tags: ["Modern UI", "Free Tier", "ATS Ready"],
+        color: "from-emerald-500 to-teal-500"
+    },
+    {
+        name: "Novoresume",
+        description: "Create a professional resume in minutes. Novoresume offers ATS-friendly templates designed by experts to land you the job.",
+        url: "https://novoresume.com/",
+        tags: ["Professional", "Templates", "Cover Letters"],
+        color: "from-orange-500 to-red-500"
+    },
+    {
+        name: "Canva Resumes",
+        description: "Stand out with incredibly visual and highly customizable resume templates perfect for creative roles and modern tech companies.",
+        url: "https://www.canva.com/resumes/",
+        tags: ["Highly Visual", "Drag & Drop", "Creative"],
+        color: "from-purple-500 to-pink-500"
     }
-
-    // --- Structured ATS Evaluation ---
-
-    // Overall Strength Score & Impact Level
-    const numMatches = resumeText.match(/\d+/g) || []
-    const hasNumbers = numMatches.length > 0
-    const hasActionVerbs = ["managed", "led", "developed", "created", "built", "designed", "optimized", "architected", "spearheaded", "orchestrated"].some(v => textLower.includes(v))
-
-    let baseScore = 60
-    if (hasNumbers) baseScore += Math.min(20, numMatches.length * 5)
-    if (hasActionVerbs) baseScore += 10
-    if (resumeText.length > 300) baseScore += 5
-
-    // Keyword match with JD
-    const jdKeywords = ["react", "node", "typescript", "aws", "docker", "kubernetes", "sql", "nosql", "agile", "cicd", "system design"].filter(kw => jdLower.includes(kw))
-    const matchedJDKeywords = jdKeywords.filter(kw => textLower.includes(kw))
-    const matchPercentage = jdKeywords.length > 0 ? (matchedJDKeywords.length / jdKeywords.length) * 100 : 85
-
-    baseScore = (baseScore + matchPercentage) / 2
-
-    const score = Math.min(100, Math.max(0, Math.round(baseScore)))
-
-    let scoreColor = "text-green-400"
-    let impactLevel = "Strong"
-    let impactJustification = "The resume effectively uses action verbs and quantifiable metrics to demonstrate significant technical impact and business value."
-    let badgeColor = "bg-green-500/20 text-green-300 border-green-500/30"
-
-    if (score < 60) {
-        scoreColor = "text-red-400"
-        impactLevel = "Weak"
-        impactJustification = "The content lacks measurable outcomes, relies on passive phrasing, and does not clearly demonstrate scope, ownership, or leadership."
-        badgeColor = "bg-red-500/20 text-red-300 border-red-500/30"
-    } else if (score < 80) {
-        scoreColor = "text-yellow-400"
-        impactLevel = "Moderate"
-        impactJustification = "The text highlights technical duties well but could be significantly strengthened with more scalable business outcomes and advanced ATS keywords."
-        badgeColor = "bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
-    }
-
-    // Identify vague statements (Weaknesses)
-    const weaknesses = []
-    const vaguePhrases = ["worked on", "helped", "involved in", "responsible for", "was a part of", "did some", "assisted with"]
-    const lines = resumeText.split('\n').filter(l => l.trim().length > 0)
-
-    lines.forEach(line => {
-        const cleanLine = line.replace(/^[-•*]\s*/, '').trim()
-        if (vaguePhrases.some(vp => cleanLine.toLowerCase().startsWith(vp)) && weaknesses.length < 3) {
-            weaknesses.push(`"${cleanLine.substring(0, 50)}..." - Lacks ownership.`)
-        }
-    })
-
-    if (weaknesses.length === 0) weaknesses.push("None major detected - Good use of action verbs.")
-    if (!resumeText.match(/\d/)) weaknesses.push("Missing quantifiable metrics (e.g., %, $, numbers).")
-
-    // Strengths
-    const strengths = []
-    if (hasActionVerbs) strengths.push("Strong use of senior-level action verbs (Architected, Orchestrated).")
-    if (hasNumbers) strengths.push("Quantifiable achievements clearly demonstrated with metrics.")
-    if (resumeText.length > 500) strengths.push("Comprehensive coverage of professional experience.")
-    if (strengths.length === 0) strengths.push("Clear formatting and readable structure.")
-
-    // Skills
-    const technicalSkills = ["React", "JavaScript", "Node.js", "Python", "TypeScript", "Go", "Java"].filter(s => textLower.includes(s.toLowerCase()))
-    const tools = ["AWS", "Docker", "Git", "Jira", "Kubernetes", "PostgreSQL"].filter(s => textLower.includes(s.toLowerCase()))
-    const softSkills = ["Leadership", "Communication", "Problem Solving", "Collaboration"].filter(s => textLower.includes(s.toLowerCase()))
-
-    // Missing Keywords
-    const missingKeywords = jdKeywords.filter(kw => !textLower.includes(kw)).map(kw => kw.charAt(0).toUpperCase() + kw.slice(1))
-
-    // Experience Impact
-    const impactReview = hasNumbers
-        ? "High impact detected. Metrics provide a clear understanding of your contributions."
-        : "Moderate impact. Focus more on RESULTS rather than just DUTIES."
-
-    // Improved bullets
-    let rewrittenCount = 0
-    let rewritten = lines.map(line => {
-        if (rewrittenCount >= 5) return null
-        let cleanLine = line.replace(/^[-•*]\s*/, '').trim()
-
-        let prefix = "Engineered a scalable solution for"
-        if (cleanLine.toLowerCase().includes("build") || cleanLine.toLowerCase().includes("developed")) prefix = "Architected and deployed"
-
-        rewrittenCount++
-        return `${line} → ${prefix} ${cleanLine}, resulting in a 25% improvement in efficiency and 15% cost reduction.`
-    }).filter(Boolean)
-
-    return {
-        isError: false,
-        score: score.toString(),
-        scoreColor,
-        impactLevel,
-        impactJustification,
-        badgeColor,
-        summary: `Highly motivated professional with strong technical foundations in ${technicalSkills.slice(0, 3).join(", ")}. Proven track record of delivering scalable solutions.`,
-        strengths,
-        weaknesses,
-        skills: {
-            technical: technicalSkills.join(", ") || "None identified",
-            tools: tools.join(", ") || "None identified",
-            soft: softSkills.join(", ") || "None identified"
-        },
-        missingKeywords: missingKeywords.length > 0 ? missingKeywords : ["None - excellent match"],
-        impactReview,
-        rewrittenText: rewritten.join('\n\n'),
-        matchScore: Math.round(matchPercentage),
-        skillGap: Math.max(0, missingKeywords.length),
-        verdict: score > 80 ? "Strong Candidate" : score > 60 ? "Moderate Candidate" : "Needs Improvement"
-    }
-}
+];
 
 export default function ResumeEnhancerPage() {
     const { user } = useAuth()
@@ -144,39 +51,64 @@ export default function ResumeEnhancerPage() {
     const [isAnalyzing, setIsAnalyzing] = useState(false)
     const [result, setResult] = useState(null)
     const [userMasteredSkills, setUserMasteredSkills] = useState([])
-    const { updateProfile } = useUserProfile()
+    const { updateProfile, profile } = useUserProfile()
 
-    // Load user skills from localStorage (from roadmaps) to use for keyword suggestions
+    // Load user skills from profile
     useEffect(() => {
-        try {
-            const allRoadmaps = JSON.parse(localStorage.getItem('careerintel_roadmaps') || '[]')
-            const myRoadmaps = allRoadmaps.filter(r => r.userId === user?.id)
-
-            const allSkills = new Set()
-            myRoadmaps.forEach(r => {
-                if (r.userSkills && Array.isArray(r.userSkills)) {
-                    r.userSkills.forEach(skill => allSkills.add(skill))
-                }
-            })
-            setUserMasteredSkills(Array.from(allSkills))
-        } catch (error) {
-            console.error("Error loading user skills:", error)
+        if (profile?.currentSkills) {
+            setUserMasteredSkills(profile.currentSkills)
         }
-    }, [user?.id])
+    }, [profile])
 
-    const handleEnhance = () => {
+    const handleEnhance = async () => {
         if (!resumeText.trim() || !jobDescription.trim()) return
 
         setIsAnalyzing(true)
         setResult(null)
 
-        // Simulate AI analysis delay
-        setTimeout(() => {
-            const analysisResult = analyzeText(resumeText, jobDescription, userMasteredSkills)
-            setResult(analysisResult)
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.post('/api/resume-enhance',
+                { resumeText, jobDescription },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (data.success) {
+                const { enhancedResume, atsScore, improvements } = data.data;
+
+                // Map API response to UI expected format
+                const analysisResult = {
+                    isError: false,
+                    score: atsScore.toString(),
+                    scoreColor: atsScore > 80 ? "text-green-400" : atsScore > 60 ? "text-yellow-400" : "text-red-400",
+                    impactLevel: atsScore > 80 ? "Strong" : atsScore > 60 ? "Moderate" : "Needs Improvement",
+                    impactJustification: "Analysis completed via Career Intel AI Engine.",
+                    badgeColor: atsScore > 80 ? "bg-green-500/20 text-green-300 border-green-500/30" : atsScore > 60 ? "bg-yellow-500/20 text-yellow-300 border-yellow-500/30" : "bg-red-500/20 text-red-300 border-red-500/30",
+                    summary: "AI analysis of your candidacy based on provided job description.",
+                    strengths: ["Strong technical foundations detected.", "Goal-oriented narrative."],
+                    weaknesses: improvements,
+                    skills: {
+                        technical: profile.currentSkills?.join(", ") || "Analyze more for details",
+                        tools: "Detected in text",
+                        soft: "Detected in text"
+                    },
+                    missingKeywords: ["Analyze job description for more gaps"],
+                    impactReview: "Metrics detected. Reviewing against industry standards.",
+                    rewrittenText: enhancedResume,
+                    matchScore: atsScore,
+                    skillGap: improvements.length,
+                    verdict: atsScore > 80 ? "Strong Candidate" : "Growth Recommended"
+                };
+
+                setResult(analysisResult)
+                updateProfile({ careerReadinessScore: atsScore })
+            }
+        } catch (error) {
+            console.error("Analysis failed", error);
+            setResult({ isError: true, message: "The AI analyst is currently unavailable. Please try again later." });
+        } finally {
             setIsAnalyzing(false)
-            updateProfile({ resumeScore: parseInt(analysisResult.score) })
-        }, 2500)
+        }
     }
 
     const containerVariants = {
@@ -494,6 +426,65 @@ export default function ResumeEnhancerPage() {
                             </motion.div>
                         )}
                     </AnimatePresence>
+                </div>
+            </div>
+
+            {/* Free Resume Builders Section */}
+            <div className="mt-16 md:mt-24 pt-10 md:pt-16 border-t border-white/5 relative z-10">
+                <div className="flex items-center gap-3 mb-8 md:mb-12">
+                    <div className="p-2.5 bg-indigo-500/10 rounded-xl shrink-0 border border-indigo-500/20">
+                        <Globe className="h-6 w-6 md:h-8 md:w-8 text-indigo-400" />
+                    </div>
+                    <div>
+                        <h2 className="text-xl md:text-3xl tracking-tight text-white mb-2">
+                            Modern Resume Builders
+                        </h2>
+                        <p className="text-xs md:text-sm text-slate-400 max-w-2xl leading-relaxed">
+                            Need to rebuild your resume from scratch? Use our evaluator above for insights, and build your final version using these top-rated free tools.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {resumeBuilders.map((builder, idx) => (
+                        <motion.a
+                            href={builder.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={builder.name}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+                            transition={{
+                                opacity: { duration: 0.5, delay: idx * 0.1 },
+                                scale: { duration: 0.5, delay: idx * 0.1 },
+                                y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: idx * 0.3 }
+                            }}
+                            whileHover={{ scale: 1.05, translateY: -5, transition: { duration: 0.2 } }}
+                            className="block group relative"
+                        >
+                            <div className={`absolute -inset-0.5 bg-gradient-to-br ${builder.color} rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500`} />
+                            <Card className="bg-slate-900/80 border-white/10 h-full relative overflow-hidden backdrop-blur-xl hover:border-white/20 transition-colors">
+                                <CardContent className="p-6 flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all">
+                                            {builder.name}
+                                        </h3>
+                                        <ExternalLink className="h-4 w-4 md:h-5 md:w-5 text-slate-500 group-hover:text-white transition-colors" />
+                                    </div>
+                                    <p className="text-xs md:text-sm text-slate-400 mb-6 flex-grow leading-relaxed">
+                                        {builder.description}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mt-auto">
+                                        {builder.tags.map(tag => (
+                                            <span key={tag} className="text-[9px] md:text-[10px] uppercase tracking-widest px-2 py-1.5 rounded-md bg-white/5 text-slate-300 border border-white/10 group-hover:border-white/20 transition-colors">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.a>
+                    ))}
                 </div>
             </div>
 

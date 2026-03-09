@@ -421,9 +421,9 @@ export default function MarketIntegrationPage() {
             </div>
 
             <NextModulePrompter
-                nextModuleName="Behavioral Mapping"
-                nextModuleHref="/dashboard/tools/behavioral-mapping"
-                description="Understand your working style and cognitive behaviors to align with the market integrations you just explored."
+                nextModuleName="Skill Gap Analyzer"
+                nextModuleHref="/dashboard/tools/skill-gap"
+                description="Bridge the gap between your current skills and these market demands with a deep-dive capability analysis."
             />
         </div>
     )

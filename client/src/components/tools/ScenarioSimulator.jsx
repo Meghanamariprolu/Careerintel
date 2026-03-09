@@ -62,7 +62,11 @@ const generateMockResponse = (input, scenarioId, interactionCount) => {
 };
 
 
+import axios from 'axios';
+import { useUserProfile } from '@/context/UserProfileContext';
+
 export default function ScenarioSimulator() {
+    const { profile } = useUserProfile();
     const [activeScenario, setActiveScenario] = useState(null);
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
@@ -77,12 +81,29 @@ export default function ScenarioSimulator() {
         scrollToBottom();
     }, [messages, isTyping]);
 
-    const handleStartScenario = (scenario) => {
+    const handleStartScenario = async (scenario) => {
+        setIsTyping(true);
         setActiveScenario(scenario);
-        setMessages([
-            { role: 'system', content: `Starting Scenario: ${scenario.title}` },
-            { role: 'ai', content: scenario.initialPrompt }
-        ]);
+        setMessages([{ role: 'system', content: `Initializing AI Simulation: ${scenario.title}` }]);
+
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.post('/api/scenario-simulation',
+                { scenarioType: scenario.title, targetRole: profile.careerGoal || 'Professional' },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            if (data.success) {
+                setMessages([
+                    { role: 'system', content: `Scenario: ${data.data.title}` },
+                    { role: 'ai', content: `${data.data.context}\n\n${data.data.challenge}` }
+                ]);
+            }
+        } catch (error) {
+            console.error("Failed to start scenario", error);
+            setMessages(prev => [...prev, { role: 'ai', content: "The AI Simulator is currently offline. Please try again later." }]);
+        } finally {
+            setIsTyping(false);
+        }
     };
 
     const handleEndScenario = () => {
@@ -91,7 +112,7 @@ export default function ScenarioSimulator() {
         setInputMessage('');
     };
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!inputMessage.trim()) return;
 
@@ -100,15 +121,21 @@ export default function ScenarioSimulator() {
         setInputMessage('');
         setIsTyping(true);
 
-        // Filter user messages to count interactions for mock logic
-        const userInteractionCount = messages.filter(m => m.role === 'user').length + 1;
-
-        // Simulate network delay for AI response
-        setTimeout(() => {
-            const aiResponseText = generateMockResponse(userMsg.content, activeScenario.id, userInteractionCount);
-            setMessages(prev => [...prev, { role: 'ai', content: aiResponseText }]);
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await axios.post('/api/ai-coach',
+                { message: userMsg.content, persona: 'The Technical Lead', chatHistory: messages },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            if (data.success) {
+                setMessages(prev => [...prev, { role: 'ai', content: data.data.reply }]);
+            }
+        } catch (error) {
+            console.error("AI Coach error", error);
+            setMessages(prev => [...prev, { role: 'ai', content: "I'm having trouble processing that right now." }]);
+        } finally {
             setIsTyping(false);
-        }, 1500 + Math.random() * 1000); // 1.5s to 2.5s delay
+        }
     };
 
     if (!activeScenario) {
@@ -198,14 +225,14 @@ export default function ScenarioSimulator() {
                             ) : (
                                 <div className={`flex gap-3 max-w-[80%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                                     <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center border ${msg.role === 'user'
-                                            ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-400'
-                                            : 'bg-purple-500/20 border-purple-500/40 text-purple-400'
+                                        ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-400'
+                                        : 'bg-purple-500/20 border-purple-500/40 text-purple-400'
                                         }`}>
                                         {msg.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                                     </div>
                                     <div className={`rounded-xl px-4 py-3 text-sm flex items-center ${msg.role === 'user'
-                                            ? 'bg-cyan-600 text-white rounded-tr-sm'
-                                            : 'bg-slate-800 text-gray-200 rounded-tl-sm border border-slate-700'
+                                        ? 'bg-cyan-600 text-white rounded-tr-sm'
+                                        : 'bg-slate-800 text-gray-200 rounded-tl-sm border border-slate-700'
                                         }`}>
                                         {msg.content.replace(' [Simulation Complete]', '')}
                                         {msg.content.includes('[Simulation Complete]') && (

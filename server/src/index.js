@@ -10,6 +10,7 @@ import authRoutes from './routes/authRoutes.js';
 import roadmapRoutes from './routes/roadmapRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
+import careerRoutes from './routes/careerRoutes.js';
 import { analyticsMiddleware } from './middleware/analytics.js';
 
 dotenv.config();
@@ -56,13 +57,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/roadmaps', roadmapRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api', careerRoutes);
 
 app.get('/api/health', (req, res) => {
-    res.status(200).json({ 
-        status: 'ok', 
+    res.status(200).json({
+        status: 'ok',
         db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
         env: process.env.NODE_ENV,
-        timestamp: new Date() 
+        timestamp: new Date()
     });
 });
 
@@ -74,7 +76,7 @@ app.use((err, req, res, next) => {
     }
 
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    
+
     res.status(statusCode).json({
         success: false,
         message: err.message || 'Internal Server Error',
@@ -85,7 +87,7 @@ app.use((err, req, res, next) => {
 // Start Server Immediately
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-    
+
     // Connect to Database in background
     connectDB().catch(err => {
         console.error('⚠️ Post-startup DB connection failure:', err.message);

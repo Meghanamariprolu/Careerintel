@@ -116,6 +116,12 @@ export const getUserProfile = catchAsync(async (req, res) => {
             location: user.location,
             skills: user.skills,
             profileImage: user.profileImage,
+            careerGoal: user.careerGoal,
+            education: user.education,
+            interests: user.interests,
+            experienceLevel: user.experienceLevel,
+            careerReadinessScore: user.careerReadinessScore,
+            progressTracking: user.progressTracking,
         });
     } else {
         res.status(404);
@@ -138,6 +144,13 @@ export const updateProfile = catchAsync(async (req, res) => {
         user.skills = req.body.skills || user.skills;
         user.profileImage = req.body.profileImage !== undefined ? req.body.profileImage : user.profileImage;
 
+        user.careerGoal = req.body.careerGoal !== undefined ? req.body.careerGoal : user.careerGoal;
+        user.education = req.body.education !== undefined ? req.body.education : user.education;
+        user.interests = req.body.interests !== undefined ? req.body.interests : user.interests;
+        user.experienceLevel = req.body.experienceLevel !== undefined ? req.body.experienceLevel : user.experienceLevel;
+        user.careerReadinessScore = req.body.careerReadinessScore !== undefined ? req.body.careerReadinessScore : user.careerReadinessScore;
+        user.progressTracking = req.body.progressTracking !== undefined ? req.body.progressTracking : user.progressTracking;
+
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -153,6 +166,12 @@ export const updateProfile = catchAsync(async (req, res) => {
             location: updatedUser.location,
             skills: updatedUser.skills,
             profileImage: updatedUser.profileImage,
+            careerGoal: updatedUser.careerGoal,
+            education: updatedUser.education,
+            interests: updatedUser.interests,
+            experienceLevel: updatedUser.experienceLevel,
+            careerReadinessScore: updatedUser.careerReadinessScore,
+            progressTracking: updatedUser.progressTracking,
             token: generateToken(res, updatedUser._id.toString(), updatedUser.role),
         });
     } else {
