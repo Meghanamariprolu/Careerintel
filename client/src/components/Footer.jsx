@@ -83,10 +83,14 @@ export const Footer = () => {
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-slate-300 hover:text-purple-300 text-[11px] transition-colors flex items-center gap-2 group"
+                                        className="text-slate-300 hover:text-purple-300 text-[11px] transition-all flex items-center gap-2 group py-1"
                                     >
-                                        <div className="h-1 w-1 rounded-full bg-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        {link.name}
+                                        <div className="flex items-center justify-center h-6 w-6 rounded-lg bg-white/5 border border-white/5 group-hover:border-purple-500/30 group-hover:bg-purple-500/10 transition-all">
+                                            <link.icon className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                                        </div>
+                                        <span className="opacity-80 group-hover:opacity-100 transition-opacity">
+                                            {link.name}
+                                        </span>
                                     </Link>
                                 </li>
                             ))}
