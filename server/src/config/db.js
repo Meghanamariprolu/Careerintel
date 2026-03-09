@@ -11,6 +11,8 @@ const connectDB = async () => {
             throw new Error('MONGODB_URI is not defined in environment variables');
         }
 
+        console.log(`📡 Attempting to connect to: ${mongoURI.split('@')[1] || 'Local DB'}`);
+
         await mongoose.connect(mongoURI, {
             serverSelectionTimeoutMS: 5000, // Keep it short to fail fast
             socketTimeoutMS: 45000,        // Close sockets after 45 seconds of inactivity
