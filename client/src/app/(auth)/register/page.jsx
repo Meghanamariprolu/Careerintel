@@ -39,7 +39,7 @@ export default function RegisterPage() {
         setIsLoading(true)
         setErrorMsg("")
         try {
-            registerUser(data)
+            await registerUser(data)
             router.push("/dashboard")
         } catch (error) {
             setErrorMsg(error.message)

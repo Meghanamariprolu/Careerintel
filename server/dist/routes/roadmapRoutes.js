@@ -16,5 +16,6 @@ router.route('/generate')
     .post(roadmapController_1.generateRoadmap);
 router.route('/:id')
     .get(roadmapController_1.getRoadmapById)
+    .put(roadmapController_1.updateRoadmap)
     .delete(roadmapController_1.deleteRoadmap);
 exports.default = router;

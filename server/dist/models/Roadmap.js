@@ -39,5 +39,6 @@ const roadmapSchema = new mongoose_1.Schema({
     careerTitle: { type: String, required: true },
     careerSummary: { type: String, required: true },
     roadmapData: { type: Object, required: true },
+    userSkills: { type: [String], default: [] },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('Roadmap', roadmapSchema);

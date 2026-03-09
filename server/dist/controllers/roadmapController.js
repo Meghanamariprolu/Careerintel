@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRoadmap = exports.getRoadmapById = exports.getMyRoadmaps = exports.generateRoadmap = void 0;
+exports.updateRoadmap = exports.deleteRoadmap = exports.getRoadmapById = exports.getMyRoadmaps = exports.generateRoadmap = void 0;
 const zod_1 = require("zod");
 const Roadmap_1 = __importDefault(require("../models/Roadmap"));
 const aiService_1 = require("../services/aiService");
@@ -72,6 +72,22 @@ exports.deleteRoadmap = (0, catchAsync_1.catchAsync)(async (req, res) => {
     if (roadmap && (roadmap.userId.toString() === req.user._id.toString() || roadmap.userId.equals(req.user._id))) {
         await roadmap.deleteOne();
         res.status(200).json({ message: 'Roadmap removed' });
+    }
+    else {
+        res.status(404);
+        throw new Error('Roadmap not found or access denied');
+    }
+});
+// @desc    Update a roadmap (e.g., userSkills)
+// @route   PUT /api/roadmaps/:id
+// @access  Private
+// @ts-ignore
+exports.updateRoadmap = (0, catchAsync_1.catchAsync)(async (req, res) => {
+    const roadmap = await Roadmap_1.default.findById(req.params.id);
+    if (roadmap && (roadmap.userId.toString() === req.user._id.toString() || roadmap.userId.equals(req.user._id))) {
+        roadmap.userSkills = req.body.userSkills !== undefined ? req.body.userSkills : roadmap.userSkills;
+        const updatedRoadmap = await roadmap.save();
+        res.status(200).json(updatedRoadmap);
     }
     else {
         res.status(404);
