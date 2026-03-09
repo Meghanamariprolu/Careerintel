@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import roadmapRoutes from './routes/roadmapRoutes.js';
@@ -68,8 +69,14 @@ app.get('/api/health', (req, res) => {
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
+    console.error(`❌ Error: ${err.message}`);
+    if (process.env.NODE_ENV === 'development') {
+        console.error(err.stack);
+    }
+
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    
+    res.status(statusCode).json({
         success: false,
         message: err.message || 'Internal Server Error',
         ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
