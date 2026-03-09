@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { IntelligenceEngine } from "../services/intelligenceEngine";
+import { IntelligenceEngine } from "../services/intelligenceEngine.js";
 
 const router = Router();
 

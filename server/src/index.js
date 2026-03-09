@@ -4,12 +4,12 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import connectDB from './config/db';
-import authRoutes from './routes/authRoutes';
-import roadmapRoutes from './routes/roadmapRoutes';
-import adminRoutes from './routes/adminRoutes';
-import aiRoutes from './routes/aiRoutes';
-import { analyticsMiddleware } from './middleware/analytics';
+import connectDB from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import roadmapRoutes from './routes/roadmapRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
+import { analyticsMiddleware } from './middleware/analytics.js';
 
 dotenv.config();
 
@@ -43,7 +43,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Global Error Handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(err.status || 500).json({
         success: false,
@@ -57,4 +57,3 @@ app.listen(PORT, () => {
 });
 
 // restart trigger
-

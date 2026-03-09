@@ -1,13 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User';
-import { catchAsync } from '../utils/catchAsync';
+import User from '../models/User.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
-export interface AuthRequest extends Request {
-    user?: IUser;
-}
-
-export const protect = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const protect = catchAsync(async (req, res, next) => {
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -18,7 +13,7 @@ export const protect = catchAsync(async (req: AuthRequest, res: Response, next: 
 
     if (token) {
         try {
-            const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
             console.log('Decoded Token:', decoded);
             req.user = await User.findById(decoded.userId).select('-password');
             if (!req.user) {
@@ -27,7 +22,7 @@ export const protect = catchAsync(async (req: AuthRequest, res: Response, next: 
                 throw new Error('Not authorized, user not found');
             }
             next();
-        } catch (error: any) {
+        } catch (error) {
             console.error('Auth Error:', error.message);
             res.status(401);
             throw new Error('Not authorized, token failed');
@@ -38,7 +33,7 @@ export const protect = catchAsync(async (req: AuthRequest, res: Response, next: 
     }
 });
 
-export const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const admin = (req, res, next) => {
     if (req.user && req.user.role === 'admin') {
         next();
     } else {

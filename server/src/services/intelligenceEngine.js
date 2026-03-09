@@ -1,24 +1,11 @@
-export interface UserProfile {
-    careerGoal: string;
-    currentSkills: string[];
-    experienceLevel: string;
-    targetIndustry: string;
-    learningProgress: Record<string, boolean>;
-    portfolioProjects: any[];
-    resumeScore: number;
-    marketInsights: any;
-    behavioralInsights: any;
-    qualityScore: number;
-}
-
 export class IntelligenceEngine {
-    static generateCareerStrategy(profile: UserProfile) {
+    static generateCareerStrategy(profile) {
         // Robust backend aggregation simulation
         const targetRole = profile.marketInsights?.targetRole || "AI Engineer";
         const trendingSkills = profile.marketInsights?.trendingSkills || ["Deep Learning", "MLOps", "Python"];
 
         // Compute skill gaps securely on backend
-        const skillGaps = trendingSkills.filter((skill: string) => !profile.currentSkills.includes(skill));
+        const skillGaps = trendingSkills.filter((skill) => !profile.currentSkills.includes(skill));
 
         // Calculate Backend Readiness Score
         let score = (profile.currentSkills.length / Math.max(1, trendingSkills.length)) * 40;
@@ -28,7 +15,7 @@ export class IntelligenceEngine {
 
         // Generate tailored NEXT steps
         const recommendedNextSteps = [
-            ...skillGaps.map((gap: string) => `Master ${gap}`),
+            ...skillGaps.map((gap) => `Master ${gap}`),
             ...(profile.portfolioProjects?.length === 0 ? ["Build ML Deployment Project"] : []),
             ...(profile.resumeScore < 75 ? ["Improve resume keywords"] : [])
         ];

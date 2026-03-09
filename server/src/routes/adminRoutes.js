@@ -1,6 +1,6 @@
 import express from 'express';
-import { getDashboardMetrics, getUsers } from '../controllers/adminController';
-import { protect, admin } from '../middleware/auth';
+import { getDashboardMetrics, getUsers } from '../controllers/adminController.js';
+import { protect, admin } from '../middleware/auth.js';
 
 const router = express.Router();
 

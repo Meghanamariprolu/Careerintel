@@ -1,14 +1,8 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-export interface IAnalytics extends Document {
-    endpoint: string;
-    method: string;
-    responseTime: number;
-    statusCode: number;
-    timestamp: Date;
-}
+const { Schema } = mongoose;
 
-const analyticsSchema = new Schema<IAnalytics>(
+const analyticsSchema = new Schema(
     {
         endpoint: { type: String, required: true },
         method: { type: String, required: true },
@@ -19,4 +13,4 @@ const analyticsSchema = new Schema<IAnalytics>(
     { timeseries: { timeField: 'timestamp', metaField: 'endpoint', granularity: 'minutes' } }
 );
 
-export default mongoose.model<IAnalytics>('Analytics', analyticsSchema);
+export default mongoose.model('Analytics', analyticsSchema);

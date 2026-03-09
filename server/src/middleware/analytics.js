@@ -1,7 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import Analytics from '../models/Analytics';
+import Analytics from '../models/Analytics.js';
 
-export const analyticsMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const analyticsMiddleware = (req, res, next) => {
     const start = Date.now();
     res.on('finish', () => {
         const responseTime = Date.now() - start;

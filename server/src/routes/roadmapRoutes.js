@@ -1,6 +1,6 @@
 import express from 'express';
-import { generateRoadmap, getMyRoadmaps, getRoadmapById, deleteRoadmap, updateRoadmap } from '../controllers/roadmapController';
-import { protect } from '../middleware/auth';
+import { generateRoadmap, getMyRoadmaps, getRoadmapById, deleteRoadmap, updateRoadmap } from '../controllers/roadmapController.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -11,7 +11,6 @@ router.route('/')
     .get(getMyRoadmaps);
 
 router.route('/generate')
-    // @ts-ignore
     .post(generateRoadmap);
 
 router.route('/:id')

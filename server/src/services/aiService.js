@@ -2,15 +2,7 @@ import { HfInference } from '@huggingface/inference';
 
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
-interface RoadmapInput {
-  career: string;
-  experienceLevel: string;
-  timeCommitment: string;
-  currentSkills: string;
-  goal: string;
-}
-
-const promptTemplate = (input: RoadmapInput) => `
+const promptTemplate = (input) => `
 You are an industry career strategist. Generate a detailed, role-specific career roadmap for becoming a ${input.career} in 2025. 
 Do not generate generic software skills. Focus only on the exact technical skills, tools, technologies, frameworks, and practical competencies required for this role in the current job market.
 The user is at a ${input.experienceLevel} level. 
@@ -69,7 +61,7 @@ Return the result STRICTLY as a JSON object matching the following structure exa
 }
 `;
 
-export const generateAIRoadmap = async (input: RoadmapInput) => {
+export const generateAIRoadmap = async (input) => {
   try {
     const response = await hf.chatCompletion({
       model: 'mistralai/Mistral-7B-Instruct-v0.2',

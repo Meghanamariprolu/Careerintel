@@ -1,8 +1,7 @@
-import { Request, Response } from 'express';
 import { z } from 'zod';
-import Roadmap from '../models/Roadmap';
-import { generateAIRoadmap } from '../services/aiService';
-import { catchAsync } from '../utils/catchAsync';
+import Roadmap from '../models/Roadmap.js';
+import { generateAIRoadmap } from '../services/aiService.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
 const generateRoadmapSchema = z.object({
     career: z.string().min(2, 'Career title is required'),
@@ -15,7 +14,7 @@ const generateRoadmapSchema = z.object({
 // @desc    Generate a new AI Roadmap
 // @route   POST /api/roadmaps/generate
 // @access  Private
-export const generateRoadmap = catchAsync(async (req: any, res: Response) => {
+export const generateRoadmap = catchAsync(async (req, res) => {
     const parsed = generateRoadmapSchema.safeParse(req.body);
     if (!parsed.success) {
         res.status(400);
@@ -47,7 +46,7 @@ export const generateRoadmap = catchAsync(async (req: any, res: Response) => {
 // @desc    Get all roadmaps for the logged-in user
 // @route   GET /api/roadmaps
 // @access  Private
-export const getMyRoadmaps = catchAsync(async (req: any, res: Response) => {
+export const getMyRoadmaps = catchAsync(async (req, res) => {
     const roadmaps = await Roadmap.find({ userId: req.user._id }).sort({ createdAt: -1 });
     res.status(200).json(roadmaps);
 });
@@ -55,8 +54,7 @@ export const getMyRoadmaps = catchAsync(async (req: any, res: Response) => {
 // @desc    Get a specific roadmap by ID
 // @route   GET /api/roadmaps/:id
 // @access  Private
-// @ts-ignore
-export const getRoadmapById = catchAsync(async (req: any, res: Response) => {
+export const getRoadmapById = catchAsync(async (req, res) => {
     const roadmap = await Roadmap.findById(req.params.id);
 
     if (roadmap && roadmap.userId.toString() === req.user._id.toString()) {
@@ -70,8 +68,7 @@ export const getRoadmapById = catchAsync(async (req: any, res: Response) => {
 // @desc    Delete a roadmap
 // @route   DELETE /api/roadmaps/:id
 // @access  Private
-// @ts-ignore
-export const deleteRoadmap = catchAsync(async (req: any, res: Response) => {
+export const deleteRoadmap = catchAsync(async (req, res) => {
     const roadmap = await Roadmap.findById(req.params.id);
 
     if (roadmap && (roadmap.userId.toString() === req.user._id.toString() || roadmap.userId.equals(req.user._id))) {
@@ -85,8 +82,7 @@ export const deleteRoadmap = catchAsync(async (req: any, res: Response) => {
 // @desc    Update a roadmap (e.g., userSkills)
 // @route   PUT /api/roadmaps/:id
 // @access  Private
-// @ts-ignore
-export const updateRoadmap = catchAsync(async (req: any, res: Response) => {
+export const updateRoadmap = catchAsync(async (req, res) => {
     const roadmap = await Roadmap.findById(req.params.id);
 
     if (roadmap && (roadmap.userId.toString() === req.user._id.toString() || roadmap.userId.equals(req.user._id))) {
