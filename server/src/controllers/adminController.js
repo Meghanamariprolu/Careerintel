@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import { getStore } from '../models/User.js';
 import Roadmap from '../models/Roadmap.js';
 import Analytics from '../models/Analytics.js';
 import { catchAsync } from '../utils/catchAsync.js';

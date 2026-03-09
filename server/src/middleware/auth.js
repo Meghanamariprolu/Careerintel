@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import { getStore } from '../models/User.js';
 import { catchAsync } from '../utils/catchAsync.js';
 
 export const protect = catchAsync(async (req, res, next) => {
@@ -15,7 +15,8 @@ export const protect = catchAsync(async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
             console.log('Decoded Token:', decoded);
-            req.user = await User.findById(decoded.userId).select('-password');
+            const Store = getStore();
+            req.user = await Store.findById(decoded.userId);
             if (!req.user) {
                 console.log('User not found for ID:', decoded.userId);
                 res.status(401);

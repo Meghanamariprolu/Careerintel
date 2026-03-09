@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import { LocalUserStore } from './LocalStore.js';
 
 const { Schema } = mongoose;
 
@@ -51,4 +52,16 @@ userSchema.methods.getResetPasswordToken = function () {
     return resetToken;
 };
 
-export default mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+// Helper: returns Mongoose model if DB is connected, otherwise local JSON store
+export const getStore = () => {
+    if (mongoose.connection.readyState === 1) {
+        return User;
+    }
+    console.log('📂 Using local file store (MongoDB not connected)');
+    return LocalUserStore;
+};
+
+export default User;
+

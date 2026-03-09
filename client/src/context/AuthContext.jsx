@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 // Configure axios defaults
-axios.defaults.baseURL = ''; // Use relative paths for proxy/rewrites to work
+axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
+axios.defaults.timeout = 8000; // 8 second timeout for all requests
 
 const AuthContext = createContext();
 
@@ -34,13 +35,22 @@ export const AuthProvider = ({ children }) => {
 
             setAuthHeader(token);
             try {
-                const { data } = await axios.get('/api/auth/profile');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+                const { data } = await axios.get('/api/auth/profile', {
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
                 setUser(data);
             } catch (error) {
-                console.error("Auth check failed:", error);
-                localStorage.removeItem('careerintel_token');
-                setUser(null);
-                setAuthHeader(null);
+                console.error("Auth check failed:", error?.message || error);
+                // Don't clear token on timeout — backend might just be cold starting
+                if (error?.response?.status === 401) {
+                    localStorage.removeItem('careerintel_token');
+                    setUser(null);
+                    setAuthHeader(null);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -51,37 +61,51 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (userData) => {
         try {
-            const { data } = await axios.post('/api/auth/register', userData);
+            const { data } = await axios.post('/api/auth/register', userData, {
+                timeout: 15000,
+            });
             const { token, ...userDetails } = data;
-            
+
             localStorage.setItem('careerintel_token', token);
             setAuthHeader(token);
             setUser(userDetails);
             return userDetails;
         } catch (error) {
-            const message = error.response?.data?.message || "Registration failed";
+            let message = "Registration failed";
+            if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+                message = "Server is starting up, please try again in a moment";
+            } else if (error.response?.data?.message) {
+                message = error.response.data.message;
+            }
             throw new Error(message);
         }
     };
 
     const login = async (email, password) => {
         try {
-            const { data } = await axios.post('/api/auth/login', { email, password });
+            const { data } = await axios.post('/api/auth/login', { email, password }, {
+                timeout: 15000,
+            });
             const { token, ...userDetails } = data;
-            
+
             localStorage.setItem('careerintel_token', token);
             setAuthHeader(token);
             setUser(userDetails);
             return userDetails;
         } catch (error) {
-            const message = error.response?.data?.message || "Invalid email or password";
+            let message = "Invalid email or password";
+            if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+                message = "Server is starting up, please try again in a moment";
+            } else if (error.response?.data?.message) {
+                message = error.response.data.message;
+            }
             throw new Error(message);
         }
     };
 
     const logout = async () => {
         try {
-            await axios.post('/api/auth/logout');
+            await axios.post('/api/auth/logout', {}, { timeout: 5000 });
         } catch (e) {
             console.error("Logout error", e);
         } finally {
@@ -94,11 +118,18 @@ export const AuthProvider = ({ children }) => {
 
     const updateProfile = async (updatedData) => {
         try {
-            const { data } = await axios.put('/api/auth/profile', updatedData);
+            const { data } = await axios.put('/api/auth/profile', updatedData, {
+                timeout: 10000,
+            });
             setUser(data);
             return data;
         } catch (error) {
-            const message = error.response?.data?.message || "Failed to update profile";
+            let message = "Failed to update profile";
+            if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+                message = "Server is starting up, please try again in a moment";
+            } else if (error.response?.data?.message) {
+                message = error.response.data.message;
+            }
             throw new Error(message);
         }
     };
@@ -117,3 +148,4 @@ export const useAuth = () => {
     }
     return context;
 };
+

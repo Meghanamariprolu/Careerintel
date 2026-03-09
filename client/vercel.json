@@ -1,5 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://careerintel-uo0m.onrender.com/api/$1" }
-  ]
+  "rewrites": []
 }

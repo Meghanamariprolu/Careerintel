@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { z } from 'zod';
-import User from '../models/User.js';
+import { getStore } from '../models/User.js';
 import { generateToken } from '../utils/generateToken.js';
 import { catchAsync } from '../utils/catchAsync.js';
 
@@ -26,15 +26,16 @@ export const registerUser = catchAsync(async (req, res) => {
     }
 
     const { name, email, password } = parsed.data;
+    const Store = getStore();
 
-    const userExists = await User.findOne({ email });
+    const userExists = await Store.findOne({ email });
 
     if (userExists) {
         res.status(400);
         throw new Error('User already exists');
     }
 
-    const user = await User.create({
+    const user = await Store.create({
         name,
         email,
         password,
@@ -67,8 +68,9 @@ export const loginUser = catchAsync(async (req, res) => {
     }
 
     const { email, password } = parsed.data;
+    const Store = getStore();
 
-    const user = await User.findOne({ email });
+    const user = await Store.findOne({ email });
 
     if (user && (await user.comparePassword(password))) {
         const token = generateToken(res, user._id.toString(), user.role);
@@ -101,7 +103,8 @@ export const logoutUser = catchAsync(async (req, res) => {
 // @route   GET /api/auth/profile
 // @access  Private
 export const getUserProfile = catchAsync(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const Store = getStore();
+    const user = await Store.findById(req.user._id);
 
     if (user) {
         res.status(200).json({
@@ -124,7 +127,8 @@ export const getUserProfile = catchAsync(async (req, res) => {
 // @route   PUT /api/auth/profile
 // @access  Private
 export const updateProfile = catchAsync(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const Store = getStore();
+    const user = await Store.findById(req.user._id);
 
     if (user) {
         user.name = req.body.name || user.name;
@@ -161,7 +165,8 @@ export const updateProfile = catchAsync(async (req, res) => {
 // @route   POST /api/auth/forgotpassword
 // @access  Public
 export const forgotPassword = catchAsync(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    const Store = getStore();
+    const user = await Store.findOne({ email: req.body.email });
 
     if (!user) {
         res.status(404);
@@ -190,13 +195,14 @@ export const forgotPassword = catchAsync(async (req, res) => {
 // @route   PUT /api/auth/resetpassword/:resettoken
 // @access  Public
 export const resetPassword = catchAsync(async (req, res) => {
+    const Store = getStore();
     // Get hashed token
     const resetPasswordToken = crypto
         .createHash('sha256')
         .update(req.params.resettoken)
         .digest('hex');
 
-    const user = await User.findOne({
+    const user = await Store.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() },
     });
@@ -220,3 +226,4 @@ export const resetPassword = catchAsync(async (req, res) => {
         token,
     });
 });
+

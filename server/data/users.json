@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "da7cb66a07bf18914ea92860",
+    "name": "Meghana M",
+    "email": "meghana@test.com",
+    "password": "$2b$10$ti9C9DnveQMiYDhto3cIg.zcuTUQwAGmunSIas7GOegYhMM8qsyoS",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-09T12:49:23.535Z",
+    "updatedAt": "2026-03-09T12:49:23.536Z"
+  },
+  {
+    "_id": "e829e00a512d8be4e1211f6b",
+    "name": "Meghana",
+    "email": "meghanamariprolu@gmail.com",
+    "password": "$2b$10$GORY39P7JsGTQUqwjId9Se2lwWPTS4x2TznAguSsjpYM4xQPkF8Pm",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-09T13:00:21.441Z",
+    "updatedAt": "2026-03-09T13:00:21.441Z"
+  },
+  {
+    "_id": "d8c396473ae029fad4fa5014",
+    "name": "Test User",
+    "email": "testvercel@test.com",
+    "password": "$2b$10$I3PGr77FQq3p13fxj.Dv6.dStJBe5FJ.33REoSR1jMRGGu/Xt2iC2",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-09T13:14:05.736Z",
+    "updatedAt": "2026-03-09T13:14:05.744Z"
+  }
+]
