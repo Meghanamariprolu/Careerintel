@@ -3,18 +3,22 @@
 import Link from 'next/link';
 import {
     LayoutDashboard,
-    Compass,
-    BarChart,
     TrendingUp,
+    Route,
+    Layout,
+    FileUser,
+    Gamepad2,
+    UserRoundCog,
+    Brain,
+    Star,
+    Combine,
+    BarChart3,
+    Bot,
     FileText,
-    Mic,
-    Briefcase,
-    Globe,
-    Users,
-    UserCircle,
     Linkedin,
     Twitter,
-    Github
+    Github,
+    Compass
 } from 'lucide-react';
 import { Logo } from './ui/Logo';
 
@@ -22,18 +26,18 @@ export const Footer = () => {
     const navLinks = [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Market Integration', href: '/dashboard/tools/market-integration', icon: TrendingUp },
-        { name: 'Learning Routes', href: '/dashboard/tools/personalized-learning', icon: Compass },
-        { name: 'Portfolio Builder', href: '/dashboard/tools/portfolio-builder', icon: Briefcase },
-        { name: 'Resume Enhancer', href: '/dashboard/tools/resume-enhancer', icon: FileText },
-        { name: 'Scenario Simulator', href: '/dashboard/tools/scenario-simulator', icon: Mic },
-        { name: 'AI Coaching', href: '/dashboard/tools/coaching', icon: UserCircle },
-        { name: 'Behavioral Mapping', href: '/dashboard/tools/behavioral-mapping', icon: Users },
-        { name: 'Quality Scoring', href: '/dashboard/tools/quality-scoring', icon: BarChart },
-        { name: 'Skill Transfer', href: '/dashboard/tools/skill-transfer', icon: Globe },
-        { name: 'Outcome Tracking', href: '/dashboard/tools/outcome-tracking', icon: TrendingUp },
-        { name: 'Mentor Personas', href: '/dashboard/tools/mentor-personas', icon: UserCircle },
+        { name: 'Learning Routes', href: '/learning-route', icon: Route },
+        { name: 'Portfolio Builder', href: '/portfolio-builder', icon: Layout },
+        { name: 'Resume Enhancer', href: '/dashboard/tools/resume-enhancer', icon: FileUser },
+        { name: 'Scenario Simulator', href: '/dashboard/tools/scenario-simulator', icon: Gamepad2 },
+        { name: 'AI Coaching', href: '/dashboard/tools/coaching', icon: UserRoundCog },
+        { name: 'Behavioral Mapping', href: '/dashboard/tools/behavioral-mapping', icon: Brain },
+        { name: 'Quality Scoring', href: '/dashboard/tools/quality-scoring', icon: Star },
+        { name: 'Skill Transfer', href: '/dashboard/tools/skill-transfer', icon: Combine },
+        { name: 'Outcome Tracking', href: '/dashboard/tools/outcome-tracking', icon: BarChart3 },
+        { name: 'Mentor Personas', href: '/dashboard/tools/mentor-personas', icon: Bot },
         { name: 'Career Intelligence Report', href: '/dashboard/report', icon: FileText },
-        { name: 'Career Analytics', href: '/dashboard/analytics', icon: BarChart },
+        { name: 'Career Analytics', href: '/dashboard/analytics', icon: BarChart3 },
         { name: 'Generate New', href: '/dashboard/generate', icon: Compass },
     ];
 
