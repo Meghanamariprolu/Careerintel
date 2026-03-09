@@ -37,16 +37,24 @@ const startServer = async () => {
     }
 };
 
-// CORS configuration - Allow Vercel and localhost
+// CORS configuration - Allow Vercel and localhost dynamically
 const allowedOrigins = [
     process.env.CLIENT_URL,
-    'https://careerintel-phi.vercel.app', // Adding common Vercel URL pattern if not in ENV
+    'https://careerintel-phi.vercel.app',
     'http://localhost:3006',
     'http://127.0.0.1:3006'
 ].filter(Boolean);
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        // or requests from our allowed origins
+        if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
 }));
 
