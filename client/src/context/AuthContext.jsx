@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            const token = localStorage.getItem('careerintel_token');
+        const token = localStorage.getItem('token');
             if (!token) {
                 setIsLoading(false);
                 return;
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
                 console.error("Auth check failed:", error?.message || error);
                 // Don't clear token on timeout — backend might just be cold starting
                 if (error?.response?.status === 401) {
-                    localStorage.removeItem('careerintel_token');
+                    localStorage.removeItem('token');
                     setUser(null);
                     setAuthHeader(null);
                 }
@@ -66,11 +66,16 @@ export const AuthProvider = ({ children }) => {
             });
             const { token, ...userDetails } = data;
 
-            localStorage.setItem('careerintel_token', token);
+            localStorage.setItem('token', token);
             setAuthHeader(token);
             setUser(userDetails);
             return userDetails;
         } catch (error) {
+            console.error("Registration error details:", {
+                message: error.message,
+                code: error.code,
+                response: error.response?.data
+            });
             let message = "Registration failed";
             if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
                 message = "Server is starting up, please try again in a moment";
@@ -88,11 +93,16 @@ export const AuthProvider = ({ children }) => {
             });
             const { token, ...userDetails } = data;
 
-            localStorage.setItem('careerintel_token', token);
+            localStorage.setItem('token', token);
             setAuthHeader(token);
             setUser(userDetails);
             return userDetails;
         } catch (error) {
+            console.error("Login error details:", {
+                message: error.message,
+                code: error.code,
+                response: error.response?.data
+            });
             let message = "Invalid email or password";
             if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
                 message = "Server is starting up, please try again in a moment";
@@ -109,7 +119,7 @@ export const AuthProvider = ({ children }) => {
         } catch (e) {
             console.error("Logout error", e);
         } finally {
-            localStorage.removeItem('careerintel_token');
+            localStorage.removeItem('token');
             setUser(null);
             setAuthHeader(null);
             router.push('/login');

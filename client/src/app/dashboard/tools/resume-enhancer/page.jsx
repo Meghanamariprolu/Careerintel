@@ -15,11 +15,11 @@ import axios from 'axios';
 
 const resumeBuilders = [
     {
-        name: "Reactive Resume",
-        description: "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume without giving up privacy.",
-        url: "https://rxresume.in/",
-        tags: ["Open Source", "Free", "No Ads"],
-        color: "from-blue-500 to-indigo-500"
+        name: "Overleaf",
+        description: "A professional, easy-to-use online LaTeX editor that allows you to create high-quality resumes with precise formatting and collaborative features.",
+        url: "https://www.overleaf.com/",
+        tags: ["LaTeX", "Academic", "Collaborative"],
+        color: "from-green-500 to-emerald-500"
     },
     {
         name: "FlowCV",

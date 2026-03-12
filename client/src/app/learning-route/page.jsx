@@ -74,7 +74,8 @@ export default function LearningRoutePage() {
         setHasSaved(false);
     };
 
-    const progress = route ? (completedSteps.length / 5) * 100 : 0;
+    const totalSteps = route?.roadmapData?.length || 5;
+    const progress = route ? (completedSteps.length / totalSteps) * 100 : 0;
 
     return (
         <div className="min-h-screen bg-[#050510] text-white p-6 md:p-12 font-sans selection:bg-purple-500/30 overflow-hidden relative">
@@ -162,7 +163,7 @@ export default function LearningRoutePage() {
                                     </div>
                                     <div className="flex items-center gap-2 bg-purple-500/10 text-purple-300 px-5 py-2 rounded-xl text-sm  border border-purple-500/20 shadow-lg">
                                         <div className="h-2 w-2 rounded-full bg-purple-400 animate-ping" />
-                                        5 High Impact Steps
+                                        {totalSteps} High Impact Modules
                                     </div>
                                 </div>
 

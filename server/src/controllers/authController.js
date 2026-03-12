@@ -19,6 +19,7 @@ const loginSchema = z.object({
 // @route   POST /api/auth/register
 // @access  Public
 export const registerUser = catchAsync(async (req, res) => {
+    console.log(`📝 Registration attempt for: ${req.body.email}`);
     const parsed = registerSchema.safeParse(req.body);
     if (!parsed.success) {
         res.status(400);

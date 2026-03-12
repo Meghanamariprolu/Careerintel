@@ -7,377 +7,260 @@ You are an industry career strategist. Generate a detailed, role-specific career
 Do not generate generic software skills. Focus only on the exact technical skills, tools, technologies, frameworks, and practical competencies required for this role in the current job market.
 The user is at a ${input.experienceLevel} level. 
 Their goal is: ${input.goal}.
-They have the following current skills: ${input.currentSkills}.
+The user's current skills: ${input.currentSkills}.
 They can commit to ${input.timeCommitment} of studying.
 
 Return the result STRICTLY as a JSON object matching the following structure exactly. Do NOT include Markdown formatting like \`\`\`json. Just the raw JSON object.
 
 {
-  "careerTitle": "string (Specific role title)",
-  "careerSummary": "string (Specific role summary)",
-  "coreTechnicalSkills": ["Skill 1", "Skill 2"],
-  "supportingTools": ["Tool 1", "Tool 2"],
-  "currentMarketDemandSkills2025": ["Skill 1", "Skill 2"],
-  "learningPath": [
-    {
-      "level": "Beginner",
-      "description": "Foundational phase description",
-      "skills": ["Skill 1", "Skill 2"]
-    },
-    {
-      "level": "Intermediate",
-      "description": "Core competency phase description",
-      "skills": ["Skill 1", "Skill 2"]
-    },
-    {
-      "level": "Advanced",
-      "description": "Specialization phase description",
-      "skills": ["Skill 1", "Skill 2"]
-    }
-  ],
-  "roleSpecificProjects": [
-    {
-      "name": "Project 1",
-      "description": "Project description",
-      "techStack": ["Tech 1", "Tech 2"]
-    }
-  ],
-  "relevantCertifications": ["Cert 1", "Cert 2"],
-  "portfolioGuidance": "Detailed advice on what a portfolio for this role needs",
-  "interviewPreparation": ["Topic 1", "Topic 2"],
-  "learningTimeline": [
-    { "track": "3-month", "milestone": "What to achieve" },
-    { "track": "6-month", "milestone": "What to achieve" },
-    { "track": "1-year", "milestone": "What to achieve" }
-  ],
-  "salaryRange": {
-    "india": "₹XL - ₹YL",
-    "global": "$XXk - $YYk"
-  },
-  "marketDemandLevel": "High/Medium/Competitive",
-  "futureGrowthPrediction": "High/Medium/Low with reasoning",
-  "skillGapAnalysis": "Analysis based on current skills",
-  "careerReadinessScore": 40
+  "careerTitle": "string",
+  "careerSummary": "string",
+  "coreTechnicalSkills": ["string"],
+  "supportingTools": ["string"],
+  "currentMarketDemandSkills2025": ["string"],
+  "learningPath": [{ "level": "string", "description": "string", "skills": ["string"] }],
+  "roleSpecificProjects": [{ "name": "string", "description": "string", "techStack": ["string"] }],
+  "relevantCertifications": ["string"],
+  "portfolioGuidance": "string",
+  "interviewPreparation": ["string"],
+  "learningTimeline": [{ "track": "string", "milestone": "string" }],
+  "salaryRange": { "india": "string", "global": "string" },
+  "marketDemandLevel": "string",
+  "futureGrowthPrediction": "string",
+  "skillGapAnalysis": "string",
+  "careerReadinessScore": number
 }
 `;
 
 export const generateAIRoadmap = async (input) => {
   try {
+    if (!process.env.HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY.includes('YOUR_')) {
+        throw new Error('API Key not set');
+    }
     const response = await hf.chatCompletion({
       model: 'mistralai/Mistral-7B-Instruct-v0.2',
       messages: [{ role: 'user', content: promptTemplate(input) }],
       max_tokens: 3000,
-      temperature: 0.2, // Low temperature for deterministic output
+      temperature: 0.2,
     });
 
     const aiText = response.choices[0].message.content;
-
-    // Attempt to extract JSON if the model still wrapped it in markdown
     const jsonMatch = aiText?.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Failed to parse AI response into JSON');
-    }
-
-    const parsedData = JSON.parse(jsonMatch[0]);
-    return parsedData;
+    if (!jsonMatch) throw new Error('Failed to parse AI response into JSON');
+    return JSON.parse(jsonMatch[0]);
   } catch (error) {
     console.error('HuggingFace Service Error, falling back to dynamic mock data:', error);
-
     // Dynamic Mock Generator based on career role
     const role = input.career.toLowerCase();
+    let learningPath = [], coreTechSkills = [], tools = [], marketSkills = [], certs = [], projects = [], interviewPrep = [], salary = { india: "", global: "" }, demandLevel = "";
 
-    let learningPath = [];
-    let coreTechSkills = [];
-    let tools = [];
-    let marketSkills = [];
-    let certs = [];
-    let projects = [];
-    let interviewPrep = [];
-    let salary = { india: "", global: "" };
-    let demandLevel = "";
-
-    if (role.includes('data') || role.includes('machine learning') || role.includes('ai') || role.includes('analytics')) {
+    if (role.includes('data') || role.includes('machine learning') || role.includes('ai')) {
       learningPath = [
-        { level: "Beginner", description: "Establish a strong baseline of stats, calculus, and Python.", skills: ["Python", "Statistics", "Linear Algebra"] },
-        { level: "Intermediate", description: "Learn to clean, manipulate and visualize data sets.", skills: ["Pandas", "NumPy", "Matplotlib", "SQL"] },
-        { level: "Advanced", description: "Build predictive models and understand ML algorithms.", skills: ["Scikit-Learn", "Regression", "Classification", "Deep Learning"] }
+        { level: "Beginner", description: "Stats, calculus, and Python basics.", skills: ["Python", "Statistics", "Calculus"] },
+        { level: "Intermediate", description: "Data manipulation and visualization.", skills: ["Pandas", "Matplotlib", "SQL"] },
+        { level: "Advanced", description: "ML models and Deep learning.", skills: ["Scikit-Learn", "Deep Learning", "Transformers"] }
       ];
-      coreTechSkills = ["Python", "SQL", "Machine Learning", "Mathematics"];
-      marketSkills = ["LLMs", "RAG Pipeline", "PyTorch", "Transformers"];
-      tools = ["Jupyter", "Tableau", "Git", "Docker", "AWS SageMaker"];
-      certs = ["Google Data Analytics", "AWS Machine Learning Specialty", "DeepLearning.AI TensorFlow"];
-      projects = [
-        { name: "Predictive Housing Price Model", description: "Predict house prices using regression.", techStack: ["Python", "Scikit-Learn", "Pandas"] },
-        { name: "Customer Churn Analysis", description: "Classify bank customer churn.", techStack: ["Python", "XGBoost", "Seaborn"] }
-      ];
-      interviewPrep = ["Statistical Concepts", "SQL Query Optimization", "ML Algorithm Math", "System Design for ML"];
+      coreTechSkills = ["Python", "SQL", "Machine Learning"];
+      marketSkills = ["LLMs", "RAG Pipeline", "Generative AI"];
+      tools = ["Jupyter", "Docker", "AWS"];
+      certs = ["Google Data Analytics", "AWS Machine Learning"];
+      projects = [{ name: "Predictive Model", description: "Churn prediction.", techStack: ["Python", "XGBoost"] }];
+      interviewPrep = ["Statistical Concepts", "SQL", "ML Algorithms"];
       salary = { india: "₹8L - ₹25L", global: "$90k - $160k" };
       demandLevel = "High";
-    } else if (role.includes('front') || role.includes('ui') || role.includes('web')) {
-      learningPath = [
-        { level: "Beginner", description: "Master the building blocks of the web.", skills: ["HTML5", "CSS3", "JavaScript ES6+"] },
-        { level: "Intermediate", description: "Learn modern component-based UI development.", skills: ["React", "TypeScript", "Tailwind CSS"] },
-        { level: "Advanced", description: "Optimize web apps for speed and accessibility.", skills: ["Next.js", "State Management", "Web Vitals"] }
-      ];
-      coreTechSkills = ["JavaScript/TypeScript", "React", "HTML/CSS", "Responsive Design"];
-      marketSkills = ["Next.js 14 (App Router)", "Zustand/Redux Toolkit", "Framer Motion", "Tailwind CSS"];
-      tools = ["VS Code", "Figma", "Git", "Vercel", "Chrome DevTools"];
-      certs = ["Meta Front-End Developer", "React Certification"];
-      projects = [
-        { name: "Personal Portfolio Website", description: "A responsive portfolio with animations.", techStack: ["Next.js", "Tailwind CSS", "Framer Motion"] },
-        { name: "E-commerce Product Page", description: "A cart system with state management.", techStack: ["React", "Zustand", "TypeScript"] }
-      ];
-      interviewPrep = ["JavaScript Event Loop", "React Lifecycle and Hooks", "CSS Specificity and Grid", "Web Performance Optimization"];
-      salary = { india: "₹5L - ₹18L", global: "$70k - $130k" };
-      demandLevel = "High";
-    } else if (role.includes('back') || role.includes('api') || role.includes('node') || role.includes('software')) {
-      learningPath = [
-        { level: "Beginner", description: "Learn how to build and structure a web server.", skills: ["Node.js/Python/Java", "HTTP/REST", "Express/FastAPI"] },
-        { level: "Intermediate", description: "Store, retrieve, and model data efficiently.", skills: ["SQL (Postgres)", "NoSQL (MongoDB)", "ORM/Prisma"] },
-        { level: "Advanced", description: "Secure your APIs and design scalable systems.", skills: ["Microservices", "Docker", "Caching (Redis)", "Message Queues"] }
-      ];
-      coreTechSkills = ["Node.js/Java/Go", "RESTful/GraphQL APIs", "Database Design", "Authentication"];
-      marketSkills = ["Microservices Architecture", "Docker/Kubernetes", "Redis Caching", "GraphQL/tRPC"];
-      tools = ["Postman", "Docker", "Git", "DBeaver", "AWS/GCP"];
-      certs = ["AWS Certified Developer", "IBM Backend Development"];
-      projects = [
-        { name: "RESTful E-commerce API", description: "Build an API with auth and payment integration.", techStack: ["Node.js", "Express", "PostgreSQL", "Stripe"] },
-        { name: "Real-time Chat Server", description: "Implement WebSockets for real-time communication.", techStack: ["Node.js", "Socket.io", "Redis"] }
-      ];
-      interviewPrep = ["CAP Theorem", "Database Indexing", "REST vs GraphQL", "System Design Patterns"];
-      salary = { india: "₹6L - ₹22L", global: "$80k - $140k" };
-      demandLevel = "High";
     } else {
-      // Generic Fallback tailored with variables
-      learningPath = [
-        { level: "Beginner", description: "Establish a strong baseline for a " + input.career + ".", skills: ["Core Concepts", "Basic Tools", "Problem Solving"] },
-        { level: "Intermediate", description: "Learn specialized skills and industry standard practices.", skills: ["Advanced Frameworks", "System Design", "Best Practices"] },
-        { level: "Advanced", description: "Build a portfolio and prepare for the job market.", skills: ["Project Building", "Architecture", "Networking"] }
-      ];
-      coreTechSkills = ["Problem Solving", "Domain Specific Knowledge", "Tool Utilization", "Analytical Thinking"];
-      marketSkills = ["Cloud Computing", "AI Integration", "Agile Methodologies"];
-      tools = ["Industry Standard Software", "Collaboration Tools", "Task Management"];
-      certs = ["Relevant Industry Certification", "Foundational Credential"];
-      projects = [
-        { name: "Capstone Project", description: "Integrate core skills into a complete product.", techStack: ["Relevant Tech 1", "Relevant Tech 2"] }
-      ];
-      interviewPrep = ["Behavioral Questions", "Core Domain Concepts", "Scenario-based Problem Solving"];
-      salary = { india: "₹5L - ₹15L", global: "$60k - $120k" };
-      demandLevel = "Competitive";
+        // Simple fallback
+        learningPath = [{ level: "Beginner", description: "Foundations.", skills: ["Core Concepts"] }];
+        coreTechSkills = ["Problem Solving"];
+        marketSkills = ["AI Tools"];
+        tools = ["Git"];
+        certs = ["Standard Certification"];
+        projects = [{ name: "Capstone Project", description: "Full implementation.", techStack: ["Tech 1", "Tech 2"] }];
+        interviewPrep = ["Technical Basics"];
+        salary = { india: "₹5L - ₹15L", global: "$60k - $120k" };
+        demandLevel = "Competitive";
     }
 
     return {
       careerTitle: `${input.experienceLevel} ${input.career}`,
-      careerSummary: `A customized, highly-tailored career path for a ${input.experienceLevel} ${input.career} aiming for a ${input.goal}.`,
+      careerSummary: `Custom path for ${input.career}.`,
       coreTechnicalSkills: coreTechSkills,
       supportingTools: tools,
       currentMarketDemandSkills2025: marketSkills,
       learningPath,
       roleSpecificProjects: projects,
       relevantCertifications: certs,
-      portfolioGuidance: `Build 2-3 significant projects demonstrating mastery of ${coreTechSkills.slice(0, 2).join(" and ")}. Hosted code must be clean, well-documented, and use industry standards.`,
+      portfolioGuidance: "Build real projects.",
       interviewPreparation: interviewPrep,
-      learningTimeline: [
-        { track: "3-month", milestone: "Master the beginner fundamentals and complete one small project." },
-        { track: "6-month", milestone: "Grasp intermediate concepts and finish a complex, full-stack portfolio piece." },
-        { track: "1-year", milestone: "Learn advanced architecture and begin actively applying and interviewing." }
-      ],
+      learningTimeline: [{ track: "6-month", milestone: "Full competency." }],
       salaryRange: salary,
       marketDemandLevel: demandLevel,
-      futureGrowthPrediction: "High Growth expected. This role is crucial to modern industry demands.",
-      skillGapAnalysis: "Focus on building a role-specific portfolio with real-world projects to bridge the experience gap.",
+      futureGrowthPrediction: "High Growth.",
+      skillGapAnalysis: "Bridging the gap with projects.",
       careerReadinessScore: 65
     };
   }
 };
 
 const resumeEnhancementPromptTemplate = (resumeText, jobDescription) => `
-You are an expert ATS Resume Optimizer used by top tech recruiters.
-
-Your task is to generate an improved ATS-optimized version of the candidate’s resume based on the provided resume and target job description.
-
-Follow these strict rules:
-
-1. Keep the candidate’s real information such as:
-   - Name
-   - Email
-   - Phone
-   - Location
-   - Education
-
-2. Do NOT invent fake companies or fake experience.
-
-3. Improve the resume by:
-   - Adding important keywords from the job description
-   - Rewriting project and experience descriptions with measurable results
-   - Improving clarity and professional tone
-   - Making the resume ATS-friendly
-
-4. Only enhance existing skills and projects. Do not fabricate experience.
-
-5. Use strong action verbs such as:
-   - Developed
-   - Engineered
-   - Implemented
-   - Designed
-   - Optimized
-
-6. Add measurable impact whenever possible such as:
-   - percentages
-   - performance improvements
-   - efficiency gains
-
-7. Structure the resume in a clean ATS-friendly format.
-
-Use this format exactly:
-
---------------------------------------------------
-
-FULL NAME
-
-Email | Phone | Location | LinkedIn | GitHub
-
---------------------------------------------------
-
-PROFESSIONAL SUMMARY
-
-Write a 3–4 line summary tailored to the target job role using relevant keywords from the job description.
-
---------------------------------------------------
-
-SKILLS
-
-Technical Skills:
-Programming Languages:
-Tools & Technologies:
-Soft Skills:
-
---------------------------------------------------
-
-EDUCATION
-
-Degree  
-University / College  
-Year
-
---------------------------------------------------
-
-PROJECTS / EXPERIENCE
-
-For each project or experience:
-
-Project Title
-
-• Bullet point describing the project with action verb
-• Include tools and technologies used
-• Include measurable impact when possible
-
-Example:
-
-AI Career Roadmap Generator
-
-• Developed an AI-powered web platform using Next.js that generates personalized career roadmaps for users based on skill analysis.
-• Integrated dynamic skill recommendation logic improving career planning accuracy by 35%.
-
---------------------------------------------------
-
-INTERNSHIP / EXPERIENCE
-
-Role  
-Company  
-Duration
-
-• Describe contributions using action verbs
-• Mention tools, technologies, and outcomes
-
---------------------------------------------------
-
-CERTIFICATIONS
-
-List relevant certifications.
-
---------------------------------------------------
-
-FINAL OPTIMIZATION NOTES
-
-Briefly explain what improvements were made such as:
-
-• Added missing ATS keywords  
-• Improved project descriptions  
-• Optimized resume structure for ATS parsing
-
---------------------------------------------------
-
-INPUT DATA
-
-RESUME:
-${resumeText}
-
-JOB DESCRIPTION:
-${jobDescription}
+You are an expert ATS Resume Optimizer.
+Enhance the candidate's resume for the following job description. Keep personal details intact. Do not invent experience.
+RESUME: ${resumeText}
+JOB DESCRIPTION: ${jobDescription}
+Return formatted as: PROFESSIONAL SUMMARY, SKILLS, EDUCATION, PROJECTS.
 `;
 
 export const enhanceResumeAPI = async (resumeText, jobDescription) => {
   try {
+    if (!process.env.HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY.includes('YOUR_')) {
+        throw new Error('API Key not set');
+    }
     const response = await hf.chatCompletion({
       model: 'mistralai/Mistral-7B-Instruct-v0.2',
       messages: [{ role: 'user', content: resumeEnhancementPromptTemplate(resumeText, jobDescription) }],
       max_tokens: 3000,
       temperature: 0.3,
     });
-
-    const aiText = response.choices[0].message.content;
-    return aiText;
+    return response.choices[0].message.content;
   } catch (error) {
-    console.error('HuggingFace Service Error in enhanceResumeAPI, falling back to dynamic mock data:', error);
+    console.error('HuggingFace Service Error in enhanceResumeAPI:', error);
+    return "Enhanced Summary: Proven technical professional with expertise in " + (jobDescription || "the target field") + ". \nSkills: Optimization, Strategy, Implementation.\n(Note: Fallback response due to API connection issues)";
+  }
+};
 
-    // Fallback Mock Response that respects the structure
-    return \`
---------------------------------------------------
+const scenarioPromptTemplate = (message, persona, chatHistory, company, companyCulture) => `
+You are an expert career coach acting as "${persona}" at ${company}.
+${companyCulture ? `Company Culture: ${companyCulture}` : ''}
+Your responses should reflect ${company}'s specific culture, values, and interview/evaluation style.
+Scenario Context: ${chatHistory.filter(m => m.role === 'system').map(m => m.content).join('\n')}
+Roleplay History: ${chatHistory.filter(m => m.role !== 'system').map(m => `${m.role === 'ai' ? 'COACH' : 'CANDIDATE'}: ${m.content}`).join('\n')}
+CANDIDATE'S MESSAGE: "${message}"
+Respond in character as someone from ${company}, concise (1-2 sentences), reflecting their culture.
+`;
 
-CANDIDATE NAME
+const coachPromptTemplate = (message, persona, chatHistory, userContext) => `
+You are an expert career architect acting as "${persona}".
+Your role is to guide the user based on their specific profile and career goals.
+USER CONTEXT:
+${JSON.stringify(userContext, null, 2)}
 
-Email | Phone | Location | LinkedIn | GitHub
+CHAT HISTORY:
+${chatHistory.filter(m => m.role !== 'system').map(m => `${m.role.toUpperCase()}: ${m.content}`).join('\n')}
 
---------------------------------------------------
+USER QUESTION: "${message}"
 
-PROFESSIONAL SUMMARY
+Respond concisely (2-4 sentences max). Give highly practical, personalized, and actionable tech career advice. Incorporate the user's specific context (their skills, goal, and portfolio) natively into your answer without explicitly reciting their resume. Reflect the unique tone of "${persona}".
+`;
 
-Experienced professional with a proven track record. Driven to deliver high quality results leveraging modern technologies, aiming to add measurable value to the target role.
+export const generateCoachResponse = async (message, persona, chatHistory, userContext = {}) => {
+  try {
+    if (!process.env.HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY.includes('YOUR_')) {
+        throw new Error('API Key not set');
+    }
+    const response = await hf.chatCompletion({
+      model: 'mistralai/Mistral-7B-Instruct-v0.2',
+      messages: [{ role: 'user', content: coachPromptTemplate(message, persona, chatHistory, userContext) }],
+      max_tokens: 350,
+      temperature: 0.6,
+    });
+    return response.choices[0].message.content.trim();
+  } catch (error) {
+    console.error('Coach Response Fallback:', error);
+    
+    // Dynamic Fallback relying on user context and persona
+    const goal = userContext.careerGoal || 'career goal';
+    const skills = userContext.currentSkills?.join(', ') || 'current skills';
+    const projects = userContext.portfolioProjects?.length || 0;
+    
+    if (persona === 'The Strategist') {
+        return `To maximize ROI towards becoming a ${goal}, you need to pivot from just knowing ${skills} to applying them in high-visibility contexts. Since you have ${projects} portfolio projects, I recommend optimizing the most technical one to showcase system-level thinking.`;
+    }
+    if (persona === 'The Visionary') {
+        return `The industry is moving rapidly. For a ${goal}, the standard stack of ${skills} is becoming commoditized. Start looking at how AI agents or emerging architectures can be integrated into your next project. It's about future-proofing your trajectory.`;
+    }
+    if (persona === 'The Commander') {
+        return `Let's stick to execution. You say you want to be a ${goal}. You currently claim to know ${skills} and have ${projects} projects. Identify your weakest skill, allocate 2 hours to it today, and report back. No excuses.`;
+    }
+    
+    return `Based on your goal of becoming a ${goal}, take a data-driven approach. Evaluate your progress with ${skills} and build towards your next milestone.`;
+  }
+};
 
---------------------------------------------------
+export const generateScenarioResponse = async (message, persona, chatHistory, company = 'General', companyCulture = '') => {
+  try {
+    if (!process.env.HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY.includes('YOUR_')) {
+        throw new Error('API Key not set');
+    }
+    const response = await hf.chatCompletion({
+      model: 'mistralai/Mistral-7B-Instruct-v0.2',
+      messages: [{ role: 'user', content: scenarioPromptTemplate(message, persona, chatHistory, company, companyCulture) }],
+      max_tokens: 200,
+      temperature: 0.7,
+    });
+    return response.choices[0].message.content.trim();
+  } catch (error) {
+    console.error('Scenario Response Fallback:', error);
+    
+    const lowerMsg = message.toLowerCase();
+    const co = (company || 'General').toLowerCase();
 
-SKILLS
+    // ── Company-Aware Hiring Manager Responses ──
+    if (persona === 'The Hiring Manager') {
+        const isSalaryTopic = lowerMsg.includes('salary') || lowerMsg.includes('pay') || lowerMsg.includes('compensation') || lowerMsg.includes('$');
+        
+        if (co.includes('amazon')) {
+            if (isSalaryTopic) return "At Amazon, total compensation includes significant RSUs that vest over 4 years. The base is fixed for this band, but the equity upside is substantial. Does the overall package work for you?";
+            return "Interesting. At Amazon, we evaluate candidates heavily on our Leadership Principles. Can you give me a specific example using the STAR method of a time you showed 'Bias for Action'?";
+        }
+        if (co.includes('google')) {
+            if (isSalaryTopic) return "At Google, compensation is data-driven and benchmarked against market ranges. A $150k request is within the P50 band for this role. Can you walk me through the data you used to arrive at that number?";
+            return "That's a thoughtful response. At Google, we value 'Googliness'—intellectual humility and collaboration. How would you describe the last time you changed your opinion based on new data?";
+        }
+        if (co.includes('microsoft')) {
+            if (isSalaryTopic) return "Microsoft's philosophy is a growth mindset around compensation—we tie increases to demonstrated impact. That number is reasonable. Can you help me connect your skills to the business impact you'd drive here?";
+            return "We love that perspective. At Microsoft, empathy is a core value. Tell me about a time you had to lead with empathy in a difficult situation with a stakeholder.";
+        }
+        if (co.includes('startup')) {
+            if (isSalaryTopic) return "Cash is tight at this stage, but we're offering meaningful equity. The $150k might be stretch—could you consider $130k cash with 0.5% equity that could be worth 10x at our Series B?";
+            return "We move fast here. Tell me—have you ever had to make a major product decision with incomplete information? What was the outcome?";
+        }
+        if (co.includes('meta')) {
+            if (isSalaryTopic) return "Meta benchmarks at the 75th percentile for top performers. That number is achievable but tied to your impact tier. How do you quantify the impact you've driven at scale?";
+            return "Meta values bold bets. Tell me about the riskiest decision you've made professionally—what did you learn?";
+        }
+        // General fallback
+        if (isSalaryTopic) return "We want to be competitive. $150k is above our current range for this level. Is there flexibility, perhaps tied to a performance milestone bonus after 6 months?";
+        return "I appreciate your enthusiasm. What specifically about this role aligns with your 5-year career trajectory?";
+    }
 
-Technical Skills: Software Development, Problem Solving
-Programming Languages: Python, JavaScript
-Tools & Technologies: Git, Docker, React, Node.js
-Soft Skills: Communication, Leadership
+    // ── Company-Aware HR Manager Responses ──
+    if (persona === 'The HR Manager') {
+        if (co.includes('amazon')) {
+            return "At Amazon, we handle conflict through our Leadership Principle of 'Disagree and Commit'. After you voice your concern, can you commit to the team's direction even if you disagree?";
+        }
+        if (co.includes('google')) {
+            return "Google's culture relies on psychological safety. How would you create a space where this colleague feels safe enough to be honest about why they're missing deadlines?";
+        }
+        if (co.includes('startup')) {
+            return "In a startup, we can't afford repeated misses. This is a direct conversation situation. What's your plan for the next 48 hours to get the project back on track?";
+        }
+        return "How have you typically approached giving direct feedback to a teammate who isn't meeting expectations, while keeping the relationship intact?";
+    }
 
---------------------------------------------------
+    // ── Company-Aware Technical Lead / Crisis Responses ──
+    if (persona === 'The Technical Lead') {
+        if (co.includes('amazon')) return "Given our 'Customer Obsession' principle—what's your first action to communicate the outage to affected customers, before you even start diagnosing root cause?";
+        if (co.includes('google')) return "Data first—what metrics are you pulling right now to isolate if this is a database issue or a cascading service failure? Walk me through your diagnostic approach.";
+        if (co.includes('startup')) return "We have no on-call runbook. You own this. What are the first 3 commands you're running and who are you calling in the next 5 minutes?";
+        return "Good instinct. Now—how are you delegating tasks to the team while you manage the incident bridge?";
+    }
+    
+    if (persona === 'The Executive Stakeholder') {
+        if (co.includes('amazon')) return "The board will want to see this framed through a Customer Obsession lens. What's the direct customer impact right now, and what's your 2-pizza team doing about it?";
+        if (co.includes('meta')) return "We move fast, but not at the cost of trust. What's the bold call you're making right now to stop the bleeding, even if it means rolling back a week of work?";
+        return "From a business perspective—what's the estimated revenue loss per minute of this outage, and what's your worst-case timeline to restore service?";
+    }
 
-EDUCATION
-
-B.S. Computer Science  
-State University  
-2024
-
---------------------------------------------------
-
-PROJECTS / EXPERIENCE
-
-Modern Web Application
-
-• Developed a scalable web application utilizing modern frameworks, increasing user engagement by 20%.
-• Integrated third-party APIs for real-time data processing, improving latency by 150ms.
-
---------------------------------------------------
-
-FINAL OPTIMIZATION NOTES
-
-• Added missing ATS keywords from the job description
-• Improved project descriptions to highlight measurable impact
-• Optimized resume structure for ATS parsing
-\`;
+    return "That's a thoughtful approach. How would you adapt that strategy if the situation escalated further?";
   }
 };

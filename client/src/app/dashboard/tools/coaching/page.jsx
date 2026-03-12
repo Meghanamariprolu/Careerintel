@@ -2,15 +2,12 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    Sparkles, UserRoundCog, MessageSquare,
-    Target, Zap, Brain, Rocket, ArrowLeft,
-    CheckCircle, ShieldCheck, Send, Navigation,
-    TrendingUp, Trophy
-} from 'lucide-react';
+import { Sparkles, UserRoundCog, MessageSquare, Target, Zap, Brain, Rocket, ArrowLeft, CheckCircle, ShieldCheck, Send, Navigation, TrendingUp, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import { NextModulePrompter } from '@/components/NextModulePrompter';
 import { Button } from "@/components/ui/Button";
+import { useUserProfile } from '@/context/UserProfileContext';
+import axios from 'axios';
 
 const mentors = [
     {
@@ -45,21 +42,29 @@ const mentors = [
     }
 ];
 
-const nudges = [
-    { text: "Your portfolio is 70% complete. Add one more case study to reach 'Top 5%' status.", icon: Rocket },
-    { text: "Market demand for 'TypeScript' in your region just increased by 14%. Update your roadmap?", icon: TrendingUp },
-];
-
-import axios from 'axios';
-
 export default function AICoachingPage() {
+    const { profile } = useUserProfile();
     const [selectedMentor, setSelectedMentor] = useState(mentors[0]);
     const [isThinking, setIsThinking] = useState(false);
     const [chatInput, setChatInput] = useState('');
+    
+    // Generate dynamic nudges based on profile
+    const dynamicNudges = [];
+    if (profile.analytics?.portfolioStrength < 80) {
+        dynamicNudges.push({ text: `Your portfolio strength is only ${profile.analytics.portfolioStrength || 0}%. Let's add more projects addressing ${profile.careerGoal || 'your goals'}.`, icon: Rocket });
+    } else {
+        dynamicNudges.push({ text: "Your portfolio is looking strong! Ready to tackle more advanced system challenges?", icon: Rocket });
+    }
+    if (profile.currentSkills?.length > 0) {
+        dynamicNudges.push({ text: `Market demand for '${profile.currentSkills[0]}' is steady. Optimize your roadmap to push into senior territory.`, icon: TrendingUp });
+    } else {
+        dynamicNudges.push({ text: "Add your current skills to the roadmap to get precision tracking.", icon: TrendingUp });
+    }
+
     const [messages, setMessages] = useState([
         {
             role: 'ai',
-            content: "Hello Architect. I've analyzed your recent progression. Your commitment to the 'Mastery Hub' is showing results, but your technical execution on projects could be more aggressive. What's blocking your next major deployment?"
+            content: `Hello Architect. I've analyzed your recent progression towards becoming a ${profile.careerGoal || 'Tech Leader'}. What's blocking your next major deployment or skill acquisition?`
         }
     ]);
 
@@ -78,7 +83,8 @@ export default function AICoachingPage() {
                 {
                     message: userMsg.content,
                     persona: selectedMentor.name,
-                    chatHistory: messages
+                    chatHistory: messages,
+                    userContext: profile
                 },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -177,7 +183,7 @@ export default function AICoachingPage() {
                         <section className="space-y-4">
                             <h2 className="text-base md:text-xl  tracking-tight text-white/80">Actionable Nudges</h2>
                             <div className="space-y-3">
-                                {nudges.map((nudge, idx) => (
+                                {dynamicNudges.map((nudge, idx) => (
                                     <div key={idx} className="p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/10 flex items-start gap-3">
                                         <nudge.icon className="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" />
                                         <p className="text-xs md:text-base text-white/60 ">{nudge.text}</p>

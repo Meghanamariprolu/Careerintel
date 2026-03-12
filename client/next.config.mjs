@@ -6,7 +6,7 @@ const nextConfig = {
   async rewrites() {
     const isProd = process.env.NODE_ENV === 'production';
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 
-                       (isProd ? 'https://careerintel-uo0m.onrender.com' : 'http://localhost:5000');
+                       (isProd ? 'https://careerintel-uo0m.onrender.com' : 'http://127.0.0.1:5001');
     
     return [
       {

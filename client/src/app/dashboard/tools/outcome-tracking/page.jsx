@@ -174,7 +174,7 @@ export default function OutcomeTrackingPage() {
                                         </div>
                                     </div>
                                     <p className="text-sm md:text-lg text-white/70 leading-relaxed  mb-12">
-                                        "{outcomeData?.roiInsights}"
+                                        &ldquo;{outcomeData?.roiInsights}&rdquo;
                                     </p>
                                 </div>
 

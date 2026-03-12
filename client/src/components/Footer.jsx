@@ -27,7 +27,7 @@ export const Footer = () => {
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Market Integration', href: '/dashboard/tools/market-integration', icon: TrendingUp },
         { name: 'Learning Routes', href: '/learning-route', icon: Route },
-        { name: 'Portfolio Builder', href: '/portfolio-builder', icon: Layout },
+        { name: 'Portfolio Builder', href: '/dashboard/tools/portfolio-builder', icon: Layout },
         { name: 'Resume Enhancer', href: '/dashboard/tools/resume-enhancer', icon: FileUser },
         { name: 'Scenario Simulator', href: '/dashboard/tools/scenario-simulator', icon: Gamepad2 },
         { name: 'AI Coaching', href: '/dashboard/tools/coaching', icon: UserRoundCog },

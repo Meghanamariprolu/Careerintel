@@ -1,275 +1,212 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    Briefcase, ArrowLeft, Sparkles, Eye, Edit3,
-    Download, CheckCircle, Lightbulb, Code2, Zap
-} from 'lucide-react';
+import { Sparkles, ArrowLeft, Layout, Briefcase, User, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 import PortfolioForm from '@/components/PortfolioForm';
 import PortfolioPreview from '@/components/PortfolioPreview';
+import { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } from '@/utils/localStorageHelper';
+import { NextModulePrompter } from '@/components/NextModulePrompter';
+import { useUserProfile } from '@/context/UserProfileContext';
+import axios from 'axios';
+import { Button } from '@/components/ui/Button';
 
-// AI-suggested project templates based on common career paths
-const AI_PROJECT_SUGGESTIONS = [
-    {
-        label: "Full-Stack Web App",
-        icon: Code2,
-        color: "text-indigo-400",
-        bg: "bg-indigo-500/10",
-        border: "border-indigo-500/20",
-        data: {
-            title: "Real-Time Task Manager",
-            description: "A collaborative task management application with real-time updates, role-based access control, and team workspaces. Features drag-and-drop kanban boards and WebSocket-powered notifications.",
-            tech: "React, Node.js, Socket.io, MongoDB, Tailwind CSS",
-            link: "https://github.com"
-        }
-    },
-    {
-        label: "AI/ML Project",
-        icon: Zap,
-        color: "text-purple-400",
-        bg: "bg-purple-500/10",
-        border: "border-purple-500/20",
-        data: {
-            title: "Sentiment Analysis Dashboard",
-            description: "An end-to-end NLP pipeline that ingests social media data, classifies sentiment using a fine-tuned BERT model, and visualizes trends on an interactive dashboard.",
-            tech: "Python, FastAPI, HuggingFace Transformers, React, Recharts",
-            link: "https://github.com"
-        }
-    },
-    {
-        label: "DevOps / Cloud",
-        icon: CheckCircle,
-        color: "text-emerald-400",
-        bg: "bg-emerald-500/10",
-        border: "border-emerald-500/20",
-        data: {
-            title: "CI/CD Pipeline Automation",
-            description: "Designed and implemented a full CI/CD pipeline for a microservices application using GitHub Actions, Docker containers, and Kubernetes orchestration on AWS EKS with automated rollback.",
-            tech: "GitHub Actions, Docker, Kubernetes, AWS EKS, Terraform",
-            link: "https://github.com"
-        }
-    },
-];
-
-const steps = ["Build Profile", "Preview Portfolio", "Ready to Share"];
+const STORAGE_KEY = 'careerintel_portfolio_data';
 
 export default function PortfolioBuilderPage() {
     const [portfolioData, setPortfolioData] = useState(null);
     const [isGenerating, setIsGenerating] = useState(false);
-    const [view, setView] = useState('form'); // 'form' | 'preview'
-    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [showPreview, setShowPreview] = useState(false);
+    const [recommendedProjects, setRecommendedProjects] = useState([]);
+    const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(true);
+    const { profile, updateProfile } = useUserProfile();
 
-    const activeStep = view === 'form' ? 0 : portfolioData ? 1 : 0;
+    useEffect(() => {
+        const savedData = getLocalStorageItem(STORAGE_KEY, null);
+        if (savedData) {
+            setPortfolioData(savedData);
+            setShowPreview(true);
+        }
+
+        const fetchRecommendations = async () => {
+            if (!profile.careerGoal) {
+                setIsLoadingRecommendations(false);
+                return;
+            }
+            try {
+                const token = localStorage.getItem('token');
+                const { data } = await axios.post('/api/project-recommendations',
+                    { targetRole: profile.careerGoal },
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                if (data.success) {
+                    setRecommendedProjects(data.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch project recommendations", error);
+            } finally {
+                setIsLoadingRecommendations(false);
+            }
+        };
+
+        fetchRecommendations();
+    }, [profile.careerGoal]);
 
     const handleGenerate = (data) => {
         setIsGenerating(true);
-        // Simulate AI generation delay
         setTimeout(() => {
             setPortfolioData(data);
+            setLocalStorageItem(STORAGE_KEY, data);
+            setShowPreview(true);
             setIsGenerating(false);
-            setView('preview');
-        }, 1800);
+            updateProfile({ portfolioProjects: data.projects || [] });
+        }, 1500);
     };
 
-    const handleEdit = () => setView('form');
+    const handleEdit = () => {
+        setShowPreview(false);
+    };
 
-    const handleDownload = () => {
-        if (!portfolioData) return;
-        const content = `
-# ${portfolioData.name}
-## ${portfolioData.title}
-
-${portfolioData.bio}
-
----
-
-### Contact
-${portfolioData.email ? `Email: ${portfolioData.email}` : ''}
-${portfolioData.github ? `GitHub: ${portfolioData.github}` : ''}
-${portfolioData.linkedin ? `LinkedIn: ${portfolioData.linkedin}` : ''}
-
----
-
-### Skills
-${portfolioData.skills}
-
----
-
-### Projects
-${portfolioData.projects.map(p => `
-#### ${p.title}
-${p.description}
-**Tech:** ${p.tech}
-${p.link ? `**Link:** ${p.link}` : ''}
-`).join('\n')}
-
----
-*Generated by CareerIntel Intelligence Engine*
-        `;
-        const blob = new Blob([content.trim()], { type: 'text/markdown;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.md`;
-        a.click();
-        URL.revokeObjectURL(url);
+    const handleReset = () => {
+        if (window.confirm("Are you sure you want to reset your portfolio data?")) {
+            removeLocalStorageItem(STORAGE_KEY);
+            setPortfolioData(null);
+            setShowPreview(false);
+        }
     };
 
     return (
-        <div className="min-h-screen bg-[#050510] text-white font-sans overflow-x-hidden">
-            {/* Background Glows */}
-            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[150px] rounded-full" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full" />
+        <div className="w-full max-w-7xl mx-auto space-y-8 pb-10">
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div className="flex items-center gap-2 mb-2">
+                        <Link href="/dashboard">
+                            <Button variant="ghost" size="sm" className="hidden md:flex text-muted-foreground hover:text-foreground">
+                                <ArrowLeft className="h-4 w-4 mr-1" /> Back
+                            </Button>
+                        </Link>
+                        <h1 className="text-3xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
+                            Portfolio Architect
+                        </h1>
+                    </div>
+                    <p className="text-muted-foreground max-w-2xl">
+                        Architect a world-class digital presence. Transform your achievements into a high-fidelity visual narrative.
+                    </p>
+                </div>
+
+                <div className="flex gap-4">
+                     <div className="bg-slate-900/50 border border-white/5 rounded-lg p-3 px-4 text-center">
+                        <p className="text-xs text-muted-foreground mb-1">Targeting</p>
+                        <p className="text-sm font-medium text-purple-400">{profile.careerGoal || 'Not Set'}</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="relative z-10 max-w-6xl mx-auto px-6 py-12">
-                {/* Header */}
-                <header className="mb-12">
-                    <Link href="/dashboard">
-                        <motion.button whileHover={{ x: -5 }}
-                            className="flex items-center gap-2 text-white/30 hover:text-white text-xs uppercase tracking-widest transition-colors mb-8">
-                            <ArrowLeft className="h-4 w-4" /> Back to Dashboard
-                        </motion.button>
-                    </Link>
-
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div>
-                            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-5 text-xs uppercase tracking-[0.25em] text-purple-300">
-                                <Briefcase className="h-3 w-3" /> Portfolio Builder
-                            </motion.div>
-                            <h1 className="text-2xl md:text-4xl font-light tracking-tighter text-white">
-                                Build Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Portfolio Presence</span>
-                            </h1>
-                            <p className="text-white/70 mt-3 max-w-xl">
-                                Transform your career journey into a compelling professional portfolio. Fill in your details, and watch your presence come to life.
-                            </p>
-                        </div>
-
-                        {/* Step Indicator */}
-                        <div className="flex items-center gap-4 shrink-0">
-                            {steps.map((step, idx) => (
-                                <div key={step} className="flex items-center gap-2">
-                                    <div className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-light border transition-all
-                                        ${idx <= activeStep
-                                            ? 'bg-purple-500/30 border-purple-500/50 text-purple-300'
-                                            : 'bg-white/5 border-white/10 text-white/20'}`}>
-                                        {idx < activeStep ? <CheckCircle className="h-3 w-3" /> : idx + 1}
-                                    </div>
-                                    <span className={`text-[10px] uppercase tracking-widest hidden md:block ${idx <= activeStep ? 'text-white/60' : 'text-white/20'}`}>
-                                        {step}
-                                    </span>
-                                    {idx < steps.length - 1 && <div className={`w-8 h-px ${idx < activeStep ? 'bg-purple-500/40' : 'bg-white/10'}`} />}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </header>
-
-                {/* AI Suggestions Banner */}
-                {view === 'form' && (
-                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                        className="mb-8 p-5 rounded-xl bg-purple-500/5 border border-purple-500/20">
-                        <button onClick={() => setShowSuggestions(!showSuggestions)}
-                            className="w-full flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <Lightbulb className="h-5 w-5 text-yellow-400" />
-                                <span className="text-sm text-white/70 font-light">
-                                    <span className="text-yellow-400 font-medium">AI Suggestion:</span> Need project ideas? Get AI-suggested projects to add to your portfolio instantly.
-                                </span>
-                            </div>
-                            <span className="text-xs text-purple-400 uppercase tracking-widest shrink-0 ml-4">
-                                {showSuggestions ? 'Hide' : 'Show Ideas'}
-                            </span>
-                        </button>
-
-                        <AnimatePresence>
-                            {showSuggestions && (
-                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
-                                    className="overflow-hidden">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5 pt-5 border-t border-white/5">
-                                        {AI_PROJECT_SUGGESTIONS.map((s) => (
-                                            <div key={s.label} className={`p-5 rounded-xl border ${s.border} ${s.bg} cursor-default`}>
-                                                <div className="flex items-center gap-2 mb-3">
-                                                    <s.icon className={`h-4 w-4 ${s.color}`} />
-                                                    <span className={`text-xs uppercase tracking-widest ${s.color}`}>{s.label}</span>
-                                                </div>
-                                                <p className="text-white/70 font-light text-sm mb-1">{s.data.title}</p>
-                                                <p className="text-white/30 text-xs line-clamp-2 mb-3">{s.data.description}</p>
-                                                <p className="text-[10px] text-white/20">{s.data.tech}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <p className="text-center text-white/20 text-xs mt-4">Copy the project details above and paste them into the Showcase section below.</p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.div>
-                )}
-
-                {/* Action Bar for Preview */}
-                <AnimatePresence>
-                    {view === 'preview' && portfolioData && (
-                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                            className="flex items-center justify-between mb-8 p-4 rounded-xl bg-white/[0.03] border border-white/10">
-                            <div className="flex items-center gap-3">
-                                <div className="h-2 w-2 bg-emerald-400 rounded-full animate-pulse" />
-                                <span className="text-sm text-white/60 font-light">Portfolio Preview — <span className="text-white/30 text-xs">How others will see your profile</span></span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <button onClick={handleEdit}
-                                    className="flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-widest text-white/75 hover:text-white border border-white/10 hover:border-white/20 rounded-xl transition-all">
-                                    <Edit3 className="h-3 w-3" /> Edit
-                                </button>
-                                <button onClick={handleDownload}
-                                    className="flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-widest bg-purple-600/50 hover:bg-purple-600 border border-purple-500/40 rounded-xl transition-all text-purple-200">
-                                    <Download className="h-3 w-3" /> Download .md
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Main Content */}
-                <AnimatePresence mode="wait">
-                    {view === 'form' ? (
-                        <motion.div key="form" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-                            className="flex justify-center">
+            <AnimatePresence mode="wait">
+                {!showPreview ? (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="flex flex-col lg:flex-row gap-8"
+                    >
+                        {/* Left Column: Form */}
+                        <div className="flex-1">
                             <PortfolioForm
                                 initialData={portfolioData}
                                 onGenerate={handleGenerate}
                                 isGenerating={isGenerating}
                             />
-                        </motion.div>
-                    ) : (
-                        <motion.div key="preview" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                            <PortfolioPreview data={portfolioData} />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        </div>
 
-                {/* Loading Overlay */}
-                <AnimatePresence>
-                    {isGenerating && (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-50 flex items-center justify-center bg-[#050510]/90 backdrop-blur-sm">
-                            <div className="text-center">
-                                <motion.div animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-                                    transition={{ rotate: { repeat: Infinity, duration: 1.5, ease: "linear" }, scale: { repeat: Infinity, duration: 2 } }}
-                                    className="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mx-auto mb-6">
-                                    <Sparkles className="h-8 w-8 text-purple-400" />
-                                </motion.div>
-                                <h3 className="text-lg font-light text-white mb-2">Building Your Portfolio</h3>
-                                <p className="text-white/30 text-sm">Generating your professional presence...</p>
+                        {/* Right Column: Recommendations */}
+                        <div className="lg:w-1/3 space-y-6">
+                            <div className="bg-slate-900/60 backdrop-blur-2xl p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden h-fit">
+                                <div className="absolute top-0 right-0 p-4 opacity-10">
+                                    <Sparkles className="h-24 w-24 text-purple-400" />
+                                </div>
+                                <h3 className="text-xl text-white mb-2 flex items-center gap-2">
+                                    <Briefcase className="h-5 w-5 text-purple-400" /> AI Suggestions
+                                </h3>
+                                
+                                {isLoadingRecommendations ? (
+                                    <div className="animate-pulse space-y-4">
+                                        <div className="h-4 bg-white/5 rounded w-3/4"></div>
+                                        <div className="h-20 bg-white/5 rounded"></div>
+                                        <div className="h-20 bg-white/5 rounded"></div>
+                                    </div>
+                                ) : recommendedProjects.length > 0 ? (
+                                    <div className="space-y-4 mt-6">
+                                        {recommendedProjects.map((proj, idx) => (
+                                            <div key={idx} className="p-4 rounded-xl bg-purple-500/5 border border-purple-500/10 hover:border-purple-500/30 transition-all group">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <h4 className="text-sm font-semibold text-purple-100 group-hover:text-purple-400 transition-colors">{proj.title}</h4>
+                                                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-full text-white/50">{proj.difficulty}</span>
+                                                </div>
+                                                <div className="flex flex-wrap gap-2 mt-3">
+                                                    {proj.skills.map(skill => (
+                                                        <span key={skill} className="text-[9px] uppercase tracking-wider text-purple-300/60 bg-white/5 px-2 py-1 rounded">
+                                                            {skill}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-sm text-muted-foreground mt-4">Please set a career goal in onboarding to see tailored project recommendations.</p>
+                                )}
                             </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+                        </div>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="preview"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        className="space-y-12"
+                    >
+                        <div className="flex justify-between items-center px-4">
+                            <Button
+                                variant="ghost"
+                                onClick={handleEdit}
+                                className="text-muted-foreground hover:text-white"
+                            >
+                                <ArrowLeft className="h-4 w-4 mr-2" /> Back to Editor
+                            </Button>
+
+                            <Button
+                                variant="outline"
+                                onClick={handleReset}
+                                className="border-red-500/20 text-red-500 hover:bg-red-500/10"
+                            >
+                                Reset Design
+                            </Button>
+                        </div>
+
+                        <div className="bg-slate-900/40 rounded-3xl p-8 border border-white/5">
+                            <PortfolioPreview data={portfolioData} />
+                        </div>
+
+                        <div className="flex justify-center pt-8">
+                            <Link href="/dashboard">
+                                <Button className="bg-purple-600 hover:bg-purple-700 h-12 px-8 rounded-xl shadow-lg shadow-purple-900/20">
+                                    <Layout className="h-4 w-4 mr-2" /> Back to Intelligence Hub
+                                </Button>
+                            </Link>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <NextModulePrompter
+                nextModuleName="Resume Enhancer"
+                nextModuleHref="/dashboard/tools/resume-enhancer"
+                description="Upload your resume to have it cross-referenced against your new portfolio projects and targeted career goals."
+            />
         </div>
     );
 }

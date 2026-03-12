@@ -139,7 +139,7 @@ export default function SkillTransferPage() {
 
                 <NextModulePrompter
                     nextModuleName="Portfolio Builder"
-                    nextModuleHref="/portfolio-builder"
+                    nextModuleHref="/dashboard/tools/portfolio-builder"
                     description="Transform your mapped skills into tangible proof of experience with AI-suggested portfolio projects."
                 />
             </div>

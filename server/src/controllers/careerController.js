@@ -1,7 +1,7 @@
 import { catchAsync } from '../utils/catchAsync.js';
-import { getStore } from '../models/User.js';
+import User, { getStore } from '../models/User.js';
 import Roadmap from '../models/Roadmap.js';
-import { enhanceResumeAPI } from '../services/aiService.js';
+import { enhanceResumeAPI, generateScenarioResponse, generateCoachResponse } from '../services/aiService.js';
 
 // @desc    Analyze user interests and map to careers
 // @route   POST /api/behavior-analysis
@@ -80,7 +80,7 @@ export const marketInsights = catchAsync(async (req, res) => {
     });
 });
 
-// @desc    Generate a timeline roadmap
+// @desc    Generate a timeline roadmap (Legacy compatibility)
 // @route   POST /api/generate-roadmap
 // @access  Private
 export const generateRoadmap = catchAsync(async (req, res) => {
@@ -90,25 +90,27 @@ export const generateRoadmap = catchAsync(async (req, res) => {
         return res.status(400).json({ error: 'Target role is required' });
     }
 
-    // Mock AI generated roadmap
-    const roadmapTimeline = [
-        { month: 'Month 1', description: 'Python + Statistics Fundamentals', status: 'pending' },
-        { month: 'Month 2', description: 'Machine Learning Algorithms & Scikit-learn', status: 'pending' },
-        { month: 'Month 3', description: 'Deep Learning with TensorFlow/PyTorch', status: 'pending' },
-        { month: 'Month 4', description: 'Advanced Projects & Portfolio Showcase', status: 'pending' }
-    ];
+    // Call the robust AI service to get a detailed roadmap
+    // We map 'timeframe' to 'timeCommitment' and provide default goal
+    const roadmapData = await generateAIRoadmap({
+        career: targetRole,
+        experienceLevel: timeframe || 'Beginner',
+        timeCommitment: '15 hours/week',
+        currentSkills: 'None',
+        goal: 'Job Readiness'
+    });
 
     // Save to MongoDB
     const roadmapDoc = await Roadmap.create({
         userId: req.user._id,
         careerTitle: targetRole,
-        careerSummary: `Timeline Roadmap for ${targetRole}`,
-        roadmapData: roadmapTimeline,
+        careerSummary: roadmapData.careerSummary || `Timeline Roadmap for ${targetRole}`,
+        roadmapData: roadmapData, // Save the full AI structure
     });
 
     res.status(200).json({
         success: true,
-        data: roadmapTimeline,
+        data: roadmapData.learningPath || [], // Return learningPath for legacy compatibility
         roadmapId: roadmapDoc._id
     });
 });
@@ -163,6 +165,26 @@ export const scenarioSimulation = catchAsync(async (req, res) => {
                 'Accept immediately but ask for a performance review in 3 months.',
                 'Reject the offer and wait for them to reach out with a better one.'
             ]
+        },
+        'Leadership in Crisis': {
+            title: 'Critical Outage Response',
+            context: 'A major production database is down, impacting thousands of users, and your team is panicking.',
+            challenge: 'What is your immediate communication and stabilization strategy for the next 15 minutes?',
+            options: [
+                'Establish a command bridge, assign leads to investigating the root cause and communicating to stakeholders.',
+                'Shut down all services to prevent data corruption and await a full backup restore.',
+                'Delegate all communication to the PR department and start debugging the code directly.'
+            ]
+        },
+        'Handling a Difficult Co-worker': {
+            title: 'Interpersonal Conflict Resolution',
+            context: 'A teammate consistently misses their deliverables, and it is starting to reflect on your performance.',
+            challenge: 'How do you approach a 1-on-1 feedback session that is constructive yet firm about your boundaries?',
+            options: [
+                'Use "I" statements to express impact, ask if they need support, and agree on clear deadlines.',
+                'Escalate immediately to the manager without talking to the coworker first.',
+                'Do their work for them silently to ensure the project succeeds.'
+            ]
         }
     };
 
@@ -178,20 +200,19 @@ export const scenarioSimulation = catchAsync(async (req, res) => {
 // @route   POST /api/ai-coach
 // @access  Private
 export const aiCoach = catchAsync(async (req, res) => {
-    const { message, persona, chatHistory } = req.body;
+    const { message, persona, chatHistory, userContext } = req.body;
 
     if (!message) {
         return res.status(400).json({ error: 'Message is required' });
     }
 
-    // Mock AI Persona responses
-    const responses = {
-        'The Strategist': `From a high-level strategic perspective, ${message.toLowerCase().includes('how') ? 'you should focus on optimizing your workflow first.' : 'I see high potential in this approach, provided you align it with market trends.'}`,
-        'The Technical Lead': `If we look at the implementation details of ${message.substring(0, 10)}..., the focus should be on scalability and code quality.`,
-        'The Recruiter': `That's a valid point. From a hiring perspective, framing this experience as a measurable outcome is key.`
-    };
-
-    const reply = responses[persona] || responses['The Strategist'];
+    // Use AI Engine for coaching responses, with user and career context
+    const reply = await generateCoachResponse(
+        message,
+        persona,
+        chatHistory || [],
+        userContext || {}
+    );
 
     res.status(200).json({
         success: true,
@@ -307,20 +328,62 @@ export const resumeEnhance = catchAsync(async (req, res) => {
         }
     });
 });
-// @desc    Get Career Readiness Score
+// @desc    Get Career Readiness Score (dynamic, based on user profile)
 // @route   GET /api/career-score
 // @access  Private
 export const careerScore = catchAsync(async (req, res) => {
-    // Return the career readiness score from user profile or calculated logic
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const { skills = [], careerGoal, experienceLevel, progressTracking = {} } = user;
+
+    // --- Dynamic Scoring Engine ---
+
+    // 1. Skill Coverage (0-35 pts): score based on number of skills in profile
+    const skillScore = Math.min(skills.length * 5, 35);
+
+    // 2. Career Clarity (0-20 pts): has the user set a goal?
+    const clarityScore = careerGoal && careerGoal.length > 2 ? 20 : 0;
+
+    // 3. Experience Level (0-20 pts)
+    const expMap = { 'Beginner': 5, 'Intermediate': 10, 'Advanced': 15, 'Expert': 20 };
+    const experienceScore = expMap[experienceLevel] || 5;
+
+    // 4. Active Progress (0-25 pts): courses + projects + completed steps
+    const coursesScore = Math.min((progressTracking.coursesCompleted || 0) * 5, 10);
+    const projectsScore = Math.min((progressTracking.projectsBuilt || 0) * 5, 10);
+    const stepsScore = Math.min((progressTracking.completedSteps?.length || 0) * 1, 5);
+    const progressScore = coursesScore + projectsScore + stepsScore;
+
+    const total = Math.round(skillScore + clarityScore + experienceScore + progressScore);
+
+    // Label
+    let label = 'Getting Started';
+    if (total >= 80) label = 'Elite';
+    else if (total >= 65) label = 'Advanced';
+    else if (total >= 45) label = 'Intermediate';
+
+    // Milestone recommendations
+    const recommendations = [];
+    if (skills.length < 5) recommendations.push('Add more skills to your profile to increase your score.');
+    if (!careerGoal) recommendations.push('Set a career goal to unlock a personalised roadmap.');
+    if ((progressTracking.projectsBuilt || 0) < 2) recommendations.push('Build 2+ projects to show market execution.');
+    if ((progressTracking.coursesCompleted || 0) < 3) recommendations.push('Complete 3 courses to demonstrate continuous learning.');
+
     res.status(200).json({
         success: true,
         data: {
-            score: 75, // Mock score
+            score: total,
+            label,
             breakdown: {
-                skills: 80,
-                experience: 60,
-                marketAlignment: 85
-            }
+                skills: skillScore,
+                careerClarity: clarityScore,
+                experience: experienceScore,
+                progressActivity: progressScore
+            },
+            maxScores: { skills: 35, careerClarity: 20, experience: 20, progressActivity: 25 },
+            recommendations
         }
     });
 });
+

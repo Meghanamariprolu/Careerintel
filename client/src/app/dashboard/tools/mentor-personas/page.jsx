@@ -118,12 +118,9 @@ export default function MentorPersonasPage() {
                                     </p>
                                 </div>
 
-                                <div className="pt-8 border-t border-white/5">
-                                    <Quote className={`h-6 w-6 ${mentor.color} opacity-20 mb-4`} />
                                     <p className="text-xs md:text-base  text-white/80 tracking-tight leading-snug">
-                                        "{mentor.philosophy}"
+                                        &ldquo;{mentor.philosophy}&rdquo;
                                     </p>
-                                </div>
                             </div>
                         </motion.div>
                     ))}
