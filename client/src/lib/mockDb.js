@@ -39,6 +39,7 @@ export const mockDb = {
     validateUser: (email, password) => {
         const user = mockDb.findUserByEmail(email);
         if (user && user.password === password) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password: _, ...userWithoutPassword } = user;
             return {
                 ...userWithoutPassword,

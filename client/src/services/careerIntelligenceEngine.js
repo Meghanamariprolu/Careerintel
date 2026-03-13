@@ -7,7 +7,6 @@ export const generateCareerStrategy = (profile) => {
     const {
         currentSkills = [],
         marketInsights = {},
-        behavioralInsights = {},
         resumeScore = 0,
         qualityScore = 0,
         portfolioProjects = []
