@@ -1,0 +1,97 @@
+[
+  {
+    "_id": "da7cb66a07bf18914ea92860",
+    "name": "Meghana M",
+    "email": "meghana@test.com",
+    "password": "$2b$10$ti9C9DnveQMiYDhto3cIg.zcuTUQwAGmunSIas7GOegYhMM8qsyoS",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-09T12:49:23.535Z",
+    "updatedAt": "2026-03-09T12:49:23.536Z"
+  },
+  {
+    "_id": "e829e00a512d8be4e1211f6b",
+    "name": "Meghana",
+    "email": "meghanamariprolu@gmail.com",
+    "password": "$2b$10$z.3aoxUI.BPBBquWXf0Ps.Mlc2J2PooO/yz1y5uXNElPOWwsH0YCO",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [
+      "React",
+      "node.js and HTML",
+      "css"
+    ],
+    "profileImage": "",
+    "createdAt": "2026-03-09T13:00:21.441Z",
+    "updatedAt": "2026-03-27T21:00:50.627Z",
+    "careerGoal": "Full-time Job",
+    "education": "B.Tech",
+    "interests": [
+      "Ai"
+    ],
+    "experienceLevel": "Beginner"
+  },
+  {
+    "_id": "d8c396473ae029fad4fa5014",
+    "name": "Test User",
+    "email": "testvercel@test.com",
+    "password": "$2b$10$I3PGr77FQq3p13fxj.Dv6.dStJBe5FJ.33REoSR1jMRGGu/Xt2iC2",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-09T13:14:05.736Z",
+    "updatedAt": "2026-03-09T13:14:05.744Z"
+  },
+  {
+    "_id": "d7ad408fe52ca1d8ceaadd3e",
+    "name": "Test User",
+    "email": "test999@test.com",
+    "password": "$2b$10$JdbojjTfJhQFRhap467fm.jJCovQUClQuqYO/2B1QrkodH6p9UWT6",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-16T19:26:27.261Z",
+    "updatedAt": "2026-03-16T19:26:27.263Z"
+  },
+  {
+    "_id": "7b4cdc6fc68ec2dd5c2ca720",
+    "name": "meghanamariprolu2005",
+    "email": "meghanamariprolu2005@gmail.com",
+    "password": "$2b$10$AcW8bUzdJrZaOXqNOAJ7HO/sGSHH4O/4KQt2mM890DiihtT/Igg0m",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "profileImage": "",
+    "createdAt": "2026-03-17T05:25:11.678Z",
+    "updatedAt": "2026-03-17T05:25:11.678Z"
+  },
+  {
+    "_id": "798741f7cc39b5730f00f183",
+    "name": "testuser",
+    "email": "testuser@example.com",
+    "password": "$2b$10$VQYwAnrFDi3Koan2jOzudOcW6to1ot4AH4f3E9fDZU4CZu78i2BeW",
+    "role": "user",
+    "bio": "",
+    "location": "",
+    "skills": [],
+    "skillsProgress": {},
+    "progressTracking": {
+      "completedModules": [],
+      "coursesCompleted": 0,
+      "projectsBuilt": 0,
+      "skillsLearned": 0
+    },
+    "profileImage": "",
+    "createdAt": "2026-03-27T17:10:52.016Z",
+    "updatedAt": "2026-03-27T17:10:52.016Z"
+  }
+]
