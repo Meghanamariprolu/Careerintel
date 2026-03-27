@@ -11,7 +11,7 @@ import LearningForm from '../../components/LearningForm';
 import ProgressTracker from '../../components/ProgressTracker';
 import RoadmapDisplay from '../../components/RoadmapDisplay';
 import PlatformRecommendation from '../../components/PlatformRecommendation';
-import axios from 'axios';
+
 import { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } from '../../utils/localStorageHelper';
 import { buildCurriculum } from '../../utils/curriculumBuilder';
 
@@ -22,6 +22,7 @@ export default function LearningRoutePage() {
     const [completedModules, setCompletedModules] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [hasSaved, setHasSaved] = useState(false);
 
     useEffect(() => {
         const savedData = getLocalStorageItem(STORAGE_KEY, null);
@@ -62,7 +63,7 @@ export default function LearningRoutePage() {
         });
     };
 
-    const [hasSaved, setHasSaved] = useState(false);
+
 
     const handleSave = () => {
         if (route) {
