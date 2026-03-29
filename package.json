@@ -9,11 +9,13 @@
         "install-all": "npm run install-client && npm run install-server",
         "client": "npm run dev --prefix client",
         "server": "npm run dev --prefix server",
-        "build": "cd client && npm install && npm run build",
-        "start": "cd client && npm start",
+        "build": "npm run install-all && npm run build --prefix client",
+        "start": "npm start --prefix client",
+        "next": "next",
         "dev": "concurrently \"npm run client\" \"npm run server\""
     },
     "devDependencies": {
-        "concurrently": "^9.2.1"
+        "concurrently": "^9.2.1",
+        "next": "^15.5.12"
     }
 }
