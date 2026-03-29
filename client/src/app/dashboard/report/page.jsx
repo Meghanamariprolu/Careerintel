@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { useUserProfile } from '@/context/UserProfileContext';
 import { generateCareerStrategy } from '@/services/careerIntelligenceEngine';
+import { Button } from '@/components/ui/Button';
 
 import axios from 'axios';
 

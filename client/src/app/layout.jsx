@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`font-sans flex flex-col min-h-screen antialiased`}
+        className={`${plusJakartaSans.variable} font-sans flex flex-col min-h-screen antialiased`}
       >
         <AuthProvider>
           <UserProfileProvider>
