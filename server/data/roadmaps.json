@@ -255,5 +255,110 @@
     },
     "createdAt": "2026-03-27T21:03:34.837Z",
     "updatedAt": "2026-03-27T21:03:34.837Z"
+  },
+  {
+    "_id": "53a574679bdd5bdee54fa7b6",
+    "userId": "e829e00a512d8be4e1211f6b",
+    "careerTitle": "Data Scientist",
+    "careerSummary": "Career path for Data Scientist",
+    "roadmapData": {
+      "role": "Data Scientist",
+      "total_learning_duration": "6 Months",
+      "learning_route": [
+        {
+          "module_number": 1,
+          "module_title": "Foundations of AI & Python",
+          "level": "Beginner",
+          "duration": "4 Weeks",
+          "concepts": [
+            "Variables",
+            "Loops",
+            "Data Structures",
+            "NumPy"
+          ],
+          "tools": [
+            "Python",
+            "VS Code"
+          ],
+          "videos": [
+            {
+              "title": "Python for Data Science",
+              "url": "https://youtube.com/watch?v=rfscVS0vtbw"
+            }
+          ],
+          "practice_tasks": [
+            "Build a calculator",
+            "Data cleaning exercise"
+          ],
+          "mini_project": "Simple Linear Regression Model"
+        },
+        {
+          "module_number": 2,
+          "module_title": "Neural Architectures",
+          "level": "Intermediate",
+          "duration": "6 Weeks",
+          "concepts": [
+            "Backpropagation",
+            "CNNs",
+            "RNNs"
+          ],
+          "tools": [
+            "PyTorch",
+            "TensorFlow"
+          ],
+          "videos": [
+            {
+              "title": "Neural Networks Explained",
+              "url": "https://youtube.com/watch?v=aircAruvnKk"
+            }
+          ],
+          "practice_tasks": [
+            "MNIST Digit Classification"
+          ],
+          "mini_project": "Image Classifier"
+        }
+      ],
+      "portfolio_projects": [
+        {
+          "name": "LLM Fine-tuner",
+          "description": "Fine-tune Mistral on medical data.",
+          "techStack": [
+            "Python",
+            "Peft",
+            "BitsAndBytes"
+          ]
+        }
+      ],
+      "job_ready_skills": [
+        "Python",
+        "PyTorch",
+        "Transformers",
+        "SQL"
+      ],
+      "recommended_free_platforms": [
+        "DeepLearning.AI",
+        "Hugging Face"
+      ],
+      "learning_platform_ui_design": {
+        "pages": [
+          "Dashboard",
+          "Roadmap",
+          "Projects"
+        ],
+        "navigation_structure": [
+          "Sidebar",
+          "Progress Bar"
+        ],
+        "dashboard_layout": "Grid System",
+        "module_page_layout": "Single Column with Video Player",
+        "progress_tracking_features": [
+          "Streak",
+          "Skill Badges"
+        ],
+        "recommended_color_theme": "Dark Mode with Electric Purple"
+      }
+    },
+    "createdAt": "2026-03-29T20:14:49.774Z",
+    "updatedAt": "2026-03-29T20:14:49.774Z"
   }
 ]
