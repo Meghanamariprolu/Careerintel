@@ -6,7 +6,7 @@ const __dirname = dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  outputFileTracingRoot: join(__dirname, '../../'),
+  outputFileTracingRoot: join(__dirname, '../'),
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
