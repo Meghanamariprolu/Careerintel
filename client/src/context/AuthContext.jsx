@@ -27,8 +27,11 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-        const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token');
             if (!token) {
+                // If no token, still ping the health endpoint to "warm up" the Render server
+                // while the user is likely on the login/landing page.
+                axios.get('/api/health').catch(() => {});
                 setIsLoading(false);
                 return;
             }
@@ -56,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         try {
             const { data } = await axios.post('/api/auth/register', userData, {
-                timeout: 15000,
+                timeout: 60000,
             });
             const { token, ...userDetails } = data;
 
@@ -82,8 +85,9 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
+            // Increased timeout to 60s for Render cold-starts
             const { data } = await axios.post('/api/auth/login', { email, password }, {
-                timeout: 15000,
+                timeout: 60000,
             });
             const { token, ...userDetails } = data;
 
@@ -109,7 +113,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post('/api/auth/logout', {}, { timeout: 5000 });
+            await axios.post('/api/auth/logout', {}, { timeout: 10000 });
         } catch (e) {
             console.error("Logout error", e);
         } finally {
@@ -123,7 +127,7 @@ export const AuthProvider = ({ children }) => {
     const updateProfile = async (updatedData) => {
         try {
             const { data } = await axios.put('/api/auth/profile', updatedData, {
-                timeout: 10000,
+                timeout: 30000,
             });
             setUser(data);
             return data;
